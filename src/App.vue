@@ -24,7 +24,7 @@
         contain
       />
 
-      <v-toolbar-title class="px-1" style="font-size: 2rem;">
+      <v-toolbar-title class="px-1 unselectable" style="font-size: 2rem;">
         <b>WTMC</b>
         <span style="color: var(--v-primary-base);">Robotics</span>
       </v-toolbar-title>
@@ -68,6 +68,15 @@
 <style lang="scss" scoped>
 .v-tabs {
   width: min-content;
+}
+</style>
+
+<style lang="scss">
+.unselectable {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 </style>
 
