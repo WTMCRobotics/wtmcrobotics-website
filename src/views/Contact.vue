@@ -2,11 +2,11 @@
   <v-container fluid>
     <h1>Get in Touch</h1>
     <p>If you’re interested in joining, mentoring, sponsoring, or just learning more about us, feel free to contact us using any of the methods below. We’d love to hear from you.</p>
-    <v-container class="contact-links">
+    <div class="contact-links">
       <div v-for="link in contactLinks" :key="link.href">
         <a :href="link.href" target="_blank" rel="noopener noreferrer">{{link.text}}</a>
       </div>
-    </v-container>
+    </div>
     <ContactForm></ContactForm>
   </v-container>
 </template>

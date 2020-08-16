@@ -1,6 +1,6 @@
 <template>
   <v-form v-model="valid">
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col cols="12" sm="6">
           <v-text-field outlined v-model="values.name" :rules="nameRules" label="Name" required></v-text-field>
