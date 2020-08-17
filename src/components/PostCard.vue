@@ -1,13 +1,8 @@
 <template>
   <v-card :tile="!card" :to="to">
-    <v-img
-      class="white--text align-end"
-      :aspect-ratio="card ? 2 : ''"
-      max-height="70vh"
-      :src="`http://wtmcrobotics.com/upload/tmp/${post.image}`"
-    >
-      <v-card-title>{{post.title}}</v-card-title>
-    </v-img>
+    <v-img :aspect-ratio="card ? 2 : ''" max-height="70vh" :src="post.image"></v-img>
+
+    <v-card-title>{{post.title}}</v-card-title>
 
     <v-card-subtitle class="pb-0">By: {{post.author}}</v-card-subtitle>
 
