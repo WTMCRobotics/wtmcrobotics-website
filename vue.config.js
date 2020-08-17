@@ -60,6 +60,7 @@ module.exports = {
       appleTouchIcon: null,
       maskIcon: 'img/icons/monochrome.svg',
       msTileImage: 'img/icons/round-144x144.png'
-    }
+    },
+    assetsVersion: '1'
   }
 };
