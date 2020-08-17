@@ -31,24 +31,20 @@ import ContactForm from "@/components/ContactForm.vue";
   }
 })
 export default class Contact extends Vue {
-  data() {
-    return {
-      contactLinks: [
-        {
-          href: "https://goo.gl/maps/msvuRMgf6iygDQoXA",
-          text:
-            "Building TI, Technical and Industrial,\n4800 E Huron River Dr #214,\nAnn Arbor, MI 48105"
-        },
-        {
-          href: "tel:+17344778513",
-          text: "(734) 477-8513"
-        },
-        {
-          href: "mailto:wtmcrobotics@wccnet.edu",
-          text: "wtmcrobotics@wccnet.edu"
-        }
-      ]
-    };
-  }
+  contactLinks = [
+    {
+      href: "https://goo.gl/maps/msvuRMgf6iygDQoXA",
+      text:
+        "Building TI, Technical and Industrial,\n4800 E Huron River Dr #214,\nAnn Arbor, MI 48105"
+    },
+    {
+      href: "tel:+17344778513",
+      text: "(734) 477-8513"
+    },
+    {
+      href: "mailto:wtmcrobotics@wccnet.edu",
+      text: "wtmcrobotics@wccnet.edu"
+    }
+  ];
 }
 </script>

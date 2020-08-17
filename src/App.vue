@@ -81,13 +81,14 @@
 </style>
 
 <script lang="ts">
-import Vue from "vue";
-
-export default Vue.extend({
+import { Component, Vue } from "vue-property-decorator";
+@Component({
+  components: {}
+})
+export default class App extends Vue {
   mounted() {
-    console.log(this.$vuetify.theme.dark);
-  },
-  name: "App",
+    console.log(this.$vuetify.theme.dark ? "dark" : "light");
+  }
 
   beforeCreate() {
     const darkMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -95,35 +96,29 @@ export default Vue.extend({
     darkMediaQuery.addEventListener("change", event => {
       this.$vuetify.theme.dark = event.matches;
     });
-  },
-
-  components: {},
-
-  data: () => ({
-    showFab: false,
-    drawer: null,
-    items: [
-      { title: "Home", path: "/" },
-      { title: "About", path: "/about" },
-      { title: "Gallery", path: "/gallery" },
-      { title: "Sponsor", path: "/sponsor" },
-      { title: "Join", path: "/join" },
-      { title: "Blog", path: "/blog" },
-      { title: "Contact", path: "/contact" }
-    ]
-  }),
-
-  methods: {
-    onScroll() {
-      this.showFab = window.scrollY > 20;
-    },
-    scroolToTop() {
-      window.scrollTo({ top: Math.trunc(window.scrollY) });
-      this.$vuetify.goTo(0);
-    },
-    teleportToTop() {
-      window.scrollTo({ top: 0 });
-    }
   }
-});
+
+  showFab = false;
+  drawer = null;
+  items = [
+    { title: "Home", path: "/" },
+    { title: "About", path: "/about" },
+    { title: "Gallery", path: "/gallery" },
+    { title: "Sponsor", path: "/sponsor" },
+    { title: "Join", path: "/join" },
+    { title: "Blog", path: "/blog" },
+    { title: "Contact", path: "/contact" }
+  ];
+
+  onScroll() {
+    this.showFab = window.scrollY > 20;
+  }
+  scroolToTop() {
+    window.scrollTo({ top: Math.trunc(window.scrollY) });
+    this.$vuetify.goTo(0);
+  }
+  teleportToTop() {
+    window.scrollTo({ top: 0 });
+  }
+}
 </script>
