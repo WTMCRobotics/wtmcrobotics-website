@@ -58,23 +58,10 @@ export default class Gallery extends Vue {
   openModal(photo: Photo) {
     this.modalPhoto = photo;
     this.showModal = true;
-    if (document.fullscreenEnabled) {
-      const element = (this.$refs["fullscreen"] as Vue).$el;
-      element.requestFullscreen().then(() => {
-        element.onfullscreenchange = () => {
-          if (!document.fullscreenElement) {
-            this.closeModal();
-          }
-        };
-      });
-    }
   }
 
   closeModal() {
     this.showModal = false;
-    if (document.fullscreenEnabled) {
-      document.exitFullscreen();
-    }
   }
 }
 
