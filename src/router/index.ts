@@ -53,8 +53,9 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "contact" */ "../views/Contact.vue")
   },
   { path: '/index.html', redirect: '/' },
+  { path: '/blogdetail.php', redirect: '/blog' },
   { path: '/:page.html', redirect: '/:page' },
-  // { path: '/*', redirect: '/' }, // this redirects non-existent pages to the home
+  { path: '/*', redirect: '/' }, // this redirects non-existent pages to the home
 ];
 
 const router = new VueRouter({
