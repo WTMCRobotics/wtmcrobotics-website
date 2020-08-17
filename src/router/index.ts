@@ -41,6 +41,12 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/Blog.vue")
   },
   {
+    path: "/blog/:blogId",
+    name: "Post",
+    component: () =>
+      import(/* webpackChunkName: "post" */ "../views/Post.vue")
+  },
+  {
     path: "/contact",
     name: "Contact",
     component: () =>
@@ -48,7 +54,7 @@ const routes: Array<RouteConfig> = [
   },
   { path: '/index.html', redirect: '/' },
   { path: '/:page.html', redirect: '/:page' },
-  { path: '/*', redirect: '/' }, // this redirects non-existent pages to the home
+  // { path: '/*', redirect: '/' }, // this redirects non-existent pages to the home
 ];
 
 const router = new VueRouter({
