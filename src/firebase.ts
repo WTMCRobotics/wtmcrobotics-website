@@ -24,4 +24,5 @@ export interface BlogPost {
     date: firebase.firestore.Timestamp;
     image: string;
     title: string;
+    public: boolean;
 }
