@@ -55,6 +55,7 @@ const routes: Array<RouteConfig> = [
   { path: '/index.html', redirect: '/' },
   { path: '/blogdetail.php', redirect: '/blog' },
   { path: '/:page.html', redirect: '/:page' },
+  { path: '/:page.php', redirect: '/:page' },
   {
     path: '/*',
     name: "404",
