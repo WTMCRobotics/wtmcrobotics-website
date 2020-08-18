@@ -3,7 +3,7 @@
     <v-row class="text-center">
       <v-col cols="12">
         <v-img
-          :src="require(this.$vuetify.theme.dark ? '../assets/logo-dark.png' : '../assets/logo-light.png')"
+          :src="require(this.$vuetify.theme.dark ? '../assets/logo-dark.webp' : '../assets/logo-light.webp')"
           class="my-3"
           contain
           height="200"

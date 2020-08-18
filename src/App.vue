@@ -18,7 +18,7 @@
 
     <v-app-bar app fixed height="80">
       <v-img
-        :src="require(this.$vuetify.theme.dark ? './assets/logo-dark.png' : './assets/logo-light.png')"
+        :src="require(this.$vuetify.theme.dark ? './assets/logo-dark.webp' : './assets/logo-light.webp')"
         max-height="48"
         max-width="48"
         contain
