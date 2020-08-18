@@ -1,5 +1,8 @@
 import * as firebase from 'firebase/app';
-import 'firebase/firebase-firestore';
+import 'firebase/firestore';
+import 'firebase/auth';
+
+import * as firebaseui from 'firebaseui'
 
 const firebaseConfig = {
     apiKey: "AIzaSyC8FyDM28DUFgWKkW1hEyaNNeeR6gyXCQg",
@@ -16,6 +19,16 @@ const app = firebase.initializeApp(firebaseConfig);
 
 
 export const firestore = app.firestore();
+
+export const auth = firebase.auth();
+
+
+export const ui = new firebaseui.auth.AuthUI(auth);
+export const signInOptions = [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.GithubAuthProvider.PROVIDER_ID,
+    'microsoft.com'
+]
 
 
 export interface BlogPost {
