@@ -55,7 +55,12 @@ const routes: Array<RouteConfig> = [
   { path: '/index.html', redirect: '/' },
   { path: '/blogdetail.php', redirect: '/blog' },
   { path: '/:page.html', redirect: '/:page' },
-  { path: '/*', redirect: '/' }, // this redirects non-existent pages to the home
+  {
+    path: '/*',
+    name: "404",
+    component: () =>
+      import(/* webpackChunkName: "404" */ "../views/404.vue")
+  },
 ];
 
 const router = new VueRouter({
