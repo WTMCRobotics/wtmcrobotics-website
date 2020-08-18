@@ -21,6 +21,11 @@ module.exports = {
           purpose: 'monochrome'
         },
         {
+          src: './img/icons/monochrome.svg',
+          type: 'image/svg+xml',
+          purpose: 'monochrome'
+        },
+        {
           src: './img/icons/round-144x144.png',
           sizes: '144x144',
           type: 'image/png',
