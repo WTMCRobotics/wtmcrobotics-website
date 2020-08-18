@@ -26,6 +26,7 @@ export default class Blog extends Vue {
     firestore
       .collection("blogs")
       .where("public", "==", true)
+      .orderBy("date", "desc")
       .get()
       .then(snapshot => {
         const posts: { [key: string]: BlogPost } = {};
