@@ -1,21 +1,30 @@
 <template>
   <v-container fluid>
     <div class="grid">
-      <v-hover v-slot:default="{ hover }" open-delay="200" v-for="photo in photos" :key="photo.url">
+      <v-hover
+        v-slot:default="{ hover }"
+        open-delay="200"
+        v-for="(photo, i) in photos"
+        :key="photo.url"
+      >
         <v-img
           :src="photo.url"
           aspect-ratio="1.5"
           :class="`elevation-${hover ? 8 : 1}`"
           class="rounded transition-swing"
-          @click.stop="openModal(photo)"
+          @click.stop="openModal(i)"
         ></v-img>
       </v-hover>
     </div>
     <v-dialog fullscreen v-model="showModal" dark ref="fullscreen">
-      <v-img :src="modalPhoto.url" contain></v-img>
-      <v-btn icon large @click.stop="closeModal">
+      <v-btn icon class="close" @click.stop="showModal = false">
         <v-icon>mdi-close</v-icon>
       </v-btn>
+      <v-carousel height="100%" hide-delimiters show-arrows-on-hover :value="modalPhoto">
+        <v-carousel-item v-for="(photo, i) in photos" :key="i">
+          <v-img :src="photo.url" contain></v-img>
+        </v-carousel-item>
+      </v-carousel>
     </v-dialog>
   </v-container>
 </template>
@@ -36,6 +45,9 @@
     position: absolute;
     top: 16px;
     right: 16px;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
   }
 }
 </style>
@@ -49,19 +61,12 @@ export default class Gallery extends Vue {
   photos = new Array(24).fill(undefined).map((value, i) => ({
     url: `http://wtmcrobotics.com/style/images/pioneerPhotos/${i + 1}.png`
   }));
-  modalPhoto: Photo = {
-    url:
-      "https://static2.olympus-lifescience.com/modules/imageresizer/602/757/a7025f48fa/480x480p240x240.jpg"
-  };
+  modalPhoto = 0;
   showModal = false;
 
-  openModal(photo: Photo) {
-    this.modalPhoto = photo;
+  openModal(index: number) {
+    this.modalPhoto = index;
     this.showModal = true;
-  }
-
-  closeModal() {
-    this.showModal = false;
   }
 }
 
