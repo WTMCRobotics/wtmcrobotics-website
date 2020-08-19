@@ -8,9 +8,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { auth, ui, signInOptions } from "../firebase";
 import router from "@/router";
-@Component({
-  components: {}
-})
+@Component
 export default class Login extends Vue {
   mounted() {
     const uiConfig: firebaseui.auth.Config = {

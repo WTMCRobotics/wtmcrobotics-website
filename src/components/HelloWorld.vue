@@ -71,9 +71,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-@Component({
-  components: {}
-})
+@Component
 export default class HelloWorld extends Vue {
   name = "HelloWorld";
   ecosystem = [

@@ -27,9 +27,7 @@
 <script lang="js">
 import { Component, Vue, Prop } from "vue-property-decorator";
 
-@Component({
-  components: {}
-})
+@Component
 
 export default class Post extends Vue {
   @Prop() post;

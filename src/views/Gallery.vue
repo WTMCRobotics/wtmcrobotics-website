@@ -54,9 +54,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-@Component({
-  components: {}
-})
+@Component
 export default class Gallery extends Vue {
   photos = new Array(24).fill(undefined).map((value, i) => ({
     url: `http://wtmcrobotics.com/style/images/pioneerPhotos/${i + 1}.png`
