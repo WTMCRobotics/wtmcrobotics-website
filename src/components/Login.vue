@@ -1,7 +1,5 @@
 <template>
-  <v-container fluid>
-    <div id="firebaseui-auth-container"></div>
-  </v-container>
+  <div id="firebaseui-auth-container"></div>
 </template>
 
 <style src='firebaseui/dist/firebaseui.css'></style>
@@ -17,8 +15,8 @@ export default class Login extends Vue {
   mounted() {
     const uiConfig: firebaseui.auth.Config = {
       callbacks: {
-        signInSuccessWithAuthResult() {
-          router.push("loged-in"); // TODO
+        signInSuccessWithAuthResult: authResult => {
+          this.$emit("logged-in", authResult);
           return false;
         }
       },

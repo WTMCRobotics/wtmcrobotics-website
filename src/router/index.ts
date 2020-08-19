@@ -53,10 +53,10 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "contact" */ "../views/Contact.vue")
   },
   {
-    path: "/login",
-    name: "Login",
+    path: "/account", alias: '/login',
+    name: "Account",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Login.vue")
+      import(/* webpackChunkName: "account" */ "../views/Account.vue")
   },
   { path: '/index.html', redirect: '/' },
   { path: '/blogdetail.php', redirect: '/blog' },
