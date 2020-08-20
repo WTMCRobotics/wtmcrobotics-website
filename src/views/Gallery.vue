@@ -39,7 +39,7 @@
 .grid {
   display: grid;
   gap: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 90%), 1fr));
 }
 .v-dialog {
   .v-image {
