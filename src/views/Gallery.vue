@@ -20,7 +20,13 @@
       <v-btn icon class="close" @click.stop="showModal = false">
         <v-icon>mdi-close</v-icon>
       </v-btn>
-      <v-carousel height="100%" hide-delimiters show-arrows-on-hover :value="modalPhoto">
+      <v-carousel
+        height="100%"
+        hide-delimiters
+        show-arrows-on-hover
+        :value="modalPhoto"
+        :continuous="false"
+      >
         <v-carousel-item v-for="(photo, i) in photos" :key="i">
           <v-img :src="photo.url" contain></v-img>
         </v-carousel-item>
