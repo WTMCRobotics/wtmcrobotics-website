@@ -13,6 +13,11 @@
 </template>
 
 <style lang="scss" scoped>
+@media only screen and (min-width: 600px) {
+  .text--primary div:not(.ellipsis) {
+    text-align: justify;
+  }
+}
 .ellipsis {
   height: 4.125rem;
   overflow: hidden;
