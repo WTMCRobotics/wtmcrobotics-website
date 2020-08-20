@@ -1,6 +1,12 @@
 <template>
   <v-container fluid class="grid">
-    <PostCard v-for="(post, id) in posts" :key="id" :to="`blog/${id}`" :post="post" :card="true"></PostCard>
+    <PostCard
+      v-for="post in posts"
+      :key="post.data.title"
+      :to="`blog/${post.id}`"
+      :post="post.data"
+      :card="true"
+    ></PostCard>
   </v-container>
 </template>
 
@@ -20,23 +26,24 @@ import PostCard from "../components/PostCard.vue";
   components: { PostCard }
 })
 export default class Blog extends Vue {
-  posts: { [key: string]: BlogPost } = {};
+  posts: { data: BlogPost; id: string }[] = [];
 
   beforeCreate() {
     firestore
       .collection("blogs")
       .where("public", "==", true)
       .orderBy("date", "desc")
+      .limit(100) // TODO make a propper system
       .get()
       .then(snapshot => {
-        const posts: { [key: string]: BlogPost } = {};
-        snapshot.forEach(doc => {
+        snapshot.docs.forEach((doc, i) => {
           if (doc.exists) {
-            const data = doc.data() as BlogPost;
-            posts[doc.id] = data;
+            this.$set(this.posts, i, {
+              data: doc.data() as BlogPost,
+              id: doc.id
+            });
           }
         });
-        this.posts = posts;
       });
   }
 }
