@@ -2,13 +2,7 @@
   <v-app>
     <v-navigation-drawer app v-model="drawer" fixed temporary right>
       <v-list>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          link
-          :to="item.path"
-          @click="teleportToTop"
-        >
+        <v-list-item v-for="item in items" :key="item.title" link :to="item.path">
           <v-list-item-content>
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
@@ -32,12 +26,7 @@
       <v-spacer></v-spacer>
 
       <v-tabs v-if="this.$vuetify.breakpoint.mdAndUp" right>
-        <v-tab
-          v-for="item in items"
-          :key="item.title"
-          :to="item.path"
-          @click="teleportToTop"
-        >{{item.title}}</v-tab>
+        <v-tab v-for="item in items" :key="item.title" :to="item.path">{{item.title}}</v-tab>
       </v-tabs>
       <v-app-bar-nav-icon v-else @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
     </v-app-bar>
@@ -96,6 +85,7 @@ export default class App extends Vue {
     darkMediaQuery.addEventListener("change", event => {
       this.$vuetify.theme.dark = event.matches;
     });
+    this.$router.afterEach(() => window.scrollTo({ top: 0 }));
   }
 
   showFab = false;
@@ -116,9 +106,6 @@ export default class App extends Vue {
   scroolToTop() {
     window.scrollTo({ top: Math.trunc(window.scrollY) });
     this.$vuetify.goTo(0);
-  }
-  teleportToTop() {
-    window.scrollTo({ top: 0 });
   }
 }
 </script>
