@@ -4,7 +4,7 @@
 
     <v-card-title>{{post.title}}</v-card-title>
 
-    <v-card-subtitle class="pb-0">By: {{post.author}}</v-card-subtitle>
+    <v-card-subtitle v-if="post.author" class="pb-0">By: {{post.author}}</v-card-subtitle>
 
     <v-card-text class="text--primary">
       <div :class="card ? 'ellipsis' : ''">{{post.body}}</div>
