@@ -6,25 +6,31 @@
 import { Component, Vue } from "vue-property-decorator";
 import { firestore, BlogPost } from "../firebase";
 import PostCard from "../components/PostCard.vue";
+import { namespace } from "vuex-class";
+
+const blogModule = namespace("blog");
 
 @Component({
   components: { PostCard }
 })
 export default class Post extends Vue {
+  @blogModule.Getter getPostById!: (
+    id: string
+  ) => firebase.firestore.QueryDocumentSnapshot<BlogPost> | undefined;
+
   post: BlogPost | false = false;
 
-  beforeCreate() {
-    if (this.$route.params.blogId) {
+  created() {
+    const id = this.$route.params.blogId;
+    if (id) {
+      this.post = (this.getPostById(id)?.data() as BlogPost) || false;
+    }
+    if (!this.post) {
       firestore
-        .doc(`blogs/${this.$route.params.blogId}`)
+        .doc(`blogs/${id}`)
         .get()
         .then(snapshot => {
-          if (snapshot.exists) {
-            this.post = snapshot.data() as BlogPost;
-          } else {
-            alert("there was an error loading the blog post");
-            this.$router.back();
-          }
+          this.post = snapshot.data() as BlogPost;
         });
     }
   }

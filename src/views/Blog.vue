@@ -7,8 +7,8 @@
       :post="post.data()"
       :card="true"
     ></PostCard>
-    <div v-if="!loadedAll" class="load-more">
-      <v-btn text :loading="loading" @click="loadMore">Load more</v-btn>
+    <div v-if="!doneLoading" class="load-more">
+      <v-btn text :loading="loading" @click="loadMorePosts">Load more</v-btn>
     </div>
   </v-container>
 </template>
@@ -27,50 +27,36 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { firestore, BlogPost } from "../firebase";
 import PostCard from "../components/PostCard.vue";
+import { BlogPost } from "../firebase";
+import { namespace } from "vuex-class";
+
+const blogModule = namespace("blog");
 
 @Component({
   components: { PostCard }
 })
 export default class Blog extends Vue {
-  posts: firebase.firestore.QueryDocumentSnapshot<BlogPost>[] = [];
-  loadedAll = false;
-  loading = false;
+  @blogModule.State posts!: firebase.firestore.QueryDocumentSnapshot<
+    BlogPost
+  >[];
+  @blogModule.State loading!: boolean;
+  @blogModule.State doneLoading!: boolean;
+  @blogModule.Action loadMore!: (payload: {
+    limit: number;
+    publicOnly: boolean;
+  }) => Promise<void>;
 
   mounted() {
-    this.loadMore();
+    if (!this.posts || this.posts.length === 0) {
+      this.loadMorePosts();
+    }
   }
 
-  loadMore() {
-    if (this.loadedAll || this.loading) {
-      return;
-    }
-    this.loading = true;
-    let collection = (firestore.collection(
-      "blogs"
-    ) as firebase.firestore.CollectionReference<BlogPost>).orderBy(
-      "date",
-      "desc"
-    );
-    // eslint-disable-next-line no-constant-condition
-    if (true) {
-      // TODO make this if not an editor
-      collection = collection.where("public", "==", true);
-    }
-    const length = this.posts.length;
-    if (length > 0) {
-      collection = collection.startAfter(this.posts[length - 1]);
-    }
-    const limit = this.makeEven(2 + length) - length; // TODO make this not 2
-    collection
-      .limit(limit)
-      .get()
-      .then(snapshot => {
-        this.loadedAll = limit !== snapshot.docs.length;
-        this.posts = this.posts.concat(snapshot.docs);
-        this.loading = false;
-      });
+  loadMorePosts() {
+    const isEditor = false; // TODO make this if not an editor
+    const limit = this.makeEven(2 + this.posts.length) - this.posts.length; // TODO make this not 2
+    this.loadMore({ limit, publicOnly: !isEditor });
   }
 
   makeEven(input: number) {
