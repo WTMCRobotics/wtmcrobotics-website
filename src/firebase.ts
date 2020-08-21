@@ -38,4 +38,5 @@ export interface BlogPost {
     image: string;
     title: string;
     public: boolean;
+    lastModifiedBy: string;
 }
