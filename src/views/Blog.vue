@@ -47,6 +47,13 @@ export default class Blog extends Vue {
     publicOnly: boolean;
   }) => Promise<void>;
 
+  get width() {
+    return Math.max(
+      1,
+      Math.floor(((this.$refs["container"] as Element).clientWidth - 8) / 316)
+    );
+  }
+
   mounted() {
     if (!this.posts || this.posts.length === 0) {
       this.loadMorePosts();
@@ -55,15 +62,12 @@ export default class Blog extends Vue {
 
   loadMorePosts() {
     const isEditor = false; // TODO make this if not an editor
-    const limit = this.makeEven(2 + this.posts.length) - this.posts.length; // TODO make this not 2
-    this.loadMore({ limit, publicOnly: !isEditor });
-  }
 
-  makeEven(input: number) {
-    const width = Math.floor(
-      ((this.$refs["container"] as Element).clientWidth - 8) / 316
-    );
-    return Math.ceil(input / width) * width;
+    let limit =
+      Math.max(20, (window.innerHeight * window.innerWidth) / 45000) +
+      this.posts.length;
+    limit = Math.ceil(limit / this.width) * this.width - this.posts.length;
+    this.loadMore({ publicOnly: !isEditor, limit });
   }
 }
 </script>
