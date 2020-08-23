@@ -1,9 +1,7 @@
 <template>
-  <v-container fluid>
-    <div v-if="loading" class="center">
-      <v-progress-circular :size="80" :width="7" indeterminate></v-progress-circular>
-    </div>
-    <div v-else class="grid">
+  <FullscreenSpinner v-if="loading"></FullscreenSpinner>
+  <v-container v-else fluid>
+    <div class="grid">
       <v-hover
         v-slot:default="{ hover }"
         open-delay="200"
@@ -40,18 +38,10 @@
 </template>
 
 <style lang="scss" scoped>
-.container {
-  height: 100%;
-}
 .grid {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(auto-fit, minmax(min(250px, 90%), 1fr));
-}
-.center {
-  height: 100%;
-  display: grid;
-  place-items: center;
 }
 .v-dialog {
   .v-image {
@@ -74,16 +64,16 @@
 import { Component, Vue } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import { Photo } from "@/firebase";
+import FullscreenSpinner from "../components/FullscreenSpinner.vue";
 
 const galleryModule = namespace("gallery");
 
-@Component
+@Component({
+  components: { FullscreenSpinner }
+})
 export default class Gallery extends Vue {
   @galleryModule.State loading!: boolean;
   @galleryModule.State photos!: Photo[];
-  // photos = new Array(24).fill(undefined).map((value, i) => ({
-  //   url: `http://wtmcrobotics.com/style/images/pioneerPhotos/${i + 1}.png`
-  // }));
   modalPhoto = 0;
   showModal = false;
 

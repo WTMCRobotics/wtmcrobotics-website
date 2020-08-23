@@ -1,17 +1,19 @@
 <template>
-  <PostCard :post="post"></PostCard>
+  <FullscreenSpinner v-if="loading"></FullscreenSpinner>
+  <PostCard v-else :post="post"></PostCard>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { firestore, BlogPost } from "../firebase";
 import PostCard from "../components/PostCard.vue";
+import FullscreenSpinner from "../components/FullscreenSpinner.vue";
 import { namespace } from "vuex-class";
 
 const blogModule = namespace("blog");
 
 @Component({
-  components: { PostCard }
+  components: { PostCard, FullscreenSpinner }
 })
 export default class Post extends Vue {
   @blogModule.Getter getPostById!: (
@@ -19,6 +21,7 @@ export default class Post extends Vue {
   ) => firebase.firestore.QueryDocumentSnapshot<BlogPost> | undefined;
 
   post: BlogPost | false = false;
+  loading = false;
 
   created() {
     const id = this.$route.params.blogId;
@@ -26,11 +29,15 @@ export default class Post extends Vue {
       this.post = (this.getPostById(id)?.data() as BlogPost) || false;
     }
     if (!this.post) {
+      this.loading = true;
       firestore
         .doc(`blogs/${id}`)
         .get()
         .then(snapshot => {
           this.post = snapshot.data() as BlogPost;
+        })
+        .finally(() => {
+          this.loading = false;
         });
     }
   }
