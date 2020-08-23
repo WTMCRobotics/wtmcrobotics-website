@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex, { Module } from "vuex";
-import { firestore, BlogPost } from "../firebase";
+import { firestore, BlogPost, Gallery, Photo } from "../firebase";
 
 Vue.use(Vuex);
 
@@ -69,9 +69,43 @@ const blog: Module<BlogState, {}> = {
   },
 };
 
+interface GalleryState {
+  photos: Photo[];
+  loading: boolean;
+}
+
+const gallery: Module<GalleryState, {}> = {
+  namespaced: true,
+  state: {
+    photos: [],
+    loading: false,
+  },
+  mutations: {
+    setPhotos: (state, photos: Photo[]) => {
+      state.photos = photos;
+    },
+    setLoading: (state, loading: boolean) => {
+      state.loading = loading;
+    }
+  },
+  actions: {
+    load: ({ commit, state }) => {
+      if (state.photos.length > 0 || state.loading) {
+        return;
+      }
+      commit('setLoading', true);
+      firestore.doc('gallery/main').get().then(snapshot => {
+        commit('setPhotos', (snapshot.data() as Gallery).photos.sort((a, b) => b.date.toMillis() - a.date.toMillis()));
+      }).finally(() => {
+        commit('setLoading', false);
+      });
+    }
+  },
+};
+
 export default new Vuex.Store({
   state: {},
   mutations: {},
   actions: {},
-  modules: { blog }
+  modules: { blog, gallery }
 });

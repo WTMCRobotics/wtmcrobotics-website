@@ -1,6 +1,9 @@
 <template>
   <v-container fluid>
-    <div class="grid">
+    <div v-if="loading" class="center">
+      <v-progress-circular :size="80" :width="7" indeterminate></v-progress-circular>
+    </div>
+    <div v-else class="grid">
       <v-hover
         v-slot:default="{ hover }"
         open-delay="200"
@@ -8,7 +11,8 @@
         :key="photo.url"
       >
         <v-img
-          :src="photo.url"
+          :src="getPhotoUrl(photo.url.name, photo.url.token)"
+          :alt="photo.alt"
           aspect-ratio="1.5"
           :class="`elevation-${hover ? 8 : 1}`"
           class="rounded transition-swing"
@@ -28,7 +32,7 @@
         :continuous="false"
       >
         <v-carousel-item v-for="(photo, i) in photos" :key="i">
-          <v-img :src="photo.url" contain></v-img>
+          <v-img :src="getPhotoUrl(photo.url.name, photo.url.token)" :alt="photo.alt" contain></v-img>
         </v-carousel-item>
       </v-carousel>
     </v-dialog>
@@ -36,10 +40,18 @@
 </template>
 
 <style lang="scss" scoped>
+.container {
+  height: 100%;
+}
 .grid {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(auto-fit, minmax(min(250px, 90%), 1fr));
+}
+.center {
+  height: 100%;
+  display: grid;
+  place-items: center;
 }
 .v-dialog {
   .v-image {
@@ -60,21 +72,35 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+import { Photo } from "@/firebase";
+
+const galleryModule = namespace("gallery");
+
 @Component
 export default class Gallery extends Vue {
-  photos = new Array(24).fill(undefined).map((value, i) => ({
-    url: `http://wtmcrobotics.com/style/images/pioneerPhotos/${i + 1}.png`
-  }));
+  @galleryModule.State loading!: boolean;
+  @galleryModule.State photos!: Photo[];
+  // photos = new Array(24).fill(undefined).map((value, i) => ({
+  //   url: `http://wtmcrobotics.com/style/images/pioneerPhotos/${i + 1}.png`
+  // }));
   modalPhoto = 0;
   showModal = false;
+
+  @galleryModule.Action load!: () => void;
+
+  constructor() {
+    super();
+    this.load();
+  }
 
   openModal(index: number) {
     this.modalPhoto = index;
     this.showModal = true;
   }
-}
 
-interface Photo {
-  url: string;
+  getPhotoUrl(name: string, token: string) {
+    return `https://firebasestorage.googleapis.com/v0/b/wtmcrobotics-website.appspot.com/o/${name}?alt=media&token=${token}`;
+  }
 }
 </script>

@@ -7,13 +7,17 @@ service cloud.firestore {
     function isEditor() {
       return request.auth != null && request.auth.token.email_verified == true && exists(/databases/$(database)/documents/users/$(request.auth.token.email));
     }
+    function signed() {
+      return request.auth != null && request.auth.token.email_verified == true && request.auth.token.email == request.resource.data.lastModifiedBy;
+    }
     match /blogs/{blogId} {
-      function signed() {
-        return request.auth != null && request.auth.token.email_verified == true && request.auth.token.email == request.resource.data.lastModifiedBy;
-      }
       allow read: if resource.data.public == true || isEditor();
       allow create, update: if signed() && isEditor();
       allow delete: if isAdmin();
+    }
+    match /gallery/main {
+      allow get;
+      allow update: if signed() && isEditor();
     }
     match /editors/{email} {
       function isUser() {

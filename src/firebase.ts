@@ -38,5 +38,15 @@ export interface BlogPost {
     image: string;
     title: string;
     public: boolean;
+}
+
+export interface Gallery {
+    photos: Photo[];
     lastModifiedBy: string;
+}
+
+export interface Photo {
+    url: { name: string; token: string };
+    alt: string;
+    date: firebase.firestore.Timestamp;
 }
