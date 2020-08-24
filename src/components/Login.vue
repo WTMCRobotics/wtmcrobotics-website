@@ -3,6 +3,11 @@
 </template>
 
 <style src='firebaseui/dist/firebaseui.css'></style>
+<style lang="scss">
+.mdl-button--raised.mdl-button--colored {
+  background-color: var(--v-primary-base) !important;
+}
+</style>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
