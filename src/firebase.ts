@@ -19,8 +19,11 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 
 
+
 export const auth = firebase.auth();
+
 export const firestore = app.firestore();
+
 export const storage = app.storage();
 
 
@@ -30,6 +33,7 @@ export const signInOptions = [
     firebase.auth.GithubAuthProvider.PROVIDER_ID,
     'microsoft.com'
 ]
+
 
 
 export interface BlogPost {
