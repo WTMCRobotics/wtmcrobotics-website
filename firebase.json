@@ -26,16 +26,5 @@
   },
   "storage": {
     "rules": "storage.rules"
-  },
-  "emulators": {
-    "functions": {
-      "port": 5001
-    },
-    "firestore": {
-      "port": 5000
-    },
-    "ui": {
-      "enabled": true
-    }
   }
 }
