@@ -6,10 +6,10 @@
         v-slot:default="{ hover }"
         open-delay="200"
         v-for="(photo, i) in photos"
-        :key="photo.url"
+        :key="photo.url.name"
       >
         <v-img
-          :src="getPhotoUrl(photo.url.name, photo.url.token)"
+          :src="getPhotoUrl(photo.url.name, photo.url.token, true)"
           :alt="photo.alt"
           aspect-ratio="1.5"
           :class="`elevation-${hover ? 8 : 1}`"
@@ -28,9 +28,20 @@
         show-arrows-on-hover
         :value="modalPhoto"
         :continuous="false"
+        :touchless="disableSwipe"
       >
-        <v-carousel-item v-for="(photo, i) in photos" :key="i">
-          <v-img :src="getPhotoUrl(photo.url.name, photo.url.token)" :alt="photo.alt" contain></v-img>
+        <v-carousel-item
+          v-for="(photo, i) in photos"
+          :key="i"
+          :transition="transition && undefined"
+          :reverse-transition="reverseTransition && undefined"
+        >
+          <v-img
+            :src="getPhotoUrl(photo.url.name, photo.url.token, false)"
+            :lazy-src="getPhotoUrl(photo.url.name, photo.url.token, true)"
+            :alt="photo.alt"
+            contain
+          ></v-img>
         </v-carousel-item>
       </v-carousel>
     </v-dialog>
@@ -76,6 +87,9 @@ export default class Gallery extends Vue {
   @galleryModule.State photos!: Photo[];
   modalPhoto = 0;
   showModal = false;
+  disableSwipe = false;
+  transition = true;
+  reverseTransition = true;
 
   @galleryModule.Action load!: () => void;
 
@@ -84,13 +98,30 @@ export default class Gallery extends Vue {
     this.load();
   }
 
-  openModal(index: number) {
-    this.modalPhoto = index;
-    this.showModal = true;
+  beforeCreate() {
+    window.visualViewport.addEventListener("resize", () => {
+      this.disableSwipe = window.visualViewport.scale > 1;
+    });
   }
 
-  getPhotoUrl(name: string, token: string) {
-    return `https://firebasestorage.googleapis.com/v0/b/wtmcrobotics-website.appspot.com/o/${name}?alt=media&token=${token}`;
+  openModal(index: number) {
+    if (this.modalPhoto < index) {
+      this.transition = false;
+    } else if (this.modalPhoto > index) {
+      this.reverseTransition = false;
+    }
+    this.modalPhoto = index;
+    this.showModal = true;
+    setTimeout(() => {
+      this.transition = true;
+      this.reverseTransition = true;
+    });
+  }
+
+  getPhotoUrl(name: string, token: string, size: string) {
+    return `https://firebasestorage.googleapis.com/v0/b/wtmcrobotics-website.appspot.com/o/resized%2F${name}_${
+      size ? "400x300" : "2000x1500"
+    }.webp?alt=media&token=${token}`;
   }
 }
 </script>
