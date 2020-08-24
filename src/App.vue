@@ -75,10 +75,6 @@ import { Component, Vue } from "vue-property-decorator";
   components: {}
 })
 export default class App extends Vue {
-  mounted() {
-    console.log(this.$vuetify.theme.dark ? "dark" : "light");
-  }
-
   beforeCreate() {
     const darkMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     this.$vuetify.theme.dark = darkMediaQuery.matches;
