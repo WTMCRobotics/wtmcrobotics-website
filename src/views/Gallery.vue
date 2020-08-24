@@ -19,7 +19,7 @@
       </v-hover>
     </div>
     <v-dialog fullscreen v-model="showModal" dark ref="fullscreen">
-      <v-btn icon class="close" @click.stop="showModal = false">
+      <v-btn icon class="close" @click.stop="closeModal">
         <v-icon>mdi-close</v-icon>
       </v-btn>
       <v-carousel
@@ -76,6 +76,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import { Photo } from "@/firebase";
 import FullscreenSpinner from "../components/FullscreenSpinner.vue";
+import router from "@/router";
 
 const galleryModule = namespace("gallery");
 
@@ -112,10 +113,18 @@ export default class Gallery extends Vue {
     }
     this.modalPhoto = index;
     this.showModal = true;
+
+    window.addEventListener("popstate", this.closeModal);
     setTimeout(() => {
       this.transition = true;
       this.reverseTransition = true;
     });
+  }
+
+  closeModal() {
+    this.showModal = false;
+    this.$router.forward();
+    window.removeEventListener("popstate", this.closeModal);
   }
 
   getPhotoUrl(name: string, token: string, size: string) {
