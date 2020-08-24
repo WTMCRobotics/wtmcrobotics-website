@@ -76,7 +76,6 @@ import { Component, Vue } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import { Photo } from "@/firebase";
 import FullscreenSpinner from "../components/FullscreenSpinner.vue";
-import router from "@/router";
 
 const galleryModule = namespace("gallery");
 
