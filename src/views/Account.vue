@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <div v-if="logedIn">
+    <div v-if="user">
       <v-btn @click="logout" color="primary">Log out</v-btn>
     </div>
     <Login v-else></Login>
@@ -9,27 +9,18 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { auth, firestore } from "../firebase";
-import Login from "../components/Login.vue";
-import { Unsubscribe } from "firebase";
+import { auth, firestore } from "@/firebase";
+import Login from "@/components/Login.vue";
+import { State } from "vuex-class";
 @Component({
   components: { Login }
 })
 export default class Account extends Vue {
-  logedIn = true;
-  unsubscribe: Unsubscribe | null = null;
+  @State isEditor!: boolean;
+  @State user!: boolean;
 
-  beforeCreate() {
-    this.unsubscribe = auth.onAuthStateChanged(user => {
-      this.logedIn = !!user;
-      console.log("loged in as:", user);
-    });
-  }
   logout() {
     auth.signOut();
-  }
-  beforeDestroy() {
-    if (this.unsubscribe) this.unsubscribe();
   }
 }
 </script>

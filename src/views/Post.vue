@@ -1,6 +1,6 @@
 <template>
   <FullscreenSpinner v-if="loading"></FullscreenSpinner>
-  <PostCard v-else :post="post"></PostCard>
+  <PostCard v-else :post="post" :id="id"></PostCard>
 </template>
 
 <script lang="ts">
@@ -23,15 +23,18 @@ export default class Post extends Vue {
   post: BlogPost | false = false;
   loading = false;
 
+  get id() {
+    return this.$route.params.blogId;
+  }
+
   created() {
-    const id = this.$route.params.blogId;
-    if (id) {
-      this.post = (this.getPostById(id)?.data() as BlogPost) || false;
+    if (this.id) {
+      this.post = (this.getPostById(this.id)?.data() as BlogPost) || false;
     }
     if (!this.post) {
       this.loading = true;
       firestore
-        .doc(`blogs/${id}`)
+        .doc(`blogs/${this.id}`)
         .get()
         .then(snapshot => {
           this.post = snapshot.data() as BlogPost;

@@ -19,7 +19,7 @@
       </v-hover>
     </div>
     <v-dialog fullscreen v-model="showModal" dark ref="fullscreen">
-      <v-btn icon class="close" @click.stop="closeModal">
+      <v-btn icon class="on-image" @click.stop="closeModal">
         <v-icon>mdi-close</v-icon>
       </v-btn>
       <v-carousel
@@ -65,8 +65,6 @@
     top: 16px;
     right: 16px;
     z-index: 1;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
   }
 }
 </style>

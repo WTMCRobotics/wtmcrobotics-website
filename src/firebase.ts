@@ -33,6 +33,7 @@ export const signInOptions = [
     firebase.auth.GithubAuthProvider.PROVIDER_ID,
     'microsoft.com'
 ]
+export const credentialHelper = firebaseui.auth.CredentialHelper.GOOGLE_YOLO;
 
 
 

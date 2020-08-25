@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { auth, ui, signInOptions } from "../firebase";
+import { auth, ui, signInOptions, credentialHelper } from "@/firebase";
 import router from "@/router";
 @Component
 export default class Login extends Vue {
@@ -23,6 +23,7 @@ export default class Login extends Vue {
           return false;
         }
       },
+      credentialHelper,
       signInOptions,
       signInFlow: "popup",
       tosUrl: () => router.push("terms-of-service"), // TODO

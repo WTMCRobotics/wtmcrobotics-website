@@ -1,6 +1,13 @@
 <template>
-  <v-card :tile="!card" :to="to">
-    <v-img :aspect-ratio="card ? 2 : ''" max-height="70vh" :src="post.image"></v-img>
+  <v-card :tile="!card" :to="card ? `/blog/${id}` : undefined">
+    <v-img :aspect-ratio="card ? 2 : ''" max-height="70vh" :src="post.image">
+      <v-card-actions v-if="isEditor">
+        <v-spacer></v-spacer>
+        <v-btn text color="primary" :to="`/blog/${id}/edit`">
+          <v-icon left>mdi-pencil</v-icon>Edit
+        </v-btn>
+      </v-card-actions>
+    </v-img>
 
     <v-card-title>{{post.title}}</v-card-title>
 
@@ -29,14 +36,16 @@
 }
 </style>
 
-<script lang="js">
+<script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import { BlogPost } from "@/firebase";
+import { State } from "vuex-class";
 
 @Component
-
 export default class Post extends Vue {
-  @Prop() post;
-  @Prop() card;
-  @Prop() to;
+  @Prop() post!: BlogPost;
+  @Prop() card!: boolean;
+  @Prop() id!: string;
+  @State isEditor!: boolean;
 }
 </script>

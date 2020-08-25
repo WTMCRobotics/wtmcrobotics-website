@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex, { Module } from "vuex";
 import { firestore, BlogPost, Gallery, Photo } from "../firebase";
+import { User } from 'firebase';
 
 Vue.use(Vuex);
 
@@ -104,8 +105,20 @@ const gallery: Module<GalleryState, {}> = {
 };
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
+  state: {
+    isAdmin: false,
+    isEditor: false,
+    user: null as User | null,
+  },
+  mutations: {
+    setEditor(state, isEditor: boolean) {
+      // TODO use this for something
+      state.isEditor = isEditor;
+    },
+    setUser(state, user: User | null) {
+      state.user = user;
+    }
+  },
   actions: {},
   modules: { blog, gallery }
 });

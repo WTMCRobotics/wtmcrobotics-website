@@ -1,12 +1,6 @@
 <template>
   <v-container fluid class="grid" ref="container">
-    <PostCard
-      v-for="post in posts"
-      :key="post.id"
-      :to="`blog/${post.id}`"
-      :post="post.data()"
-      :card="true"
-    ></PostCard>
+    <PostCard v-for="post in posts" :key="post.id" :id="post.id" :post="post.data()" :card="true"></PostCard>
     <div v-if="!doneLoading" class="load-more">
       <v-btn text :loading="loading" @click="loadMorePosts">Load more</v-btn>
     </div>

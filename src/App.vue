@@ -67,23 +67,22 @@
   -ms-user-select: none;
   user-select: none;
 }
+.v-btn.on-image {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+}
 </style>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { auth, firestore } from "@/firebase";
+import { Unsubscribe, User } from "firebase";
+import { Mutation } from "vuex-class";
+
 @Component({
   components: {}
 })
 export default class App extends Vue {
-  beforeCreate() {
-    const darkMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    this.$vuetify.theme.dark = darkMediaQuery.matches;
-    darkMediaQuery.addEventListener("change", event => {
-      this.$vuetify.theme.dark = event.matches;
-    });
-    this.$router.afterEach(() => window.scrollTo({ top: 0 }));
-  }
-
   showFab = false;
   drawer = null;
   items = [
@@ -95,6 +94,26 @@ export default class App extends Vue {
     { title: "Blog", path: "/blog" },
     { title: "Contact", path: "/contact" }
   ];
+  unsubscribe: Unsubscribe | null = null;
+
+  @Mutation setUser!: (user: User | null) => void;
+
+  beforeCreate() {
+    const darkMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    this.$vuetify.theme.dark = darkMediaQuery.matches;
+    darkMediaQuery.addEventListener("change", event => {
+      this.$vuetify.theme.dark = event.matches;
+    });
+    this.$router.afterEach(() => window.scrollTo({ top: 0 }));
+    this.unsubscribe = auth.onAuthStateChanged((user: User | null) => {
+      this.setUser(user);
+      console.log("loged in as:", user);
+    });
+  }
+
+  beforeDestroy() {
+    if (this.unsubscribe) this.unsubscribe();
+  }
 
   onScroll() {
     this.showFab = window.scrollY > 20;
