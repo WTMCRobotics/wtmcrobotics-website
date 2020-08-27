@@ -11,17 +11,18 @@
     </v-navigation-drawer>
 
     <v-app-bar app fixed height="80">
-      <v-img
-        :src="require(this.$vuetify.theme.dark ? './assets/logo-dark.webp' : './assets/logo-light.webp')"
-        max-height="48"
-        max-width="48"
-        contain
-      />
-
-      <v-toolbar-title class="px-1 unselectable" style="font-size: 2rem;">
-        <b>WTMC</b>
-        <span style="color: var(--v-primary-base);">Robotics</span>
-      </v-toolbar-title>
+      <router-link to="/" class="home">
+        <v-img
+          :src="require(this.$vuetify.theme.dark ? './assets/logo-dark.webp' : './assets/logo-light.webp')"
+          max-height="48"
+          max-width="48"
+          contain
+        />
+        <v-toolbar-title class="px-1 unselectable" style="font-size: 2rem;">
+          <b>WTMC</b>
+          <span style="color: var(--v-primary-base);">Robotics</span>
+        </v-toolbar-title>
+      </router-link>
 
       <v-spacer></v-spacer>
 
@@ -56,6 +57,11 @@
 </template>
 
 <style lang="scss" scoped>
+.home {
+  text-decoration: inherit;
+  color: inherit;
+  display: flex;
+}
 .v-tabs {
   width: min-content;
 }
