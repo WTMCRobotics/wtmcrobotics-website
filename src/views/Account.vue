@@ -13,13 +13,21 @@ import { auth, firestore } from "@/firebase";
 import Login from "@/components/Login.vue";
 import { State } from "vuex-class";
 import { User } from "firebase";
+import { Meta } from "@sophosoft/vue-meta-decorator";
+
 @Component({
-  components: { Login },
-  metaInfo: { title: "Login" }
+  components: { Login }
 })
 export default class Account extends Vue {
   @State isEditor!: boolean;
   @State user!: User | null;
+
+  @Meta
+  getMetaInfo() {
+    return {
+      title: this.user ? "Account" : "Login"
+    };
+  }
 
   logout() {
     auth.signOut();

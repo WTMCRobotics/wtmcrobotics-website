@@ -9,19 +9,26 @@ import { firestore, BlogPost } from "../firebase";
 import PostCard from "../components/PostCard.vue";
 import FullscreenSpinner from "../components/FullscreenSpinner.vue";
 import { namespace } from "vuex-class";
+import { Meta } from "@sophosoft/vue-meta-decorator";
 
 const blogModule = namespace("blog");
 
 @Component({
-  components: { PostCard, FullscreenSpinner },
-  metaInfo: { title: "Blog" }
+  components: { PostCard, FullscreenSpinner }
 })
 export default class Post extends Vue {
   @blogModule.Getter getPostById!: (
     id: string
   ) => firebase.firestore.QueryDocumentSnapshot<BlogPost> | undefined;
 
-  post: BlogPost | false = false;
+  @Meta
+  getMetaInfo() {
+    return {
+      title: this.post?.title ?? "Blog"
+    };
+  }
+
+  post: BlogPost | null = null;
   loading = false;
 
   get id() {
