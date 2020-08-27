@@ -28,7 +28,8 @@ import ContactForm from "@/components/ContactForm.vue";
 @Component({
   components: {
     ContactForm
-  }
+  },
+  metaInfo: { title: "Contact" }
 })
 export default class Contact extends Vue {
   contactLinks = [

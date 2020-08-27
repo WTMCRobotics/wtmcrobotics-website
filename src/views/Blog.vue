@@ -28,7 +28,8 @@ import { namespace } from "vuex-class";
 const blogModule = namespace("blog");
 
 @Component({
-  components: { PostCard }
+  components: { PostCard },
+  metaInfo: { title: "Blog" }
 })
 export default class Blog extends Vue {
   @blogModule.State posts!: firebase.firestore.QueryDocumentSnapshot<

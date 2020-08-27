@@ -6,6 +6,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-@Component
+@Component({ metaInfo: { title: "Join" } })
 export default class Join extends Vue {}
 </script>

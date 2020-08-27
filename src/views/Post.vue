@@ -13,7 +13,8 @@ import { namespace } from "vuex-class";
 const blogModule = namespace("blog");
 
 @Component({
-  components: { PostCard, FullscreenSpinner }
+  components: { PostCard, FullscreenSpinner },
+  metaInfo: { title: "Blog" }
 })
 export default class Post extends Vue {
   @blogModule.Getter getPostById!: (

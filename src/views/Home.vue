@@ -9,7 +9,8 @@ import HelloWorld from "@/components/HelloWorld.vue";
 @Component({
   components: {
     HelloWorld
-  }
+  },
+  metaInfo: { titleTemplate: null }
 })
 export default class Home extends Vue {}
 </script>

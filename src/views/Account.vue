@@ -12,12 +12,14 @@ import { Component, Vue } from "vue-property-decorator";
 import { auth, firestore } from "@/firebase";
 import Login from "@/components/Login.vue";
 import { State } from "vuex-class";
+import { User } from "firebase";
 @Component({
-  components: { Login }
+  components: { Login },
+  metaInfo: { title: "Login" }
 })
 export default class Account extends Vue {
   @State isEditor!: boolean;
-  @State user!: boolean;
+  @State user!: User | null;
 
   logout() {
     auth.signOut();

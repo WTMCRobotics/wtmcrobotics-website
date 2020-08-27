@@ -78,7 +78,8 @@ import FullscreenSpinner from "../components/FullscreenSpinner.vue";
 const galleryModule = namespace("gallery");
 
 @Component({
-  components: { FullscreenSpinner }
+  components: { FullscreenSpinner },
+  metaInfo: { title: "Gallery" }
 })
 export default class Gallery extends Vue {
   @galleryModule.State loading!: boolean;

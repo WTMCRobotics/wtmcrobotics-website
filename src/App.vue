@@ -82,9 +82,15 @@ import { Component, Vue } from "vue-property-decorator";
 import { auth, firestore } from "@/firebase";
 import { Unsubscribe, User } from "firebase";
 import { Mutation } from "vuex-class";
+import Meta from "vue-meta";
+
+Vue.use(Meta);
 
 @Component({
-  components: {}
+  metaInfo: {
+    title: "WTMC Robotics",
+    titleTemplate: "%s | WTMC Robotics"
+  }
 })
 export default class App extends Vue {
   showFab = false;

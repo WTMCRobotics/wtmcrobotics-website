@@ -6,6 +6,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-@Component
+@Component({ metaInfo: { title: "Sponsor" } })
 export default class Sponsor extends Vue {}
 </script>
