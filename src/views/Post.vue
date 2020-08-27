@@ -24,7 +24,20 @@ export default class Post extends Vue {
   @Meta
   getMetaInfo() {
     return {
-      title: this.post?.title ?? "Blog"
+      title: this.post?.title ?? "Blog",
+      meta: this.post
+        ? [
+            { name: "author", content: this.post.author },
+            { property: "og:title", content: this.post.title },
+            { property: "og:type", content: "website" },
+            {
+              property: "og:url",
+              content: `https://wtmcrobotics.com/blog/${this.id}`
+            },
+            { property: "og:image", content: this.post.image },
+            { property: "og:site_name", content: "WTMC Robotics" }
+          ]
+        : []
     };
   }
 
