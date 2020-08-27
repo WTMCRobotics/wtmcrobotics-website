@@ -58,3 +58,8 @@ export interface Photo {
     alt: string;
     date: firebase.firestore.Timestamp;
 }
+
+export interface Claims {
+    isEditor?: boolean;
+    isAdmin?: boolean;
+}

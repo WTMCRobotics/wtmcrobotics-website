@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex, { Module } from "vuex";
-import { firestore, BlogPost, Gallery, Photo } from "../firebase";
+import { firestore, BlogPost, Gallery, Photo, auth, Claims } from "@/firebase";
 import { User } from 'firebase';
 
 Vue.use(Vuex);
@@ -111,9 +111,9 @@ export default new Vuex.Store({
     user: null as User | null,
   },
   mutations: {
-    setEditor(state, isEditor: boolean) {
-      // TODO use this for something
-      state.isEditor = isEditor;
+    handleClaims(state, claims: Claims) {
+      state.isEditor = !!claims.isEditor;
+      state.isAdmin = !!claims.isAdmin;
     },
     setUser(state, user: User | null) {
       state.user = user;

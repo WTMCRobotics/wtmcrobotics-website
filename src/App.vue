@@ -85,7 +85,7 @@ body {
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { auth, firestore } from "@/firebase";
+import { auth, Claims } from "@/firebase";
 import { Unsubscribe, User } from "firebase";
 import { Mutation } from "vuex-class";
 import Meta from "vue-meta";
@@ -113,6 +113,7 @@ export default class App extends Vue {
   unsubscribe: Unsubscribe | null = null;
 
   @Mutation setUser!: (user: User | null) => void;
+  @Mutation handleClaims!: (claims: Claims) => void;
 
   beforeCreate() {
     const darkMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -124,6 +125,9 @@ export default class App extends Vue {
     this.unsubscribe = auth.onAuthStateChanged((user: User | null) => {
       this.setUser(user);
       console.log("loged in as:", user);
+      user?.getIdTokenResult().then(idTokenResult => {
+        this.handleClaims(idTokenResult.claims);
+      });
     });
   }
 
