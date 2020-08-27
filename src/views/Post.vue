@@ -41,7 +41,7 @@ export default class Post extends Vue {
     };
   }
 
-  post: BlogPost | null = null;
+  post: BlogPost | undefined = undefined;
   loading = false;
 
   get id() {
@@ -50,7 +50,7 @@ export default class Post extends Vue {
 
   created() {
     if (this.id) {
-      this.post = (this.getPostById(this.id)?.data() as BlogPost) || false;
+      this.post = this.getPostById(this.id)?.data() as BlogPost;
     }
     if (!this.post) {
       this.loading = true;
