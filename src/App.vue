@@ -28,13 +28,13 @@
       <v-tabs v-if="this.$vuetify.breakpoint.mdAndUp" right>
         <v-tab v-for="item in items" :key="item.title" :to="item.path">{{item.title}}</v-tab>
       </v-tabs>
-      <v-app-bar-nav-icon v-else @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon v-else @click.stop="drawer = !drawer" aria-label="Navigation"></v-app-bar-nav-icon>
     </v-app-bar>
     <v-main style="min-height: calc(100vh - 36px);">
       <router-view></router-view>
     </v-main>
 
-    <v-fab-transition>
+    <v-slide-y-reverse-transition>
       <v-btn
         fixed
         fab
@@ -45,10 +45,11 @@
         v-scroll="onScroll"
         @click="scroolToTop"
         color="primary"
+        aria-hidden="true"
       >
         <v-icon>mdi-chevron-up</v-icon>
       </v-btn>
-    </v-fab-transition>
+    </v-slide-y-reverse-transition>
 
     <v-footer>this is a v-footer</v-footer>
   </v-app>
@@ -61,6 +62,9 @@
 </style>
 
 <style lang="scss">
+body {
+  overflow: hidden;
+}
 .unselectable {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -116,7 +120,7 @@ export default class App extends Vue {
   }
 
   onScroll() {
-    this.showFab = window.scrollY > 20;
+    this.showFab = window.scrollY > window.innerHeight;
   }
   scroolToTop() {
     window.scrollTo({ top: Math.trunc(window.scrollY) });

@@ -18,11 +18,26 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+  <style>
+    noscript {
+      color: #c20312;
+    }
+
+    html {
+      background-color: #ffffff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html {
+        background-color: #121212;
+      }
+    }
+  </style>
 </head>
 
-<body style="overflow: hidden;">
+<body>
   <noscript>
-    <strong style="color: #c20312;">Sorry the WTMC Robotics website doesn't work properly without JavaScript enabled.
+    <strong>Sorry the WTMC Robotics website doesn't work properly without JavaScript enabled.
       Please enable it to continue.</strong>
   </noscript>
   <div id="app"></div>
