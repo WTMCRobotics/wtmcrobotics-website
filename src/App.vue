@@ -11,7 +11,7 @@
     </v-navigation-drawer>
 
     <v-app-bar app fixed height="80">
-      <router-link to="/" class="home">
+      <router-link to="/" class="home" tabindex="-1">
         <v-img
           :src="require(this.$vuetify.theme.dark ? './assets/logo-dark.webp' : './assets/logo-light.webp')"
           max-height="48"
