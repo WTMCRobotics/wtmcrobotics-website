@@ -14,7 +14,7 @@
     <v-card-subtitle v-if="post.author" class="pb-0">By: {{post.author}}</v-card-subtitle>
 
     <v-card-text class="text--primary">
-      <div :class="card ? 'ellipsis' : ''">{{post.body}}</div>
+      <p :class="card ? 'ellipsis' : ''">{{post.body}}</p>
     </v-card-text>
   </v-card>
 </template>
