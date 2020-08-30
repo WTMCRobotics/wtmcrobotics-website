@@ -1,37 +1,21 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    function isAdmin() {
-      return request.auth != null && request.auth.token.email_verified == true && get(/databases/$(database)/documents/users/$(request.auth.token.email)).data.isAdmin;
-    }
-    function isEditor() {
-      return request.auth != null && request.auth.token.email_verified == true && exists(/databases/$(database)/documents/users/$(request.auth.token.email));
-    }
-    function signed() {
-      return request.auth != null && request.auth.token.email_verified == true && request.auth.token.email == request.resource.data.lastModifiedBy;
-    }
     match /blogs/{blogId} {
-      allow read: if resource.data.public == true || isEditor();
-      allow create, update: if signed() && isEditor();
-      allow delete: if isAdmin();
+      allow read: if resource.data.public == true || auth.token.isAdmin === true;
+      allow create, update: if || auth.token.isEditor === true;
+      allow delete: if auth.token.isAdmin === true;
     }
-    match /gallery/main {
+    match /main/gallery {
       allow get;
-      allow update: if signed() && isEditor();
+      allow update: if auth.token.isEditor === true;
     }
-    match /editors/{email} {
-      function isUser() {
-        return request.auth != null && request.auth.token.email_verified == true && request.auth.token.email == email;
-      }
-      function valid() {
-        return request.resource.data.keys().hasOnly(['name', 'role'])
-          && request.resource.data.isAdmin is bool
-          && request.resource.data.name is string && request.resource.data.name.size() < 25;
-      }
-      allow get;
-      allow list: if isAdmin();
-      allow create, update: if valid() && isAdmin();
-      allow delete: if isAdmin();
+    match /main/editors {
+      allow get: if auth.token.isAdmin === true;
+      allow update: if auth.token.isAdmin === true
+        && request.resource.data["wtmcrobotics@wccnet.edu"].admin === true
+        && request.resource.data[request.auth.email].admin === resource.data[request.auth.email].admin
+        && request.email_verified;
     }
   }
 }

@@ -126,7 +126,8 @@ export default class App extends Vue {
       this.setUser(user);
       console.log("loged in as:", user);
       user?.getIdTokenResult().then(idTokenResult => {
-        this.handleClaims(idTokenResult.claims);
+        // this.handleClaims(idTokenResult.claims);
+        this.handleClaims({ isEditor: true }); // TODO remove this
       });
     });
   }

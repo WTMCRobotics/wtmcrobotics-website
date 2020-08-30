@@ -36,11 +36,12 @@ export const signInOptions = [
 export const credentialHelper = firebaseui.auth.CredentialHelper.GOOGLE_YOLO;
 
 
-
+export const authorLength = 25;
+export const titleLength = 50;
 export interface BlogPost {
     author: string;
     body: string;
-    date: firebase.firestore.Timestamp;
+    date: firebase.firestore.Timestamp | Date;
     image: string;
     title: string;
     public: boolean;
@@ -56,10 +57,14 @@ export interface Photo {
     fileName: string;
     tokens: { '300x200': string; '1920x1080': string };
     alt: string;
-    date: firebase.firestore.Timestamp;
+    date: firebase.firestore.Timestamp | Date;
 }
 
 export interface Claims {
     isEditor?: boolean;
     isAdmin?: boolean;
+}
+
+export function isTimestamp(t: any): t is firebase.firestore.Timestamp {
+    return typeof t.seconds === 'number' && typeof t.nanoseconds === 'number' && typeof t.toDate === 'function';
 }

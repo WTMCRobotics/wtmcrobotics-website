@@ -41,6 +41,12 @@ const routes: Array<RouteConfig> = [
       import(/* webpackChunkName: "blog" */ "../views/Blog.vue")
   },
   {
+    path: "/blog/:blogId?/edit", alias: '/blog/new',
+    name: "EditPost",
+    component: () =>
+      import(/* webpackChunkName: "edit-post" */ "../views/EditPost.vue")
+  },
+  {
     path: "/blog/:blogId",
     name: "Post",
     component: () =>
