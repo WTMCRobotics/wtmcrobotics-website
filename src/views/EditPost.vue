@@ -89,10 +89,13 @@ import {
   titleLength,
   isTimestamp
 } from "@/firebase";
+import { namespace } from "vuex-class";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "@/quill-snow-vuetifier.scss";
 import { quillEditor } from "vue-quill-editor";
+
+const blogModule = namespace("blog");
 
 @Component({
   metaInfo: { title: "Blog Editor" },
@@ -162,6 +165,9 @@ export default class EditPost extends Vue {
     console.log(to);
   }
 
+  @blogModule.Mutation removePost!: (id: string) => void;
+  @blogModule.Mutation removeAll!: () => void;
+
   created() {
     this.reset();
   }
@@ -177,6 +183,7 @@ export default class EditPost extends Vue {
         .then(doc => {
           this.doc = doc as firebase.firestore.DocumentReference<BlogPost>;
           this.$router.replace({ params: { blogId: doc.id } });
+          this.removeAll();
         });
     }
   }
@@ -209,7 +216,9 @@ export default class EditPost extends Vue {
   deleteDoc() {
     if (this.doc) {
       this.doc.delete();
+      this.removePost(this.doc.id);
       this.doc = null;
+      this.$router.replace("/blog");
     }
   }
 }

@@ -6,7 +6,7 @@ import { User } from 'firebase';
 Vue.use(Vuex);
 
 interface BlogState {
-  posts: firebase.firestore.QueryDocumentSnapshot<BlogPost>[];
+  posts: firebase.firestore.DocumentSnapshot<BlogPost>[];
   doneLoading: boolean;
   loading: boolean;
 }
@@ -19,7 +19,7 @@ const blog: Module<BlogState, {}> = {
     loading: false,
   },
   mutations: {
-    addPosts: (state, newPosts: firebase.firestore.QueryDocumentSnapshot<BlogPost>[]) => {
+    addPosts: (state, newPosts: firebase.firestore.DocumentSnapshot<BlogPost>[]) => {
       state.posts.push(...newPosts);
     },
     setLoading: (state, loading: boolean) => {
@@ -28,6 +28,13 @@ const blog: Module<BlogState, {}> = {
     doneLoading: (state) => {
       state.doneLoading = true;
     },
+    removePost: (state, id: string) => {
+      state.posts = state.posts.filter(post => post.id !== id)
+    },
+    removeAll: (state) => {
+      state.posts = [];
+      state.doneLoading = false;
+    }
   },
   actions: {
     loadMore: ({ commit, state }, { limit, publicOnly }: { limit: number; publicOnly: boolean }) => {
