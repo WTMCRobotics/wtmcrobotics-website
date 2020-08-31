@@ -1,0 +1,103 @@
+.quill-editor {
+    border-radius: 4px;
+    --border-color: var(--border-dull-color);
+    a {
+        color: var(--v-primary-base);
+    }
+    .ql-tooltip,
+    .ql-picker-options {
+        border-radius: 4px;
+        color: inherit;
+        input[type="text"] {
+            border-radius: 1px;
+            border: inherit;
+            color: inherit;
+        }
+    }
+    *:focus {
+        outline-color: var(--text-color);
+    }
+    .ql-toolbar {
+        .ql-picker,
+        button {
+            color: var(--label-color);
+        }
+        .ql-color-picker .ql-picker-item.ql-selected,
+        .ql-color-picker .ql-picker-item:hover {
+            border-color: var(--text-color);
+        }
+    }
+    .ql-tooltip,
+    .ql-picker-options {
+        background-color: var(--modal-background);
+        border-color: var(--border-dull-color);
+    }
+    .ql-editor {
+        &::before {
+            color: var(--label-color);
+        }
+        min-height: 250px;
+    }
+    .ql-transparent {
+        opacity: 0.8;
+    }
+
+    &.theme--dark {
+        --border-dull-color: rgba(255, 255, 255, 0.24);
+        --text-color: white;
+        --label-color: #b8b8b8;
+        --modal-background: #1e1e1e;
+        * {
+            box-shadow: none;
+        }
+    }
+    &.theme--light {
+        --border-dull-color: rgba(0, 0, 0, 0.42);
+        --text-color: black;
+        --label-color: #666;
+        --modal-background: white;
+    }
+
+    .ql-toolbar {
+        border-right-color: var(--border-color);
+        border-left-color: var(--border-color);
+        border-top-color: var(--border-color);
+        border-bottom-color: var(--border-dull-color);
+        border-top-right-radius: inherit;
+        border-top-left-radius: inherit;
+        button,
+        .ql-picker-label,
+        .ql-picker-item {
+            .ql-stroke {
+                stroke: currentColor;
+            }
+            .ql-fill {
+                fill: currentColor;
+            }
+            &:focus,
+            &:hover,
+            &:active,
+            &.ql-selected,
+            &.ql-active {
+                color: var(--v-primary-base);
+                .ql-stroke {
+                    stroke: currentColor;
+                }
+                .ql-fill {
+                    fill: currentColor;
+                }
+            }
+        }
+    }
+    .ql-container {
+        border-color: var(--border-color);
+        border-bottom-right-radius: inherit;
+        border-bottom-left-radius: inherit;
+    }
+    &:hover {
+        --border-color: var(--text-color);
+    }
+    &:focus-within {
+        --border-color: var(--v-primary-base);
+    }
+}

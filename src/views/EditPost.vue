@@ -42,14 +42,11 @@
       </v-row>
       <v-row>
         <v-col cols="12" md="12">
-          <v-textarea
-            outlined
+          <quillEditor
             v-model="data.body"
-            :rules="validators.body"
-            label="Content"
-            required
-            type="date"
-          ></v-textarea>
+            :options="{}"
+            :class="$vuetify.theme.dark ? 'theme--dark':'theme--light'"
+          ></quillEditor>
         </v-col>
       </v-row>
       <v-row>
@@ -59,8 +56,9 @@
       </v-row>
       <v-row>
         <v-col cols="12" md="12" class="right">
-          <v-btn class="mr-4" color="primary" :disabled="!valid" @click="save">Save</v-btn>
-          <v-btn color="primary" @click="reset">Reset</v-btn>
+          <v-btn color="primary" class="mr-4" :disabled="!valid" @click="save">Save</v-btn>
+          <v-btn color="primary" class="mr-4" @click="reset">Reset</v-btn>
+          <v-btn color="primary" :disabled="!doc" @click="deleteDoc">Delete</v-btn>
         </v-col>
       </v-row>
     </v-form>
@@ -91,8 +89,15 @@ import {
   titleLength,
   isTimestamp
 } from "@/firebase";
-import { functions } from "firebase";
-@Component({ metaInfo: { title: "Blog Editor" } })
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+import "@/quill-snow-vuetifier.scss";
+import { quillEditor } from "vue-quill-editor";
+
+@Component({
+  metaInfo: { title: "Blog Editor" },
+  components: { quillEditor }
+})
 export default class EditPost extends Vue {
   doc: firebase.firestore.DocumentReference<BlogPost> | null = null;
   data: BlogPost = {
@@ -133,24 +138,24 @@ export default class EditPost extends Vue {
   authorLength = authorLength;
   titleLength = titleLength;
   validators = {
-    image: [(v: any) => !!v || "Image is required"],
+    image: [(v: string) => !!v || "Image is required"],
     author: [
-      (v: any) => !!v || "Author is required",
-      (v: any) =>
+      (v: string) => !!v || "Author is required",
+      (v: string) =>
         v?.length <= authorLength ||
         `Author must be less than ${authorLength} characters`
     ],
     title: [
-      (v: any) => !!v || "Title is required",
-      (v: any) =>
+      (v: string) => !!v || "Title is required",
+      (v: string) =>
         v?.length <= titleLength ||
         `Title must be less than ${titleLength} characters`
     ],
     date: [
-      (v: any) => !!v || "Date is required",
-      (v: any) => !!Date.parse(v) || "Date must be a valid date"
+      (v: string) => !!v || "Date is required",
+      (v: string) => !!Date.parse(v) || "Date must be a valid date"
     ],
-    body: [(v: any) => !!v || "Content is required"]
+    body: [(v: string) => !!v || "Content is required"]
   };
 
   @Watch("$route.params.blogId") handelRouteParam(to: string | undefined) {
@@ -198,6 +203,13 @@ export default class EditPost extends Vue {
         });
     } else {
       console.log("new");
+    }
+  }
+
+  deleteDoc() {
+    if (this.doc) {
+      this.doc.delete();
+      this.doc = null;
     }
   }
 }
