@@ -115,6 +115,22 @@ export default class App extends Vue {
   @Mutation setUser!: (user: User | null) => void;
   @Mutation handleClaims!: (claims: Claims) => void;
 
+  constructor() {
+    super();
+    this.unsubscribe = auth.onAuthStateChanged((user: User | null) => {
+      this.setUser(user);
+      console.log("loged in as:", user);
+      if (user) {
+        user?.getIdTokenResult().then(idTokenResult => {
+          // this.handleClaims(idTokenResult.claims);
+          this.handleClaims({ isEditor: true }); // TODO remove this
+        });
+      } else {
+        this.handleClaims({});
+      }
+    });
+  }
+
   beforeCreate() {
     const darkMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     this.$vuetify.theme.dark = darkMediaQuery.matches;
@@ -122,14 +138,6 @@ export default class App extends Vue {
       this.$vuetify.theme.dark = event.matches;
     });
     this.$router.afterEach(() => window.scrollTo({ top: 0 }));
-    this.unsubscribe = auth.onAuthStateChanged((user: User | null) => {
-      this.setUser(user);
-      console.log("loged in as:", user);
-      user?.getIdTokenResult().then(idTokenResult => {
-        // this.handleClaims(idTokenResult.claims);
-        this.handleClaims({ isEditor: true }); // TODO remove this
-      });
-    });
   }
 
   beforeDestroy() {
