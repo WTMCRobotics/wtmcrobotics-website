@@ -96,7 +96,7 @@ const gallery: Module<GalleryState, {}> = {
       }
       commit('setLoading', true);
       firestore.doc('gallery/main').get().then(snapshot => {
-        commit('setPhotos', (snapshot.data() as Gallery).photos.sort((a, b) => b.date.toMillis() - a.date.toMillis()));
+        commit('setPhotos', (snapshot.data() as Gallery).photos.sort());
       }).finally(() => {
         commit('setLoading', false);
       });
