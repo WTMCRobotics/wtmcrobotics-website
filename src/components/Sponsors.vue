@@ -21,13 +21,19 @@
       />
     </filter>
     <h2>Our Sponsors</h2>
-    <div class="carousel">
-      <a v-for="sponsor in sponsors" :key="sponsor.name" :href="sponsor.website" target="_blank">
+    <div class="carousel" v-resize="onResize">
+      <a
+        v-for="sponsor in sponsors"
+        :key="sponsor.name"
+        :href="sponsor.website"
+        target="_blank"
+        :style="'width: '+ percent +'%;'"
+      >
         <v-img
           :src="sponsor.logo"
-          height="150"
-          max-width="200"
           contain
+          width="100%"
+          :aspect-ratio="4/3"
           :alt="sponsor.name + ' logo'"
         ></v-img>
       </a>
@@ -36,15 +42,19 @@
 </template>
 
 <style lang="scss" scoped>
+h2 {
+  text-align: center;
+}
 .carousel {
-  display: grid;
-  grid-auto-flow: column;
-  align-self: center;
   scroll-snap-type: x mandatory;
+  white-space: nowrap;
   overflow-x: auto;
-  gap: 32px;
+  overflow-y: hidden;
+  text-align: center;
   a {
-    scroll-snap-align: center;
+    display: inline-block;
+    padding: 16px;
+    scroll-snap-align: start;
     .v-image {
       &.theme--dark {
         filter: url(#logoFilterWhite);
@@ -95,5 +105,16 @@ export default class Sponsors extends Vue {
       website: "https://bwlawonline.com/"
     }
   ];
+
+  percent = 50;
+
+  constructor() {
+    super();
+    this.onResize();
+  }
+
+  onResize() {
+    this.percent = 100 / Math.floor(window.innerWidth / 200);
+  }
 }
 </script>
