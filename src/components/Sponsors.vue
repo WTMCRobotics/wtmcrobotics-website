@@ -1,5 +1,25 @@
 <template>
   <v-container fluid>
+    <filter id="logoFilterWhite">
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 1
+                0 0 0 0 1
+                0 0 0 0 1
+                0 0 0 1 0"
+      />
+    </filter>
+    <filter id="logoFilterBlack">
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 1 0"
+      />
+    </filter>
     <h2>Our Sponsors</h2>
     <div class="carousel">
       <a v-for="sponsor in sponsors" :key="sponsor.name" :href="sponsor.website" target="_blank">
@@ -27,10 +47,10 @@
     scroll-snap-align: center;
     .v-image {
       &.theme--dark {
-        filter: contrast(0) brightness(0) invert(1);
+        filter: url(#logoFilterWhite);
       }
       &.theme--light {
-        filter: contrast(0) brightness(0);
+        filter: url(#logoFilterBlack);
       }
     }
   }
