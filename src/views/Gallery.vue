@@ -125,9 +125,9 @@ export default class Gallery extends Vue {
     window.removeEventListener("popstate", this.closeModal);
   }
 
-  getPhotoUrl(name: string, token: string, size: string) {
+  getPhotoUrl(name: string, token: string, small: string) {
     return `https://firebasestorage.googleapis.com/v0/b/wtmcrobotics-website.appspot.com/o/resized%2F${name}_${
-      size ? "400x300" : "2000x1500"
+      small ? "400x300" : "2000x1500"
     }.webp?alt=media&token=${token}`;
   }
 }
