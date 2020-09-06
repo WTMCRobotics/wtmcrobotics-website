@@ -2,19 +2,23 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /blogs/{blogId} {
-      allow read: if resource.data.public == true || auth.token.isAdmin === true;
-      allow create, update: if || auth.token.isEditor === true;
-      allow delete: if auth.token.isAdmin === true;
+      allow read: if resource.data.public == true || request.auth.token.isAdmin == true;
+      allow create, update: if request.auth.token.isEditor == true;
+      allow delete: if request.auth.token.isAdmin == true;
     }
     match /main/gallery {
       allow get;
-      allow update: if auth.token.isEditor === true;
+      allow update: if request.auth.token.isEditor == true;
+    }
+    match /main/sponsors {
+      allow get;
+      allow update: if auth.token.isEditor == true;
     }
     match /main/editors {
-      allow get: if auth.token.isAdmin === true;
-      allow update: if auth.token.isAdmin === true
-        && request.resource.data["wtmcrobotics@wccnet.edu"].admin === true
-        && request.resource.data[request.auth.email].admin === resource.data[request.auth.email].admin
+      allow get: if request.auth.token.isAdmin == true;
+      allow update: if request.auth.token.isAdmin == true
+        && request.resource.data["wtmcrobotics@wccnet.edu"].admin == true
+        && request.resource.data[request.auth.email].admin == resource.data[request.auth.email].admin
         && request.email_verified;
     }
   }

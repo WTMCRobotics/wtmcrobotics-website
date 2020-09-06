@@ -65,6 +65,17 @@ export interface Claims {
     isAdmin?: boolean;
 }
 
+export interface Sponsor {
+    logo: string;
+    name: string;
+    website: string;
+}
+
+
+export interface SponsorsDoc {
+    sponsors: Sponsor[];
+}
+
 export function isTimestamp(t: any): t is firebase.firestore.Timestamp {
     return typeof t.seconds === 'number' && typeof t.nanoseconds === 'number' && typeof t.toDate === 'function';
 }

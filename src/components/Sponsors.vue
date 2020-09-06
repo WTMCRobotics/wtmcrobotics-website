@@ -21,7 +21,10 @@
       />
     </filter>
     <h2>Our Sponsors</h2>
-    <div class="carousel" v-resize="onResize">
+    <div v-if="loading" class="spinnerWrapper">
+      <v-progress-circular :size="48" :width="5" indeterminate></v-progress-circular>
+    </div>
+    <div class="carousel" v-resize="onResize" v-else>
       <a
         v-for="sponsor in sponsors"
         :key="sponsor.name"
@@ -44,6 +47,11 @@
 <style lang="scss" scoped>
 h2 {
   text-align: center;
+}
+.spinnerWrapper {
+  height: 200px;
+  display: grid;
+  place-items: center;
 }
 .carousel {
   scroll-snap-type: x mandatory;
@@ -69,49 +77,25 @@ h2 {
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+import { Sponsor } from "@/firebase";
+
+const sponsorModule = namespace("sponsors");
 
 @Component
 export default class Sponsors extends Vue {
-  sponsors = [
-    {
-      logo: "https://www.wccnet.edu/_media/logo-white.png",
-      name: "Washtenaw Community College",
-      website: "https://www.wccnet.edu"
-    },
-    {
-      logo: "https://www.wccnet.edu/wtmc/_media/wtmclogo.png",
-      name: "Washtenaw Technical Middle College",
-      website: "https://www.wccnet.edu/wtmc"
-    },
-    {
-      logo: "https://www.arborresearch.org/Portals/0/arborresearchlogo.png",
-      name: "Arbor Research",
-      website: "https://www.arborresearch.org"
-    },
-    {
-      logo: "https://www.drkatherinekelly.com/assets/images/footer/ft-logo.png",
-      name: "Kelly Orthodontics",
-      website: "https://www.drkatherinekelly.com"
-    },
-    {
-      logo: "https://plusco.de/images/logo.png",
-      name: "PlusCode",
-      website: "https://plusco.de"
-    },
-    {
-      logo:
-        "https://bwlawonline.com/wp-content/uploads/2019/08/logo_whitebkgd.jpg",
-      name: "Blanchard & Walker PLLC",
-      website: "https://bwlawonline.com/"
-    }
-  ];
+  @sponsorModule.State loading!: boolean;
+  @sponsorModule.State sponsors!: Sponsor[];
 
   percent = 50;
 
   constructor() {
     super();
+    this.load();
     this.onResize();
   }
+
+  @sponsorModule.Action load!: () => void;
 
   onResize() {
     this.percent = 100 / Math.floor(window.innerWidth / 200);

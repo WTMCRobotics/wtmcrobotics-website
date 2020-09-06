@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex, { Module } from "vuex";
-import { firestore, BlogPost, Gallery, Photo, auth, Claims } from "@/firebase";
+import { firestore, BlogPost, Gallery, Photo, auth, Claims, Sponsor, SponsorsDoc } from "@/firebase";
 import { User } from 'firebase';
 
 Vue.use(Vuex);
@@ -102,8 +102,42 @@ const gallery: Module<GalleryState, {}> = {
         return;
       }
       commit('setLoading', true);
-      firestore.doc('gallery/main').get().then(snapshot => {
+      firestore.doc('main/gallery').get().then(snapshot => {
         commit('setPhotos', (snapshot.data() as Gallery).photos.sort());
+      }).finally(() => {
+        commit('setLoading', false);
+      });
+    }
+  },
+};
+
+interface SponsorsState {
+  sponsors: Sponsor[];
+  loading: boolean;
+}
+
+const sponsors: Module<SponsorsState, {}> = {
+  namespaced: true,
+  state: {
+    sponsors: [],
+    loading: false,
+  },
+  mutations: {
+    setSponsors: (state, sponsors: Sponsor[]) => {
+      state.sponsors = sponsors;
+    },
+    setLoading: (state, loading: boolean) => {
+      state.loading = loading;
+    }
+  },
+  actions: {
+    load: ({ commit, state }) => {
+      if (state.sponsors.length > 0 || state.loading) {
+        return;
+      }
+      commit('setLoading', true);
+      firestore.doc('main/sponsors').get().then(snapshot => {
+        commit('setSponsors', (snapshot.data() as SponsorsDoc).sponsors);
       }).finally(() => {
         commit('setLoading', false);
       });
@@ -127,5 +161,5 @@ export default new Vuex.Store({
     }
   },
   actions: {},
-  modules: { blog, gallery }
+  modules: { blog, gallery, sponsors }
 });
