@@ -81,6 +81,30 @@ body {
   background: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
 }
+body.style-scrollbars,
+body.style-scrollbars * {
+  --track: #e2e2e2;
+  --thumb: #bebebe;
+  @media (prefers-color-scheme: dark) {
+    --track: #323232;
+    --thumb: #565656;
+  }
+  &::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: var(--track);
+    border-radius: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--thumb);
+    border-radius: 6px;
+  }
+}
+body.style-scrollbars::-webkit-scrollbar-track {
+  border-radius: 0;
+}
 </style>
 
 <script lang="ts">
@@ -151,5 +175,20 @@ export default class App extends Vue {
     window.scrollTo({ top: Math.trunc(window.scrollY) });
     this.$vuetify.goTo(0);
   }
+}
+
+{
+  const scrollBarTester = document.createElement("div");
+  scrollBarTester.style.position = "fixed";
+  scrollBarTester.style.overflowY = "scroll";
+  document.body.appendChild(scrollBarTester);
+  setTimeout(() => {
+    if (scrollBarTester.offsetWidth > 0) {
+      document.body.classList.add("style-scrollbars");
+    } else {
+      document.body.classList.remove("style-scrollbars");
+    }
+    scrollBarTester.remove();
+  });
 }
 </script>
