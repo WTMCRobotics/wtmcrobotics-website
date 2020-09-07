@@ -24,7 +24,13 @@
     <div v-if="loading" class="spinnerWrapper">
       <v-progress-circular :size="48" :width="5" indeterminate></v-progress-circular>
     </div>
-    <div class="carousel" v-resize="onResize" v-else>
+    <div
+      class="carousel"
+      v-resize="onResize"
+      v-else
+      ref="carousel"
+      @scroll="wasScrolled = Date.now();"
+    >
       <a
         v-for="sponsor in sponsors"
         :key="sponsor.name"
@@ -89,6 +95,9 @@ export default class Sponsors extends Vue {
 
   percent = 50;
 
+  scrollIntervalID = 0;
+  wasScrolled = Date.now();
+
   constructor() {
     super();
     this.load();
@@ -99,6 +108,38 @@ export default class Sponsors extends Vue {
 
   onResize() {
     this.percent = 100 / Math.floor(window.innerWidth / 200);
+  }
+
+  mounted() {
+    this.scrollIntervalID = setInterval(() => {
+      if (Date.now() - this.wasScrolled < 3_000) {
+        this.wasScrolled = Date.now();
+        return;
+      }
+      const carousel = this.$refs.carousel as Element;
+      if (carousel) {
+        if (
+          Math.floor(carousel.scrollLeft + carousel.clientWidth) ===
+          carousel.scrollWidth
+        ) {
+          carousel.scrollTo({
+            left: 0,
+            behavior: "smooth"
+          });
+        } else {
+          carousel.scrollBy({
+            left: carousel.querySelector("a")?.clientWidth || 200,
+            behavior: "smooth"
+          });
+        }
+      }
+    }, 5_000);
+  }
+
+  beforeDestroy() {
+    if (this.scrollIntervalID !== 0) {
+      clearInterval(this.scrollIntervalID);
+    }
   }
 }
 </script>
