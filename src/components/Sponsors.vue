@@ -119,8 +119,9 @@ export default class Sponsors extends Vue {
       const carousel = this.$refs.carousel as Element;
       if (carousel) {
         if (
-          Math.floor(carousel.scrollLeft + carousel.clientWidth) ===
-          carousel.scrollWidth
+          Math.abs(
+            carousel.scrollLeft + carousel.clientWidth - carousel.scrollWidth
+          ) < 1
         ) {
           carousel.scrollTo({
             left: 0,
