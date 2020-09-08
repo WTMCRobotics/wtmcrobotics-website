@@ -105,6 +105,12 @@ body.style-scrollbars * {
 body.style-scrollbars::-webkit-scrollbar-track {
   border-radius: 0;
 }
+.v-input.theme--dark input:-webkit-autofill {
+  filter: grayscale(1) invert(1);
+}
+.v-input.theme--light input:-webkit-autofill {
+  filter: grayscale(1) contrast(2);
+}
 </style>
 
 <script lang="ts">
