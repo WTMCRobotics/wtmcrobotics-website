@@ -3,7 +3,15 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12" sm="6">
-          <v-text-field outlined v-model="values.name" :rules="nameRules" label="Name" required></v-text-field>
+          <v-text-field
+            outlined
+            v-model="values.name"
+            :rules="nameRules"
+            type="text"
+            autocomplete="name"
+            label="Name"
+            required
+          ></v-text-field>
         </v-col>
 
         <v-col cols="12" sm="6">
@@ -12,6 +20,7 @@
             v-model="values.email"
             :rules="emailRules"
             type="email"
+            autocomplete="email"
             label="E-mail"
             required
           ></v-text-field>
