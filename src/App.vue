@@ -10,7 +10,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app fixed height="80">
+    <v-app-bar app fixed height="80" :class="{scrollable}">
       <router-link to="/" class="home" tabindex="-1">
         <v-img
           :src="require(this.$vuetify.theme.dark ? './assets/logo-dark.webp' : './assets/logo-light.webp')"
@@ -65,9 +65,15 @@
 .v-tabs {
   width: min-content;
 }
+body.style-scrollbars header:not(.scrollable) {
+  padding-right: 12px;
+}
 </style>
 
 <style lang="scss">
+html {
+  overflow-y: auto !important;
+}
 body {
   overflow: hidden;
 }
@@ -142,6 +148,8 @@ export default class App extends Vue {
   ];
   unsubscribe: Unsubscribe | null = null;
 
+  scrollable = true;
+
   @Mutation setUser!: (user: User | null) => void;
   @Mutation handleClaims!: (claims: Claims) => void;
 
@@ -168,6 +176,11 @@ export default class App extends Vue {
       this.$vuetify.theme.dark = event.matches;
     });
     this.$router.afterEach(() => window.scrollTo({ top: 0 }));
+  }
+
+  updated() {
+    const root = document.querySelector("html") as HTMLHtmlElement;
+    this.scrollable = root.clientHeight !== root.scrollHeight;
   }
 
   beforeDestroy() {
