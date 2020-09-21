@@ -21,6 +21,6 @@ div {
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-@Component({ metaInfo: { titleTemplate: null } })
+@Component({ metaInfo: { titleTemplate: "" } })
 export default class Blog extends Vue {}
 </script>

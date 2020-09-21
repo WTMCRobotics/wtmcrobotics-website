@@ -15,7 +15,7 @@ import Sponsors from "@/components/Sponsors.vue";
     HelloWorld,
     Sponsors
   },
-  metaInfo: { titleTemplate: null }
+  metaInfo: { titleTemplate: "" }
 })
 export default class Home extends Vue {}
 </script>
