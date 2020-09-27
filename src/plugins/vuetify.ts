@@ -17,5 +17,8 @@ export default new Vuetify({
         primary: "#c20312"
       }
     }
+  },
+  icons: {
+    iconfont: 'md',
   }
 });

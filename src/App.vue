@@ -63,7 +63,7 @@
         color="primary"
         aria-hidden="true"
       >
-        <v-icon>mdi-chevron-up</v-icon>
+        <v-icon>keyboard_arrow_up</v-icon>
       </v-btn>
     </v-slide-y-reverse-transition>
 
