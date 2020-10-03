@@ -15,7 +15,17 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app fixed height="80" :class="{ scrollable }">
+    <v-app-bar
+      app
+      fixed
+      height="80"
+      :class="{
+        scrollable,
+        'safe-pad-top': true,
+        'safe-pad-left': true,
+        'safe-pad-right': true
+      }"
+    >
       <router-link to="/" class="home" tabindex="-1">
         <v-img
           :src="
@@ -46,7 +56,10 @@
         aria-label="Navigation"
       ></v-app-bar-nav-icon>
     </v-app-bar>
-    <v-main style="min-height: calc(100vh - 36px);">
+    <v-main
+      style="min-height: calc(100vh - 36px);"
+      class="safe-mar-left safe-mar-right"
+    >
       <router-view></router-view>
     </v-main>
 
@@ -67,7 +80,9 @@
       </v-btn>
     </v-slide-y-reverse-transition>
 
-    <v-footer>this is a v-footer</v-footer>
+    <v-footer class="safe-pad-bottom safe-pad-left safe-pad-right"
+      >this is a v-footer</v-footer
+    >
   </v-app>
 </template>
 
@@ -131,6 +146,33 @@ body.style-scrollbars::-webkit-scrollbar-track {
 }
 .v-input.theme--light input:-webkit-autofill {
   filter: grayscale(1) contrast(2);
+}
+.safe-pad-top {
+  padding-top: env(safe-area-inset-top);
+}
+.safe-pad-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+  &.v-footer {
+    padding-right: max(env(safe-area-inset-bottom), 6px);
+  }
+}
+.safe-pad-left {
+  padding-left: env(safe-area-inset-left);
+  &.v-footer {
+    padding-left: max(env(safe-area-inset-left), 16px);
+  }
+}
+.safe-pad-right {
+  padding-right: env(safe-area-inset-right);
+  &.v-footer {
+    padding-right: max(env(safe-area-inset-right), 16px);
+  }
+}
+.safe-mar-left {
+  margin-left: env(safe-area-inset-left);
+}
+.safe-mar-right {
+  margin-right: env(safe-area-inset-right);
 }
 </style>
 
