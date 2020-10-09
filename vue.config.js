@@ -9,6 +9,11 @@ module.exports = {
       display: 'browser',
       icons: [
         {
+          src: './img/icons/monochrome.svg',
+          type: 'image/svg+xml',
+          purpose: 'monochrome'
+        },
+        {
           src: './img/icons/monochrome-24x24.png',
           sizes: '24x24',
           type: 'image/png',
@@ -21,9 +26,16 @@ module.exports = {
           purpose: 'monochrome'
         },
         {
-          src: './img/icons/monochrome.svg',
-          type: 'image/svg+xml',
-          purpose: 'monochrome'
+          src: './img/icons/round-192x192.webp',
+          sizes: '192x192',
+          type: 'image/webp',
+          purpose: 'any'
+        },
+        {
+          src: './img/icons/round-512x512.webp',
+          sizes: '512x512',
+          type: 'image/webp',
+          purpose: 'any'
         },
         {
           src: './img/icons/round-144x144.png',
@@ -44,15 +56,15 @@ module.exports = {
           purpose: 'any'
         },
         {
-          src: './img/icons/maskable-192x192.png',
+          src: './img/icons/maskable-192x192.webp',
           sizes: '192x192',
-          type: 'image/png',
+          type: 'image/webp',
           purpose: 'maskable'
         },
         {
-          src: './img/icons/maskable-512x512.png',
+          src: './img/icons/maskable-512x512.webp',
           sizes: '512x512',
-          type: 'image/png',
+          type: 'image/webp',
           purpose: 'maskable'
         }
       ]
