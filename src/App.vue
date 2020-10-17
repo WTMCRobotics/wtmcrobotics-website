@@ -172,6 +172,9 @@ body {
 .safe-mar-right {
   margin-right: env(safe-area-inset-right);
 }
+*:focus:not(:focus-visible) {
+  outline: none;
+}
 </style>
 
 <script lang="ts">
