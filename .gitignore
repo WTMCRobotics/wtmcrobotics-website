@@ -15,6 +15,7 @@ pnpm-debug.log*
 firebase-debug.log
 firestore-debug.log
 ui-debug.log
+debug.log
 
 # Editor directories and files
 .idea
