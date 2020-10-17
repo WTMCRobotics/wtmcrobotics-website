@@ -1,48 +1,32 @@
 <template>
   <v-container fluid>
-    <filter id="logoFilterWhite">
-      <feColorMatrix
-        in="SourceGraphic"
-        type="matrix"
-        values="0 0 0 0 1
-                0 0 0 0 1
-                0 0 0 0 1
-                0 0 0 1 0"
-      />
-    </filter>
-    <filter id="logoFilterBlack">
-      <feColorMatrix
-        in="SourceGraphic"
-        type="matrix"
-        values="0 0 0 0 0
-                0 0 0 0 0
-                0 0 0 0 0
-                0 0 0 1 0"
-      />
-    </filter>
     <h2>Our Sponsors</h2>
     <div v-if="loading" class="spinnerWrapper">
-      <v-progress-circular :size="48" :width="5" indeterminate></v-progress-circular>
+      <v-progress-circular
+        :size="48"
+        :width="5"
+        indeterminate
+      ></v-progress-circular>
     </div>
     <div
       class="carousel"
       v-resize="onResize"
       v-else
       ref="carousel"
-      @scroll="wasScrolled = Date.now();"
+      @scroll="wasScrolled = Date.now()"
     >
       <a
         v-for="sponsor in sponsors"
         :key="sponsor.name"
         :href="sponsor.website"
         target="_blank"
-        :style="'width: '+ percent +'%;'"
+        :style="'width: ' + percent + '%;'"
       >
         <v-img
           :src="sponsor.logo"
           contain
           width="100%"
-          :aspect-ratio="4/3"
+          :aspect-ratio="4 / 3"
           :alt="sponsor.name + ' logo'"
         ></v-img>
       </a>
@@ -71,10 +55,10 @@ h2 {
     scroll-snap-align: start;
     .v-image {
       &.theme--dark {
-        filter: url(#logoFilterWhite);
+        filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='logoFilterWhite'><feColorMatrix type=\"matrix\" values=\"0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0\"/></filter></svg>#logoFilterWhite");
       }
       &.theme--light {
-        filter: url(#logoFilterBlack);
+         filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='logoFilterBlack'><feColorMatrix type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0\"/></filter></svg>#logoFilterBlack");
       }
     }
   }
