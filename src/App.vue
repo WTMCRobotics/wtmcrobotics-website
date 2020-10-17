@@ -95,17 +95,39 @@
 .v-tabs {
   width: min-content;
 }
-body.style-scrollbars header:not(.scrollable) {
-  padding-right: 12px;
-}
 </style>
 
 <style lang="scss">
 html {
   overflow-y: auto !important;
+  --track: #e2e2e2;
+  --thumb: #bebebe;
+  @media (prefers-color-scheme: dark) {
+    --track: #323232;
+    --thumb: #565656;
+  }
+  scrollbar-color: var(--thumb) var(--track);
+  &,
+  body.style-scrollbars * {
+    &::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: var(--track);
+      border-radius: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--thumb);
+      border-radius: 6px;
+    }
+  }
 }
 body {
   overflow: hidden;
+  &.style-scrollbars::-webkit-scrollbar-track {
+    border-radius: 0;
+  }
 }
 .unselectable {
   -moz-user-select: none;
@@ -116,30 +138,6 @@ body {
 .v-btn.on-image {
   background: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
-}
-body.style-scrollbars,
-body.style-scrollbars * {
-  --track: #e2e2e2;
-  --thumb: #bebebe;
-  @media (prefers-color-scheme: dark) {
-    --track: #323232;
-    --thumb: #565656;
-  }
-  &::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: var(--track);
-    border-radius: 6px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--thumb);
-    border-radius: 6px;
-  }
-}
-body.style-scrollbars::-webkit-scrollbar-track {
-  border-radius: 0;
 }
 .v-input.theme--dark input:-webkit-autofill {
   filter: grayscale(1) invert(1);
