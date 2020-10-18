@@ -34,4 +34,4 @@ jobs:
       - name: deploy to firebase
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: firebase deploy -m "${GITHUB_SHA}" --token $FIREBASE_TOKEN --except functions # remove the "--except functions" once a billing account is set up
+        run: firebase deploy -m "${GITHUB_SHA}" --token "$FIREBASE_TOKEN" --except functions # remove the "--except functions" once a billing account is set up
