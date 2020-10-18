@@ -1,4 +1,4 @@
-# wtmcrobotics
+# WTMCRobotics.com
 
 ## Project setup
 ```
