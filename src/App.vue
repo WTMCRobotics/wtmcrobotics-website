@@ -2,7 +2,12 @@
   <v-app>
     <v-navigation-drawer app v-model="drawer" fixed temporary right>
       <v-list>
-        <v-list-item v-for="item in items" :key="item.title" link :to="item.path">
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          link
+          :to="item.path"
+        >
           <v-list-item-content>
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
@@ -10,12 +15,26 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app fixed height="80" :class="{scrollable}">
+    <v-app-bar
+      app
+      fixed
+      height="80"
+      :class="{
+        scrollable,
+        'safe-pad-top': true,
+        'safe-pad-left': true,
+        'safe-pad-right': true
+      }"
+    >
       <router-link to="/" class="home" tabindex="-1">
         <v-img
-          :src="require(this.$vuetify.theme.dark ? './assets/logo-dark.webp' : './assets/logo-light.webp')"
-          max-height="48"
-          max-width="48"
+          :src="
+            require(this.$vuetify.theme.dark
+              ? './assets/logo-dark.webp'
+              : './assets/logo-light.webp')
+          "
+          height="48"
+          width="48"
           contain
         />
         <v-toolbar-title class="px-1 unselectable" style="font-size: 2rem;">
@@ -27,11 +46,20 @@
       <v-spacer></v-spacer>
 
       <v-tabs v-if="this.$vuetify.breakpoint.mdAndUp" right>
-        <v-tab v-for="item in items" :key="item.title" :to="item.path">{{item.title}}</v-tab>
+        <v-tab v-for="item in items" :key="item.title" :to="item.path">{{
+          item.title
+        }}</v-tab>
       </v-tabs>
-      <v-app-bar-nav-icon v-else @click.stop="drawer = !drawer" aria-label="Navigation"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        v-else
+        @click.stop="drawer = !drawer"
+        aria-label="Navigation"
+      ></v-app-bar-nav-icon>
     </v-app-bar>
-    <v-main style="min-height: calc(100vh - 36px);">
+    <v-main
+      style="min-height: calc(100vh - 36px);"
+      class="safe-mar-left safe-mar-right"
+    >
       <router-view></router-view>
     </v-main>
 
@@ -44,15 +72,17 @@
         right
         v-show="showFab"
         v-scroll="onScroll"
-        @click="scroolToTop"
+        @click="scrollToTop"
         color="primary"
         aria-hidden="true"
       >
-        <v-icon>mdi-chevron-up</v-icon>
+        <v-icon>keyboard_arrow_up</v-icon>
       </v-btn>
     </v-slide-y-reverse-transition>
 
-    <v-footer>this is a v-footer</v-footer>
+    <v-footer class="safe-pad-bottom safe-pad-left safe-pad-right"
+      >this is a v-footer</v-footer
+    >
   </v-app>
 </template>
 
@@ -61,21 +91,46 @@
   text-decoration: inherit;
   color: inherit;
   display: flex;
+  span {
+    font-weight: 500;
+  }
 }
 .v-tabs {
   width: min-content;
-}
-body.style-scrollbars header:not(.scrollable) {
-  padding-right: 12px;
 }
 </style>
 
 <style lang="scss">
 html {
   overflow-y: auto !important;
+  --track: #e2e2e2;
+  --thumb: #bebebe;
+  @media (prefers-color-scheme: dark) {
+    --track: #323232;
+    --thumb: #565656;
+  }
+  scrollbar-color: var(--thumb) var(--track);
+  &,
+  body.style-scrollbars * {
+    &::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: var(--track);
+      border-radius: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--thumb);
+      border-radius: 6px;
+    }
+  }
 }
 body {
   overflow: hidden;
+  &.style-scrollbars::-webkit-scrollbar-track {
+    border-radius: 0;
+  }
 }
 .unselectable {
   -moz-user-select: none;
@@ -87,35 +142,41 @@ body {
   background: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
 }
-body.style-scrollbars,
-body.style-scrollbars * {
-  --track: #e2e2e2;
-  --thumb: #bebebe;
-  @media (prefers-color-scheme: dark) {
-    --track: #323232;
-    --thumb: #565656;
-  }
-  &::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: var(--track);
-    border-radius: 6px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--thumb);
-    border-radius: 6px;
-  }
-}
-body.style-scrollbars::-webkit-scrollbar-track {
-  border-radius: 0;
-}
 .v-input.theme--dark input:-webkit-autofill {
   filter: grayscale(1) invert(1);
 }
 .v-input.theme--light input:-webkit-autofill {
   filter: grayscale(1) contrast(2);
+}
+.safe-pad-top {
+  padding-top: env(safe-area-inset-top);
+}
+.safe-pad-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+  &.v-footer {
+    padding-right: max(env(safe-area-inset-bottom), 6px);
+  }
+}
+.safe-pad-left {
+  padding-left: env(safe-area-inset-left);
+  &.v-footer {
+    padding-left: max(env(safe-area-inset-left), 16px);
+  }
+}
+.safe-pad-right {
+  padding-right: env(safe-area-inset-right);
+  &.v-footer {
+    padding-right: max(env(safe-area-inset-right), 16px);
+  }
+}
+.safe-mar-left {
+  margin-left: env(safe-area-inset-left);
+}
+.safe-mar-right {
+  margin-right: env(safe-area-inset-right);
+}
+*:focus:not(:focus-visible) {
+  outline: none;
 }
 </style>
 
@@ -190,7 +251,7 @@ export default class App extends Vue {
   onScroll() {
     this.showFab = window.scrollY > window.innerHeight;
   }
-  scroolToTop() {
+  scrollToTop() {
     window.scrollTo({ top: Math.trunc(window.scrollY) });
     this.$vuetify.goTo(0);
   }

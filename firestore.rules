@@ -12,7 +12,7 @@ service cloud.firestore {
     }
     match /main/sponsors {
       allow get;
-      allow update: if auth.token.isEditor == true;
+      allow update: if request.auth.token.isEditor == true;
     }
     match /main/editors {
       allow get: if request.auth.token.isAdmin == true;

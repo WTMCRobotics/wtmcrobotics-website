@@ -20,7 +20,7 @@
     </div>
     <v-dialog fullscreen v-model="showModal" dark ref="fullscreen">
       <v-btn icon class="on-image" @click.stop="closeModal">
-        <v-icon>mdi-close</v-icon>
+        <v-icon>close</v-icon>
       </v-btn>
       <v-carousel
         height="100%"

@@ -7,7 +7,7 @@
           height="100%"
           color="rgba(128, 128, 128, 0.2"
         >
-          <v-icon aria-hidden="true" style="font-size: 64px;">mdi-plus</v-icon>
+          <v-icon aria-hidden="true" style="font-size: 64px;">add</v-icon>
         </v-sheet>
       </v-responsive>
       <v-card-title>Add a New Blog Post</v-card-title>
@@ -16,7 +16,13 @@
         <p>Click here to start writing a new blog post.</p>
       </v-card-text>
     </v-card>
-    <PostCard v-for="post in posts" :key="post.id" :id="post.id" :post="post.data()" :card="true"></PostCard>
+    <PostCard
+      v-for="post in posts"
+      :key="post.id"
+      :id="post.id"
+      :post="post.data()"
+      :card="true"
+    ></PostCard>
     <div v-if="!doneLoading" class="load-more">
       <v-btn text :loading="loading" @click="loadMorePosts">Load more</v-btn>
     </div>
