@@ -91,6 +91,9 @@
   text-decoration: inherit;
   color: inherit;
   display: flex;
+  span {
+    font-weight: 500;
+  }
 }
 .v-tabs {
   width: min-content;
