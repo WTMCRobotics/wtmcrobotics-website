@@ -6,7 +6,7 @@ name: Deploy
 # events but only for the master branch
 on:
   push:
-    branches: [master]
+    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,7 +19,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
+        
       - name: Setup Node.js environment
         uses: actions/setup-node@v1.4.2
         with:
@@ -32,6 +32,6 @@ jobs:
           npm i
 
       - name: deploy to firebase
+        run: firebase deploy -m "${GITHUB_SHA}" --except functions # remove the "--except functions" once a billing account is set up
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: firebase deploy -m "${GITHUB_SHA}" --token "$FIREBASE_TOKEN" --except functions # remove the "--except functions" once a billing account is set up
