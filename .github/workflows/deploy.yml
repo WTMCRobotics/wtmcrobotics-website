@@ -31,9 +31,6 @@ jobs:
           sudo npm install -g firebase-tools
           npm i
 
-      - name: build
-        run: npm run build
-
       - name: deploy to firebase
         run: firebase deploy -m "${GITHUB_SHA}" --except functions # remove the "--except functions" once a billing account is set up
         env:
