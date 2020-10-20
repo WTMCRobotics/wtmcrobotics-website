@@ -64,6 +64,12 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(/* webpackChunkName: "account" */ "../views/Account.vue")
   },
+  {
+    path: "/privacy-policy",
+    alias: "/terms-of-service",
+    name: "Reload",
+    redirect: to => location.href = to.fullPath
+  },
   { path: '/index.html', redirect: '/' },
   { path: '/blogdetail.php', redirect: '/blog' },
   { path: '/:page.html', redirect: '/:page' },
