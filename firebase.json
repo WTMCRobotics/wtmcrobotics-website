@@ -27,6 +27,31 @@
         "source": "/terms-of-service",
         "destination": "https://docs.google.com/document/d/e/2PACX-1vR1JJ1yAuv2HMu-33pJs0rNXzUhsNnBGF1FqZZaWPDneU3gS7bwk-1DAbXkBI9mD_mWYAYhxlEfYkrd/pub",
         "type": 302
+      },
+      {
+        "source": "/terms-of-service",
+        "destination": "https://docs.google.com/document/d/e/2PACX-1vR1JJ1yAuv2HMu-33pJs0rNXzUhsNnBGF1FqZZaWPDneU3gS7bwk-1DAbXkBI9mD_mWYAYhxlEfYkrd/pub",
+        "type": 302
+      },
+      {
+        "source": "/index.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/blogdetail.php",
+        "destination": "/blog",
+        "type": 301
+      },
+      {
+        "source": "/:page.html",
+        "destination": "/:page",
+        "type": 301
+      },
+      {
+        "source": "/:page.php",
+        "destination": "/:page",
+        "type": 301
       }
     ],
     "rewrites": [
