@@ -98,11 +98,15 @@
 .v-tabs {
   width: min-content;
 }
+.style-scrollbars header:not(.scrollable) {
+  padding-right: 12px;
+}
 </style>
 
 <style lang="scss">
 html {
   overflow-y: auto !important;
+  --scrollbar-size: 12px;
   --track: #e2e2e2;
   --thumb: #bebebe;
   @media (prefers-color-scheme: dark) {
@@ -113,16 +117,16 @@ html {
   &,
   body.style-scrollbars * {
     &::-webkit-scrollbar {
-      width: 12px;
-      height: 12px;
+      width: var(--scrollbar-size);
+      height: var(--scrollbar-size);
     }
     &::-webkit-scrollbar-track {
       background-color: var(--track);
-      border-radius: 6px;
+      border-radius: calc(var(--scrollbar-size) / 2);
     }
     &::-webkit-scrollbar-thumb {
       background-color: var(--thumb);
-      border-radius: 6px;
+      border-radius: calc(var(--scrollbar-size) / 2);
     }
   }
 }
