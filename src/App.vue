@@ -58,7 +58,7 @@
     </v-app-bar>
     <v-main
       style="min-height: calc(100vh - 36px);"
-      class="safe-mar-left safe-mar-right"
+      class="safe-pad-left safe-pad-right"
       ref="main"
     >
       <router-view></router-view>
@@ -69,8 +69,6 @@
         fixed
         fab
         small
-        bottom
-        right
         v-show="showFab"
         v-scroll="onScroll"
         @click="scrollToTop"
@@ -95,6 +93,15 @@
   span {
     font-weight: 500;
   }
+}
+.v-footer {
+  --padding-bottom-min: 6px;
+  --padding-left-min: 16px;
+  --padding-right-min: 16px;
+}
+.v-btn--fab {
+  bottom: max(16px, env(safe-area-inset-bottom));
+  right: max(16px, env(safe-area-inset-right));
 }
 .style-scrollbars header:not(.scrollable) {
   padding-right: 12px;
@@ -150,32 +157,43 @@ body {
 .v-input.theme--light input:-webkit-autofill {
   filter: grayscale(1) contrast(2);
 }
+:root {
+  --padding-top-min: 0px;
+  --padding-bottom-min: 0px;
+  --padding-left-min: 0px;
+  --padding-right-min: 0px;
+  --padding-top-add: 0px;
+  --padding-bottom-add: 0px;
+  --padding-left-add: 0px;
+  --padding-right-add: 0px;
+}
 .safe-pad-top {
-  padding-top: env(safe-area-inset-top);
+  padding-top: var(--padding-top-min) !important;
+  padding-top: max(
+    var(--padding-top-min),
+    calc(var(--padding-top-add) + env(safe-area-inset-top))
+  ) !important;
 }
 .safe-pad-bottom {
-  padding-bottom: env(safe-area-inset-bottom);
-  &.v-footer {
-    padding-bottom: max(env(safe-area-inset-bottom), 6px);
-  }
+  padding-bottom: var(--padding-bottom-min) !important;
+  padding-bottom: max(
+    var(--padding-bottom-min),
+    calc(var(--padding-bottom-add) + env(safe-area-inset-bottom))
+  ) !important;
 }
 .safe-pad-left {
-  padding-left: env(safe-area-inset-left);
-  &.v-footer {
-    padding-left: max(env(safe-area-inset-left), 16px);
-  }
+  padding-left: var(--padding-left-min) !important;
+  padding-left: max(
+    var(--padding-left-min),
+    calc(var(--padding-left-add) + env(safe-area-inset-left))
+  ) !important;
 }
 .safe-pad-right {
-  padding-right: env(safe-area-inset-right);
-  &.v-footer {
-    padding-right: max(env(safe-area-inset-right), 16px);
-  }
-}
-.safe-mar-left {
-  margin-left: env(safe-area-inset-left);
-}
-.safe-mar-right {
-  margin-right: env(safe-area-inset-right);
+  padding-right: var(--padding-right-min) !important;
+  padding-right: max(
+    var(--padding-right-min),
+    calc(var(--padding-right-add) + env(safe-area-inset-right))
+  ) !important;
 }
 *:focus:not(:focus-visible) {
   outline: none;
