@@ -156,7 +156,7 @@ body {
 .safe-pad-bottom {
   padding-bottom: env(safe-area-inset-bottom);
   &.v-footer {
-    padding-right: max(env(safe-area-inset-bottom), 6px);
+    padding-bottom: max(env(safe-area-inset-bottom), 6px);
   }
 }
 .safe-pad-left {
