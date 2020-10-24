@@ -183,7 +183,6 @@ body {
 </style>
 
 <script lang="ts">
-/// <reference types="resize-observer-browser" />
 import { Component, Vue } from "vue-property-decorator";
 import { auth, Claims } from "@/firebase";
 import { Unsubscribe, User } from "firebase";
