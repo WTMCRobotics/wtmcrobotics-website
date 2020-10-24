@@ -43,8 +43,6 @@
         </v-toolbar-title>
       </router-link>
 
-      <v-spacer></v-spacer>
-
       <v-tabs v-if="this.$vuetify.breakpoint.mdAndUp" right>
         <v-tab v-for="item in items" :key="item.title" :to="item.path">{{
           item.title
@@ -94,9 +92,6 @@
   span {
     font-weight: 500;
   }
-}
-.v-tabs {
-  width: min-content;
 }
 .style-scrollbars header:not(.scrollable) {
   padding-right: 12px;
