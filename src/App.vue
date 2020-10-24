@@ -45,7 +45,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-tabs v-if="this.$vuetify.breakpoint.mdAndUp" right>
+      <v-tabs v-if="this.$vuetify.breakpoint.mdAndUp" right ref="vTabs">
         <v-tab v-for="item in items" :key="item.title" :to="item.path">{{
           item.title
         }}</v-tab>
@@ -59,6 +59,7 @@
     <v-main
       style="min-height: calc(100vh - 36px);"
       class="safe-mar-left safe-mar-right"
+      ref="main"
     >
       <router-view></router-view>
     </v-main>
@@ -213,6 +214,8 @@ export default class App extends Vue {
 
   scrollable = true;
 
+  resizeObserver: ResizeObserver;
+
   @Mutation setUser!: (user: User | null) => void;
   @Mutation handleClaims!: (claims: Claims) => void;
 
@@ -230,6 +233,7 @@ export default class App extends Vue {
         this.handleClaims({});
       }
     });
+    this.resizeObserver = new ResizeObserver(this.checkScroll);
   }
 
   beforeCreate() {
@@ -241,9 +245,9 @@ export default class App extends Vue {
     this.$router.afterEach(() => window.scrollTo({ top: 0 }));
   }
 
-  updated() {
-    const root = document.querySelector("html") as HTMLHtmlElement;
-    this.scrollable = root.clientHeight !== root.scrollHeight;
+  mounted() {
+    this.checkScroll();
+    this.resizeObserver.observe((this.$refs.main as Vue).$el);
   }
 
   beforeDestroy() {
@@ -256,6 +260,12 @@ export default class App extends Vue {
   scrollToTop() {
     window.scrollTo({ top: Math.trunc(window.scrollY) });
     this.$vuetify.goTo(0);
+  }
+
+  checkScroll() {
+    const root = document.querySelector("html") as HTMLHtmlElement;
+    this.scrollable = root.clientHeight !== root.scrollHeight;
+    (this.$refs.vTabs as any)?.callSlider();
   }
 }
 
