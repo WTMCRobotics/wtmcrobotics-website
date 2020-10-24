@@ -180,6 +180,9 @@ body {
 *:focus:not(:focus-visible) {
   outline: none;
 }
+.blackBackground {
+  background: black;
+}
 </style>
 
 <script lang="ts">

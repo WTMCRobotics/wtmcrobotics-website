@@ -18,14 +18,17 @@
         ></v-img>
       </v-hover>
     </div>
-    <v-dialog fullscreen v-model="showModal" dark ref="fullscreen">
-      <v-btn icon class="on-image" @click.stop="closeModal">
-        <v-icon>close</v-icon>
-      </v-btn>
+    <v-dialog
+      fullscreen
+      v-model="showModal"
+      dark
+      ref="fullscreen"
+      content-class="blackBackground safe-pad-left safe-pad-right"
+    >
       <v-carousel
         height="100%"
         hide-delimiters
-        show-arrows-on-hover
+        :show-arrows="!touchOnly"
         :value="modalPhoto"
         :continuous="false"
         :touchless="disableSwipe"
@@ -44,6 +47,9 @@
           ></v-img>
         </v-carousel-item>
       </v-carousel>
+      <v-btn icon class="on-image" @click.stop="closeModal">
+        <v-icon>close</v-icon>
+      </v-btn>
     </v-dialog>
   </v-container>
 </template>
@@ -58,12 +64,13 @@
   .v-image {
     height: 100%;
     width: 100%;
-    background-color: #000;
   }
   .v-btn {
     position: absolute;
     top: 16px;
+    top: calc(16px + env(safe-area-inset-top, 0));
     right: 16px;
+    right: calc(16px + env(safe-area-inset-right, 0));
     z-index: 1;
   }
 }
@@ -89,6 +96,10 @@ export default class Gallery extends Vue {
   disableSwipe = false;
   transition = true;
   reverseTransition = true;
+
+  touchOnly =
+    "ontouchstart" in window &&
+    !window.matchMedia("(any-pointer: fine)").matches;
 
   @galleryModule.Action load!: () => void;
 
