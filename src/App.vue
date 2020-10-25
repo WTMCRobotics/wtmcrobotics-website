@@ -57,7 +57,7 @@
       ></v-app-bar-nav-icon>
     </v-app-bar>
     <v-main
-      style="min-height: calc(100vh - 36px);"
+      :style="{ minHeight: `calc(100vh - ${footerHeight}px)` }"
       class="safe-pad-left safe-pad-right"
       ref="main"
     >
@@ -79,9 +79,30 @@
       </v-btn>
     </v-slide-y-reverse-transition>
 
-    <v-footer class="safe-pad-bottom safe-pad-left safe-pad-right"
-      >this is a v-footer</v-footer
-    >
+    <v-footer class="safe-pad-bottom safe-pad-left safe-pad-right" ref="footer">
+      <p>
+        <span>© 2020 WTMC Robotics.</span>
+        &nbsp;
+        <span>
+          Source code available on
+          <a
+            href="https://github.com/WTMCRobotics/wtmcrobotics-website"
+            class="github"
+          >
+            <img
+              decoding="async"
+              importance="low"
+              :src="
+                require(this.$vuetify.theme.dark
+                  ? './assets/github/GitHub-Mark-Light-32px.png'
+                  : './assets/github/GitHub-Mark-32px.png')
+              "
+              aria-hidden="true"
+            />GitHub</a
+          >.
+        </span>
+      </p>
+    </v-footer>
   </v-app>
 </template>
 
@@ -98,6 +119,17 @@
   --padding-bottom-min: 6px;
   --padding-left-min: 16px;
   --padding-right-min: 16px;
+  p {
+    margin: 0;
+    span {
+      display: inline-block;
+      a.github img {
+        height: 1.1em;
+        margin-inline-end: 0.1em;
+        vertical-align: text-top;
+      }
+    }
+  }
 }
 .v-btn--fab {
   bottom: max(16px, env(safe-area-inset-bottom));
@@ -242,8 +274,10 @@ export default class App extends Vue {
   unsubscribe: Unsubscribe | null = null;
 
   scrollable = true;
+  footerHeight = 36;
 
-  resizeObserver: ResizeObserver;
+  mainResizeObserver: ResizeObserver;
+  footerResizeObserver: ResizeObserver;
 
   @Mutation setUser!: (user: User | null) => void;
   @Mutation handleClaims!: (claims: Claims) => void;
@@ -262,7 +296,8 @@ export default class App extends Vue {
         this.handleClaims({});
       }
     });
-    this.resizeObserver = new ResizeObserver(this.checkScroll);
+    this.mainResizeObserver = new ResizeObserver(this.checkScroll);
+    this.footerResizeObserver = new ResizeObserver(this.updateFooterHeight);
   }
 
   beforeCreate() {
@@ -276,7 +311,10 @@ export default class App extends Vue {
 
   mounted() {
     this.checkScroll();
-    this.resizeObserver.observe((this.$refs.main as Vue).$el);
+    this.mainResizeObserver.observe((this.$refs.main as Vue).$el);
+    this.footerResizeObserver.observe((this.$refs.footer as Vue).$el, {
+      box: "border-box"
+    });
   }
 
   beforeDestroy() {
@@ -295,6 +333,10 @@ export default class App extends Vue {
     const root = document.querySelector("html") as HTMLHtmlElement;
     this.scrollable = root.clientHeight !== root.scrollHeight;
     (this.$refs.vTabs as any)?.callSlider();
+  }
+
+  updateFooterHeight() {
+    this.footerHeight = (this.$refs.footer as Vue).$el.clientHeight;
   }
 }
 
