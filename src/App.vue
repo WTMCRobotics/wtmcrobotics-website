@@ -94,8 +94,8 @@
               importance="low"
               :src="
                 require(this.$vuetify.theme.dark
-                  ? './assets/github/GitHub-Mark-Light-32px.png'
-                  : './assets/github/GitHub-Mark-32px.png')
+                  ? './assets/github/GitHub-Mark-Light-32px.webp'
+                  : './assets/github/GitHub-Mark-32px.webp')
               "
               aria-hidden="true"
             />GitHub</a
