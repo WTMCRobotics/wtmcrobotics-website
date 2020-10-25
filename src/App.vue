@@ -199,7 +199,15 @@ body {
   outline: none;
 }
 .blackBackground {
-  background: black;
+  &::before {
+    content: "";
+    position: fixed;
+    top: -100vh;
+    bottom: -100vh;
+    left: -100vw;
+    right: -100vw;
+    background: black;
+  }
 }
 </style>
 
