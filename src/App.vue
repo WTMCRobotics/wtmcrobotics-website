@@ -264,7 +264,6 @@ export default class App extends Vue {
   drawer = null;
   items = [
     { title: "Home", path: "/" },
-    { title: "About", path: "/about" },
     { title: "Gallery", path: "/gallery" },
     { title: "Sponsor", path: "/sponsor" },
     { title: "Join", path: "/join" },
