@@ -39,10 +39,6 @@ export default class Contact extends Vue {
         "Building TI, Technical and Industrial,\n4800 E Huron River Dr #214,\nAnn Arbor, MI 48105"
     },
     {
-      href: "tel:+17344778513",
-      text: "(734) 477-8513"
-    },
-    {
       href: "mailto:wtmcrobotics@wccnet.edu",
       text: "wtmcrobotics@wccnet.edu"
     }
