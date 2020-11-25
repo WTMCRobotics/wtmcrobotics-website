@@ -1,7 +1,7 @@
 <template>
   <div style="display: contents">
     <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" /> -->
-    <h1>Who are The Strange Quarks?</h1>
+    <h2>Who are The Strange Quarks?</h2>
     <p>
       Our team, The Strange Quarks, is a group of individuals who have come
       together to create something greater than ourselves. Like the subatomic
@@ -11,13 +11,13 @@
       surrounding community to pursue knowledge and progress in STEM and
       business fields through robotics.
     </p>
-    <h1>Our Mission</h1>
+    <h2>Our Mission</h2>
     <p>
       Our mission is to inspire students and the community to pursue knowledge
       and progress in STEM and business fields through robotics.
     </p>
-    <h1>what we do</h1>
-    <h2>Education</h2>
+    <h2>what we do</h2>
+    <h3>Education</h3>
     <p>
       Through the FIRST program, our students enjoy hands-on opportunities to
       learn and practice skills in STEM and business fields.
@@ -34,13 +34,13 @@
       robotics, we seek to educate and inspire today’s youth so they will be
       well equipped to become tomorrow’s leaders.
     </p>
-    <h2>Teamwork</h2>
+    <h3>Teamwork</h3>
     <p>
       As The Strange Quarks, we come together to create something greater than
       ourselves, building a strong and supportive environment for commitment and
       creativity.
     </p>
-    <h2>Community</h2>
+    <h3>Community</h3>
     <p>
       Our team is dedicated to serving our local community in a variety of
       efforts, from spreading our STEM knowledge through a summer camp to
@@ -53,7 +53,7 @@
       volunteered at places like Food Gatherers, Maker Faire, and the Ann Arbor
       Summer Festival
     </p>
-    <h1>Team balance</h1>
+    <h2>Team balance</h2>
     <p>
       Our Robotics team is divided up into several different groups, each with
       their own set of tasks that need to be completed in order to progress the
