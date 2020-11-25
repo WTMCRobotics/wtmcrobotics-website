@@ -71,7 +71,6 @@ export interface Sponsor {
     website: string;
 }
 
-
 export interface SponsorsDoc {
     sponsors: Sponsor[];
 }
