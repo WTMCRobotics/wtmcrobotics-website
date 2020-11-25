@@ -76,6 +76,15 @@ export interface SponsorsDoc {
     sponsors: Sponsor[];
 }
 
+export interface Quote {
+    quote: string;
+    author: string;
+}
+
+export interface QuotesDoc {
+    quotes: Quote[];
+}
+
 export function isTimestamp(t: any): t is firebase.firestore.Timestamp {
     return typeof t.seconds === 'number' && typeof t.nanoseconds === 'number' && typeof t.toDate === 'function';
 }
