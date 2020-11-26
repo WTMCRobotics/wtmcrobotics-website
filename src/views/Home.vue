@@ -78,7 +78,7 @@ import Quotes from "@/components/Quotes.vue";
   components: {
     HelloWorld,
     Sponsors,
-    Quotes
+    Quotes,
   },
   metaInfo: { titleTemplate: "" },
 })
