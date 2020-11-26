@@ -52,11 +52,21 @@
       past, we’ve hosted a summer camp to educate children in STEM fields and
       volunteered at places like Food Gatherers, Maker Faire, and the Ann Arbor
       Summer Festival
-    </p>
-    <Quotes />
+    </p>  
+    <h2>Our students are saying</h2>
+    <Quotes />    
+    <h2>Our sponsors</h2>
     <Sponsors />
   </div>
 </template>
+
+<style lang="scss" scoped>
+h2 {
+  text-align: center;
+  padding-top: 1em;
+  text-transform: capitalize;
+}
+</style>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";

@@ -1,6 +1,5 @@
 <template>
   <v-container fluid>
-    <h2>Our Sponsors</h2>
     <div v-if="loading" class="spinnerWrapper">
       <v-progress-circular
         :size="48"
@@ -35,9 +34,6 @@
 </template>
 
 <style lang="scss" scoped>
-h2 {
-  text-align: center;
-}
 .spinnerWrapper {
   height: 200px;
   display: grid;
