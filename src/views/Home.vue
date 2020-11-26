@@ -53,19 +53,6 @@
       volunteered at places like Food Gatherers, Maker Faire, and the Ann Arbor
       Summer Festival
     </p>
-    <h2>Team balance</h2>
-    <p>
-      Our Robotics team is divided up into several different groups, each with
-      their own set of tasks that need to be completed in order to progress the
-      team. Business is the group that handles anything ranging from fundraising
-      to recruitment to managing the budget. Programming takes care of the
-      robots software and coding. Mechanics is responsible for the creation of a
-      robot specifically designed to be able to score the maximum possible
-      points in the competition.
-    </p>
-    <label>Mechanical <meter min="0" max="100" value="50"></meter></label><br />
-    <label>Business <meter min="0" max="100" value="25"></meter></label><br />
-    <label>Programming <meter min="0" max="100" value="25"></meter></label>
     <Quotes />
     <Sponsors />
   </div>
