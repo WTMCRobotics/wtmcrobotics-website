@@ -1,52 +1,30 @@
 <template>
   <v-container fluid>
     <h2>Our students are saying</h2>
-    <div>
-      <figure>
-      <blockquote>
-        <p>
-          “It's fun getting to do small jobs with different machines and know
-          that I can do that and that I was able to help build something.”
-        </p>
-      </blockquote>
-      <figcaption>—Morgan Salzano</figcaption>
-    </figure>
-    <figure>
-      <blockquote>
-        <p>
-          “I have learned how to program and wire a robot, and more importantly
-          have had the wonderful experience of building said awesome robot with
-          a bunch of awesome people and then see said awesome robot succeed.”
-        </p>
-      </blockquote>
-      <figcaption>—Miranda McCarthy</figcaption>
-    </figure>
-    <figure>
-      <blockquote>
-        <p>
-          "FIRST has impacted me because it has allowed me to put some of my
-          skills into - practice. For example, I want to go into business, and
-          currently I am taking an Excel spreadsheet class. With FIRST, I am
-          able to use those same spreadsheet skills to make the budget for the
-          Robotics team”
-        </p>
-      </blockquote>
-      <figcaption>—Adrian Fazecas</figcaption>
-    </figure>
-    <figure>
-      <blockquote>
-        <p>
-          “It's fun getting to do small jobs with different machines and know
-          that I can do that and that I was able to help build something.”
-        </p>
-      </blockquote>
-      <figcaption>—Morgan Salzano</figcaption>
-    </figure>
+    <div v-if="loading" class="spinnerWrapper">
+      <v-progress-circular
+        :size="48"
+        :width="5"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+    <div v-else>
+      <figure v-for="quote in quotes" :key="quote.quote">
+        <blockquote>
+          <p>“{{ quote.quote }}”</p>
+        </blockquote>
+        <figcaption>—{{ quote.author }}</figcaption>
+      </figure>
     </div>
   </v-container>
 </template>
 
 <style lang="scss" scoped>
+.spinnerWrapper {
+  height: 300px;
+  display: grid;
+  place-items: center;
+}
 </style>
 
 <script lang="ts">
