@@ -123,10 +123,13 @@
     margin: 0;
     span {
       display: inline-block;
-      a.github img {
-        height: 1.1em;
-        margin-inline-end: 0.1em;
-        vertical-align: text-top;
+      a {
+        color: inherit;
+        &.github > img {
+          height: 1.1em;
+          margin-inline-end: 0.1em;
+          vertical-align: text-top;
+        }
       }
     }
   }
