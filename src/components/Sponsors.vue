@@ -103,12 +103,12 @@ export default class Sponsors extends Vue {
         ) {
           carousel.scrollTo({
             left: 0,
-            behavior: "smooth"
+            behavior: "smooth",
           });
         } else {
           carousel.scrollBy({
             left: carousel.querySelector("a")?.clientWidth || 200,
-            behavior: "smooth"
+            behavior: "smooth",
           });
         }
       }

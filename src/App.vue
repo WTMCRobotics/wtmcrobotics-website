@@ -23,7 +23,7 @@
         scrollable,
         'safe-pad-top': true,
         'safe-pad-left': true,
-        'safe-pad-right': true
+        'safe-pad-right': true,
       }"
     >
       <router-link to="/" class="home" tabindex="-1">
@@ -256,8 +256,8 @@ Vue.use(Meta);
 @Component({
   metaInfo: {
     title: "WTMC Robotics",
-    titleTemplate: "%s | WTMC Robotics"
-  }
+    titleTemplate: "%s | WTMC Robotics",
+  },
 })
 export default class App extends Vue {
   showFab = false;
@@ -268,7 +268,7 @@ export default class App extends Vue {
     { title: "Sponsor", path: "/sponsor" },
     { title: "Join", path: "/join" },
     { title: "Blog", path: "/blog" },
-    { title: "Contact", path: "/contact" }
+    { title: "Contact", path: "/contact" },
   ];
   unsubscribe: Unsubscribe | null = null;
 
@@ -312,7 +312,7 @@ export default class App extends Vue {
     this.checkScroll();
     this.mainResizeObserver.observe((this.$refs.main as Vue).$el);
     this.footerResizeObserver.observe((this.$refs.footer as Vue).$el, {
-      box: "border-box"
+      box: "border-box",
     });
   }
 
