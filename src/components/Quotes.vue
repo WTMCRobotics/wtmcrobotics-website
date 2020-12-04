@@ -1,21 +1,19 @@
 <template>
-  <v-container fluid>
-    <div v-if="loading" class="spinnerWrapper">
-      <v-progress-circular
-        :size="48"
-        :width="5"
-        indeterminate
-      ></v-progress-circular>
-    </div>
-    <div v-else>
-      <figure v-for="quote in quotes" :key="quote.quote">
-        <blockquote>
-          <p>“{{ quote.quote }}”</p>
-        </blockquote>
-        <figcaption>—{{ quote.author }}</figcaption>
-      </figure>
-    </div>
-  </v-container>
+  <div v-if="loading" class="spinnerWrapper">
+    <v-progress-circular
+      :size="48"
+      :width="5"
+      indeterminate
+    ></v-progress-circular>
+  </div>
+  <div v-else>
+    <figure v-for="quote in quotes" :key="quote.quote">
+      <blockquote>
+        <p>“{{ quote.quote }}”</p>
+      </blockquote>
+      <figcaption>—{{ quote.author }}</figcaption>
+    </figure>
+  </div>
 </template>
 
 <style lang="scss" scoped>

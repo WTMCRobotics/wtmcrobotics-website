@@ -1,36 +1,34 @@
 <template>
-  <v-container fluid>
-    <div v-if="loading" class="spinnerWrapper">
-      <v-progress-circular
-        :size="48"
-        :width="5"
-        indeterminate
-      ></v-progress-circular>
-    </div>
-    <div
-      class="carousel"
-      v-resize="onResize"
-      v-else
-      ref="carousel"
-      @scroll="wasScrolled = Date.now()"
+  <div v-if="loading" class="spinnerWrapper">
+    <v-progress-circular
+      :size="48"
+      :width="5"
+      indeterminate
+    ></v-progress-circular>
+  </div>
+  <div
+    class="carousel"
+    v-resize="onResize"
+    v-else
+    ref="carousel"
+    @scroll="wasScrolled = Date.now()"
+  >
+    <a
+      v-for="sponsor in sponsors"
+      :key="sponsor.name"
+      :href="sponsor.website"
+      target="_blank"
+      :style="'width: ' + percent + '%;'"
     >
-      <a
-        v-for="sponsor in sponsors"
-        :key="sponsor.name"
-        :href="sponsor.website"
-        target="_blank"
-        :style="'width: ' + percent + '%;'"
-      >
-        <v-img
-          :src="sponsor.logo"
-          contain
-          width="100%"
-          :aspect-ratio="4 / 3"
-          :alt="sponsor.name + ' logo'"
-        ></v-img>
-      </a>
-    </div>
-  </v-container>
+      <v-img
+        :src="sponsor.logo"
+        contain
+        width="100%"
+        :aspect-ratio="4 / 3"
+        :alt="sponsor.name + ' logo'"
+      ></v-img>
+    </a>
+  </div>
 </template>
 
 <style lang="scss" scoped>

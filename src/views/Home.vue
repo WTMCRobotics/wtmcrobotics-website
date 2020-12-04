@@ -1,5 +1,5 @@
 <template>
-  <div style="display: contents">
+  <v-container fluid>
     <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" /> -->
     <h2>Who are The Strange Quarks?</h2>
     <p>
@@ -57,7 +57,7 @@
     <Quotes />
     <h2>Our sponsors</h2>
     <Sponsors />
-  </div>
+  </v-container>
 </template>
 
 <style lang="scss" scoped>
