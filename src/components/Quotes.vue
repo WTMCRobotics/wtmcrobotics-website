@@ -6,7 +6,7 @@
       indeterminate
     ></v-progress-circular>
   </div>
-  <div v-else>
+  <div class="container" v-else>
     <figure v-for="quote in quotes" :key="quote.quote">
       <blockquote>
         <p>“{{ quote.quote }}”</p>
@@ -21,6 +21,11 @@
   height: 300px;
   display: grid;
   place-items: center;
+}
+.container {
+  display: grid;
+  grid-gap: 48px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
 }
 </style>
 
