@@ -162,6 +162,9 @@ const quotes: Module<QuoteState, {}> = {
     },
     setLoading: (state, loading: boolean) => {
       state.loading = loading;
+    },
+    resetQuotes: (state) => {
+      state.quotes = [];
     }
   },
   actions: {

@@ -11,6 +11,12 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
+    path: "/edit-quotes",
+    name: "Edit Quotes",
+    component: () =>
+      import(/* webpackChunkName: "edit-quotes" */ "../views/EditQuotes.vue")
+  },
+  {
     path: "/gallery",
     name: "Gallery",
     component: () =>
