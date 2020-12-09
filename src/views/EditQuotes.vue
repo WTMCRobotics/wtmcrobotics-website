@@ -29,7 +29,7 @@
       <v-row>
         <v-col cols="12" md="12" class="right">
           <v-btn color="primary" class="mr-4" @click="newQuote">Add New Quote</v-btn>
-          <v-btn color="primary" class="mr-4" :disabled="!valid" @click="save">Save</v-btn>
+          <v-btn color="primary" class="mr-4" :disabled="!valid" @click="save" :loading="saving">Save</v-btn>
           <v-btn color="primary" @click="reset">Reset</v-btn>
         </v-col>
       </v-row>
@@ -83,6 +83,8 @@ export default class EditQuotes extends Vue {
   doc: firebase.firestore.DocumentReference<QuotesDoc>;
   data: QuotesDoc = { quotes: [] };
 
+  saving = false;
+
   valid = false;
   authorLength = authorLength;
   validators = {
@@ -115,8 +117,11 @@ export default class EditQuotes extends Vue {
   }
 
   save() {
-    this.doc.set(this.data);
-    this.resetQuotes();
+    this.saving = true;
+    this.doc.set(this.data).then(() => {
+      this.resetQuotes();
+      this.saving = false;
+    });
   }
 
   reset() {

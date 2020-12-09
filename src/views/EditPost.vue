@@ -56,7 +56,7 @@
       </v-row>
       <v-row>
         <v-col cols="12" md="12" class="right">
-          <v-btn color="primary" class="mr-4" :disabled="!valid" @click="save">Save</v-btn>
+          <v-btn color="primary" class="mr-4" :disabled="!valid" @click="save" :loading="saving">Save</v-btn>
           <v-btn color="primary" class="mr-4" @click="reset">Reset</v-btn>
           <v-btn color="primary" :disabled="!doc" @click="deleteDoc">Delete</v-btn>
         </v-col>
@@ -137,6 +137,8 @@ export default class EditPost extends Vue {
     this.data.date = new Date(date);
   }
 
+  saving = false;
+
   valid = false;
   authorLength = authorLength;
   titleLength = titleLength;
@@ -174,8 +176,11 @@ export default class EditPost extends Vue {
 
   save() {
     const data = this.data;
+    this.saving = true;
     if (this.doc) {
-      this.doc.set(data);
+      this.doc.set(data).then(() => {
+        this.saving = false;
+      });
     } else {
       firestore
         .collection("blogs")
@@ -184,6 +189,7 @@ export default class EditPost extends Vue {
           this.doc = doc as firebase.firestore.DocumentReference<BlogPost>;
           this.$router.replace({ params: { blogId: doc.id } });
           this.removeAll();
+          this.saving = false;
         });
     }
   }
