@@ -138,7 +138,7 @@
   bottom: max(16px, env(safe-area-inset-bottom));
   right: max(16px, env(safe-area-inset-right));
 }
-.style-scrollbars header:not(.scrollable) {
+.style-scrollbars header:not(.scrollable) .v-tabs {
   padding-right: 12px;
 }
 </style>
