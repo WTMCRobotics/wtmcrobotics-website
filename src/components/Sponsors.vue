@@ -18,6 +18,7 @@
       :key="sponsor.name"
       :href="sponsor.website"
       target="_blank"
+      rel="noopener"
       :style="'width: ' + percent + '%;'"
     >
       <v-img
