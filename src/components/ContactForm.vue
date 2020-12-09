@@ -30,6 +30,7 @@
         <v-col>
           <v-textarea
             outlined
+            auto-grow
             v-model="values.message"
             :rules="messageRules"
             label="Message"
