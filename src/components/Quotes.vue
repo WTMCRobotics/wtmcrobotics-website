@@ -7,6 +7,9 @@
     ></v-progress-circular>
   </div>
   <div class="container" v-else>
+    <v-btn v-if="isEditor" text color="primary" :to="`/edit-quotes`">
+      <v-icon left>edit</v-icon>Edit
+    </v-btn>
     <figure v-for="quote in quotes" :key="quote.quote">
       <blockquote>
         <p>“{{ quote.quote }}”</p>
@@ -23,9 +26,15 @@
   place-items: center;
 }
 .container {
+  position: relative;
   display: grid;
   grid-gap: 48px;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  & > .v-btn {
+    position: absolute;
+    bottom: 100%;
+    right: 20px;
+  }
 }
 </style>
 
@@ -33,6 +42,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import { Quote } from "@/firebase";
+import { State } from "vuex-class";
 
 const quoteModule = namespace("quotes");
 
@@ -40,6 +50,7 @@ const quoteModule = namespace("quotes");
 export default class Quotes extends Vue {
   @quoteModule.State loading!: boolean;
   @quoteModule.State quotes!: Quote[];
+  @State isEditor!: boolean;
 
   constructor() {
     super();
