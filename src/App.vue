@@ -348,11 +348,7 @@ export default class App extends Vue {
   scrollBarTester.style.overflowY = "scroll";
   document.body.appendChild(scrollBarTester);
   setTimeout(() => {
-    if (scrollBarTester.offsetWidth > 0) {
-      document.body.classList.add("style-scrollbars");
-    } else {
-      document.body.classList.remove("style-scrollbars");
-    }
+    document.body.classList.toggle('style-scrollbars', scrollBarTester.offsetWidth > 0);
     scrollBarTester.remove();
   });
 }
