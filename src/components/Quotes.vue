@@ -6,7 +6,7 @@
       indeterminate
     ></v-progress-circular>
   </div>
-  <div class="container" v-else>
+  <div class="grid-container" v-else>
     <v-btn v-if="isEditor" text color="primary" :to="`/edit-quotes`">
       <v-icon left>edit</v-icon>Edit
     </v-btn>
@@ -25,7 +25,7 @@
   display: grid;
   place-items: center;
 }
-.container {
+.grid-container {
   position: relative;
   display: grid;
   grid-gap: 48px;
