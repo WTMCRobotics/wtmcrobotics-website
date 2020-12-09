@@ -41,7 +41,7 @@
       <v-row>
         <v-col>
           <v-btn @click="submit" :disabled="!valid" color="primary">
-            <v-icon left>send</v-icon>Send Message
+            <v-icon left>mdi-send</v-icon>Send Message
           </v-btn>
         </v-col>
       </v-row>

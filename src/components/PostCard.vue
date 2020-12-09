@@ -4,7 +4,7 @@
       <v-card-actions v-if="isEditor">
         <v-spacer></v-spacer>
         <v-btn text color="primary" :to="`/blog/${id}/edit`">
-          <v-icon left>edit</v-icon>Edit
+          <v-icon left>mdi-pencil</v-icon>Edit
         </v-btn>
       </v-card-actions>
     </v-img>

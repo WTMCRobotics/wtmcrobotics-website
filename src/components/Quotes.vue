@@ -8,7 +8,7 @@
   </div>
   <div class="grid-container" v-else>
     <v-btn v-if="isEditor" text color="primary" :to="`/edit-quotes`">
-      <v-icon left>edit</v-icon>Edit
+      <v-icon left>>mdi-pencil</v-icon>Edit
     </v-btn>
     <figure v-for="quote in quotes" :key="quote.quote">
       <blockquote>

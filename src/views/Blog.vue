@@ -7,7 +7,7 @@
           height="100%"
           color="rgba(128, 128, 128, 0.2"
         >
-          <v-icon aria-hidden="true" style="font-size: 64px;">add</v-icon>
+          <v-icon aria-hidden="true" style="font-size: 64px;">mdi-plus</v-icon>
         </v-sheet>
       </v-responsive>
       <v-card-title>Add a New Blog Post</v-card-title>
