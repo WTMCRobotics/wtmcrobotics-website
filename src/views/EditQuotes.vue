@@ -64,7 +64,7 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import {
   firestore,
   QuotesDoc,
