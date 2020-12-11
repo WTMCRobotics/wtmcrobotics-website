@@ -4,6 +4,7 @@ import * as builder from 'xmlbuilder';
 
 admin.initializeApp();
 const db = admin.firestore();
+const auth = admin.auth();
 
 const topLevel = ['gallery', 'sponsor', 'join', 'blog', 'contact']
 
@@ -27,4 +28,46 @@ export const sitemap = functions.https.onRequest(async (req, res) => {
     }
 
     res.status(200).contentType('application/xml').send(urlsetElement.end());
+});
+
+function setEditorData(uid: string, data: { admin: boolean, name: string } | undefined) {
+    console.log(data);
+    auth.setCustomUserClaims(uid, { isEditor: Boolean(data), isAdmin: Boolean(data?.admin) });
+    if (data?.name) {
+        auth.updateUser(uid, { displayName: data.name });
+    }
+}
+
+export const updateEditors = functions.firestore.document('/main/editors').onUpdate((change) => {
+    const before = change.before.data();
+    const after = change.after.data();
+    let changedEmails = [];
+    for (const email in before) {
+        if (after[email] !== before[email]) {
+            changedEmails.push(email)
+        }
+    }
+    for (const email in after) {
+        if (before[email] === undefined) {
+            changedEmails.push(email)
+        }
+    }
+    auth.getUsers(changedEmails.map(email => ({ email }))).then((getUsersResult) => {
+        getUsersResult.users.forEach(userRecord => {
+            if (userRecord.email && userRecord.emailVerified) {
+                setEditorData(userRecord.uid, after[userRecord.email])
+            }
+        })
+    });
+});
+
+export const newUser = functions.auth.user().onCreate((user) => {
+    if (user.email && user.emailVerified) {
+        db.doc('/main/editors').get().then((snapshot) => {
+            const editor = snapshot.data()?.[user.email as string];
+            if (editor) {
+                setEditorData(user.uid, editor);
+            }
+        });
+    }
 });
