@@ -3,7 +3,12 @@
     <v-form ref="form" v-model="valid">
       <v-row>
         <v-col cols="12" md="12">
-          <v-text-field outlined v-model="data.image" label="Image" required></v-text-field>
+          <v-text-field
+            outlined
+            v-model="data.image"
+            label="Image"
+            required
+          ></v-text-field>
         </v-col>
       </v-row>
       <v-row>
@@ -45,7 +50,7 @@
           <quillEditor
             v-model="data.body"
             :options="{}"
-            :class="$vuetify.theme.dark ? 'theme--dark':'theme--light'"
+            :class="$vuetify.theme.dark ? 'theme--dark' : 'theme--light'"
           ></quillEditor>
         </v-col>
       </v-row>
@@ -56,9 +61,21 @@
       </v-row>
       <v-row>
         <v-col cols="12" md="12" class="right">
-          <v-btn color="primary" class="mr-4" :disabled="!valid" @click="save" :loading="saving">Save</v-btn>
+          <v-btn
+            color="primary"
+            class="mr-4"
+            :disabled="!valid"
+            @click="save"
+            :loading="saving"
+            >Save</v-btn
+          >
           <v-btn color="primary" class="mr-4" @click="reset">Reset</v-btn>
-          <v-btn color="primary" :disabled="!doc" @click="deleteDoc">Delete</v-btn>
+          <v-btn
+            color="primary"
+            :disabled="!doc"
+            @click="deleteDoc"
+            >Delete</v-btn
+          >
         </v-col>
       </v-row>
     </v-form>
@@ -87,21 +104,23 @@ import {
   BlogPost,
   authorLength,
   titleLength,
-  isTimestamp
+  isTimestamp,
 } from "@/firebase";
 import { namespace } from "vuex-class";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "@/quill-snow-vuetifier.scss";
 import { quillEditor } from "vue-quill-editor";
+import { State } from "vuex-class";
 
 const blogModule = namespace("blog");
 
 @Component({
   metaInfo: { title: "Blog Editor" },
-  components: { quillEditor }
+  components: { quillEditor },
 })
 export default class EditPost extends Vue {
+  @State isAdmin!: boolean;
   doc: firebase.firestore.DocumentReference<BlogPost> | null = null;
   data: BlogPost = {
     image: "",
@@ -109,7 +128,7 @@ export default class EditPost extends Vue {
     author: "",
     date: new Date(),
     public: true,
-    body: ""
+    body: "",
   };
 
   get dateText(): string {
@@ -148,19 +167,19 @@ export default class EditPost extends Vue {
       (v: string) => !!v || "Author is required",
       (v: string) =>
         v?.length <= authorLength ||
-        `Author must be less than ${authorLength} characters`
+        `Author must be less than ${authorLength} characters`,
     ],
     title: [
       (v: string) => !!v || "Title is required",
       (v: string) =>
         v?.length <= titleLength ||
-        `Title must be less than ${titleLength} characters`
+        `Title must be less than ${titleLength} characters`,
     ],
     date: [
       (v: string) => !!v || "Date is required",
-      (v: string) => !!Date.parse(v) || "Date must be a valid date"
+      (v: string) => !!Date.parse(v) || "Date must be a valid date",
     ],
-    body: [(v: string) => !!v || "Content is required"]
+    body: [(v: string) => !!v || "Content is required"],
   };
 
   @Watch("$route.params.blogId") handelRouteParam(to: string | undefined) {
@@ -185,7 +204,7 @@ export default class EditPost extends Vue {
       firestore
         .collection("blogs")
         .add(data)
-        .then(doc => {
+        .then((doc) => {
           this.doc = doc as firebase.firestore.DocumentReference<BlogPost>;
           this.$router.replace({ params: { blogId: doc.id } });
           this.removeAll();
@@ -201,7 +220,7 @@ export default class EditPost extends Vue {
       ) as firebase.firestore.DocumentReference<BlogPost>;
       this.doc
         .get()
-        .then(snapshot => {
+        .then((snapshot) => {
           if (snapshot.exists) {
             const data = snapshot.data() as BlogPost;
             data.date = (data.date as firebase.firestore.Timestamp).toDate();
