@@ -2,7 +2,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /blogs/{blogId} {
-      allow read: if resource.data.public == true || request.auth.token.isAdmin == true;
+      allow read: if resource.data.public == true || request.auth.token.isEditor == true;
       allow create, update: if request.auth.token.isEditor == true;
       allow delete: if request.auth.token.isAdmin == true;
     }
