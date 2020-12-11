@@ -63,6 +63,7 @@ jobs:
           build: "npm run full-build"
           start: "firebase emulators:start"
           wait-on: "http://localhost:5000"
+          wait-on-timeout: 600
           record: true
         env:
           # pass the Dashboard record key as an environment variable
