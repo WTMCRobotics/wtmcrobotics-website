@@ -56,7 +56,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          build: "npm run build && npm run build --prefix ./functions"
+          build: "npm run full-build"
           start: "firebase emulators:start"
           wait-on: "http://localhost:5000"
           record: true
