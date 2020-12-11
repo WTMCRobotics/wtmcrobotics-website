@@ -190,8 +190,8 @@ export default new Vuex.Store({
   },
   mutations: {
     handleClaims(state, claims: Claims) {
-      state.isEditor = !!claims.isEditor;
-      state.isAdmin = !!claims.isAdmin;
+      state.isEditor = Boolean(claims.isEditor);
+      state.isAdmin = Boolean(claims.isAdmin);
     },
     setUser(state, user: User | null) {
       state.user = user;
