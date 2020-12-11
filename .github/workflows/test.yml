@@ -51,6 +51,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Install Dependencies in ./functions
+        run: "cd ./functions && npm ci"
+
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
