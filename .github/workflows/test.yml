@@ -92,7 +92,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          start: "npm run emulator:start"
+          start: "firebase emulators:start"
           wait-on: "http://localhost:5000"
           record: true
         env:
