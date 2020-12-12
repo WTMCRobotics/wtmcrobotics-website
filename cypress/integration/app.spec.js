@@ -1,14 +1,13 @@
 /// <reference types="cypress" />
 
 beforeEach(() => {
-    cy.visit('http://localhost:5000/DNE')
+    cy.visit('http://localhost:5000')
 })
 
 describe('Header', () => {
     it('checks header title', () => {
         cy.get('header').contains('WTMCRobotics')
-            .click()
-        cy.url().should('eq', 'http://localhost:5000/')
+            .should('have.attr', 'href', "/")
     })
 })
 
