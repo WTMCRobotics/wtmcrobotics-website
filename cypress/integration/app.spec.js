@@ -38,17 +38,24 @@ describe('Nav', () => {
             path: '/contact'
         }
     ]
-    paths.forEach(({ name, path }) => {
-        it(`checks ${name} nav on desktop`, () => {
-            cy.get('header').contains(name, { matchCase: false })
-                .should('have.attr', 'href', path)
-        })
+    const platforms = [{
+        platform: 'mobile',
+        screen: [400, 800]
+    }, {
+        platform: 'desktop',
+        screen: [1600, 900]
+    }]
 
-        it(`checks ${name} nav on mobile`, () => {
-            cy.viewport('iphone-xr')
-            cy.get('.v-app-bar__nav-icon').click()
-            cy.get('.v-navigation-drawer').contains(name, { matchCase: false })
-                .should('have.attr', 'href', path)
+    paths.forEach(({ name, path }) => {
+        platforms.forEach(({ platform, screen }) => {
+            it(`checks ${name} nav link on ${platform}`, () => {
+                cy.viewport(...screen)
+                if (screen[0] < 960) {
+                    cy.get('.v-app-bar__nav-icon').click()
+                }
+                cy.contains('a:visible', name, { matchCase: false })
+                    .should('have.attr', 'href', path)
+            })
         })
     })
 })
