@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 beforeEach(() => {
-    cy.visit('http://localhost:5000')
+    cy.visit('http://localhost:5000/DNE')
 })
 
 describe('Header', () => {
