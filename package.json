@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "deploy": "npm run build && firebase deploy --except functions",
-    "full-build": "npm run build && npm run build --prefix ./functions",
+    "build:both": "npm run build && npm run build --prefix ./functions",
     "cypress:open": "cypress open"
   },
   "dependencies": {
