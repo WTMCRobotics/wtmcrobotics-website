@@ -57,7 +57,7 @@ export default class ContactForm extends Vue {
   values = {
     name: "",
     message: "",
-    email: ""
+    email: "",
   };
   valid = false;
   nameRules = [(v: string) => !!v || "Name is required"];
