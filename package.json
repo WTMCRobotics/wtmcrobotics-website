@@ -10,6 +10,7 @@
     "build:both": "npm run build && npm run build --prefix ./functions",
     "cypress:open": "cypress open",
     "serve:emulator": "vue-cli-service serve --port 5000 --mode emulator",
+    "emulator:start": "firebase emulators:start --only \"functions,firestore\""
   },
   "dependencies": {
     "@sophosoft/vue-meta-decorator": "^0.1.1",
