@@ -56,7 +56,7 @@
     <h2>Our students are saying</h2>
     <Quotes />
     <h2>Our sponsors</h2>
-    <Sponsors />
+    <!-- <Sponsors /> -->
   </v-container>
 </template>
 
