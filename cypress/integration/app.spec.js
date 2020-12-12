@@ -5,7 +5,7 @@ beforeEach(() => {
 })
 
 describe('Header', () => {
-    it('checks header title', () => {
+    it('has a title', () => {
         cy.get('header').contains('WTMCRobotics')
             .should('have.attr', 'href', "/")
     })
@@ -48,7 +48,7 @@ describe('Nav', () => {
 
     paths.forEach(({ name, path }) => {
         platforms.forEach(({ platform, screen }) => {
-            it(`checks ${name} nav link on ${platform}`, () => {
+            it(`${name} goes to ${path} (${platform})`, () => {
                 cy.viewport(...screen)
                 if (screen[0] < 960) {
                     cy.get('.v-app-bar__nav-icon').click()
@@ -61,11 +61,11 @@ describe('Nav', () => {
 })
 
 describe('Footer', () => {
-    it('checks for copyright', () => {
+    it('has a copyright', () => {
         cy.get('footer').contains('©')
     })
 
-    it('checks link to GitHub', () => {
+    it('links to GitHub', () => {
         cy.get('footer').contains('GitHub').should('have.attr', 'href', 'https://github.com/WTMCRobotics/wtmcrobotics-website')
     })
 })
