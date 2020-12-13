@@ -9,7 +9,7 @@ const auth = admin.auth();
 const topLevel = ['gallery', 'sponsor', 'join', 'blog', 'contact']
 
 export const sitemap = functions.https.onRequest(async (req, res) => {
-    let urls = [{ loc: '', priority: 1 }];
+    const urls = [{ loc: '', priority: 1 }];
     for (const path of topLevel) {
         urls.push({ loc: '/' + path, priority: 0.8 });
     }
@@ -41,7 +41,7 @@ function setEditorData(uid: string, data: { admin: boolean, name: string } | und
 export const updateEditors = functions.firestore.document('/main/editors').onUpdate((change) => {
     const before = change.before.data();
     const after = change.after.data();
-    let changedEmails = [];
+    const changedEmails = [];
     for (const email in before) {
         if (after[email] !== before[email]) {
             changedEmails.push(email)
