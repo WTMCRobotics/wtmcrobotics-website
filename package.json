@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "serve:emulator": "vue-cli-service serve --port 5000 --mode emulator",
     "build": "vue-cli-service build",
+    "build:emulator": "vue-cli-service build --mode emulator",
     "lint": "vue-cli-service lint",
     "deploy": "npm run build && firebase deploy --except functions",
     "build:both": "npm run build && npm run build --prefix ./functions",
