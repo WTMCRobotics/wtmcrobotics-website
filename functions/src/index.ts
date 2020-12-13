@@ -9,7 +9,7 @@ const auth = admin.auth();
 const topLevel = ['gallery', 'sponsor', 'join', 'blog', 'contact']
 
 export const sitemap = functions.https.onRequest(async (req, res) => {
-    let urls = [{ loc: '', priority: 1 }];
+    const urls = [{ loc: '', priority: 1 }];
     for (const path of topLevel) {
         urls.push({ loc: '/' + path, priority: 0.8 });
     }
@@ -32,16 +32,22 @@ export const sitemap = functions.https.onRequest(async (req, res) => {
 
 function setEditorData(uid: string, data: { admin: boolean, name: string } | undefined) {
     console.log(data);
-    auth.setCustomUserClaims(uid, { isEditor: Boolean(data), isAdmin: Boolean(data?.admin) });
+    auth.setCustomUserClaims(uid, { isEditor: Boolean(data), isAdmin: Boolean(data?.admin) })
+        .catch(err => {
+            console.error(err)
+        });
     if (data?.name) {
-        auth.updateUser(uid, { displayName: data.name });
+        auth.updateUser(uid, { displayName: data.name })
+            .catch(err => {
+                console.error(err)
+            });
     }
 }
 
 export const updateEditors = functions.firestore.document('/main/editors').onUpdate((change) => {
     const before = change.before.data();
     const after = change.after.data();
-    let changedEmails = [];
+    const changedEmails = [];
     for (const email in before) {
         if (after[email] !== before[email]) {
             changedEmails.push(email)
@@ -58,6 +64,8 @@ export const updateEditors = functions.firestore.document('/main/editors').onUpd
                 setEditorData(userRecord.uid, after[userRecord.email])
             }
         })
+    }).catch(err => {
+        console.error(err)
     });
 });
 
@@ -68,6 +76,8 @@ export const newUser = functions.auth.user().onCreate((user) => {
             if (editor) {
                 setEditorData(user.uid, editor);
             }
+        }).catch(err => {
+            console.error(err)
         });
     }
 });
