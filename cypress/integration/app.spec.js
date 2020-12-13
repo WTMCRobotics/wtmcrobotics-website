@@ -46,8 +46,8 @@ describe('Nav', () => {
         screen: [1600, 900]
     }]
 
-    paths.forEach(({ name, path }) => {
-        platforms.forEach(({ platform, screen }) => {
+    platforms.forEach(({ platform, screen }) => {
+        paths.forEach(({ name, path }) => {
             it(`${name} goes to ${path} (${platform})`, () => {
                 cy.viewport(...screen)
                 if (screen[0] < 960) {
