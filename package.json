@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "serve:emulator": "vue-cli-service serve --port 5000 --mode emulator",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "deploy": "npm run build && firebase deploy --except functions",
     "build:both": "npm run build && npm run build --prefix ./functions",
     "cypress:open": "cypress open",
-    "serve:emulator": "vue-cli-service serve --port 5000 --mode emulator",
     "emulator:start": "npm run build --prefix ./functions && firebase emulators:start --only \"functions,firestore\""
   },
   "dependencies": {
