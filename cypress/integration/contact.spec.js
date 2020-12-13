@@ -20,7 +20,7 @@ describe('Contact Page', () => {
     }
 
     function typeInField(field, value) {
-        return cy.contains('label', field).next('input, textarea').focus().type(value, { timeout: 10_000 })
+        return cy.contains('label', field).next('input, textarea').focus().type(value, { timeout: 500 * value.length })
     }
 
     for (const field in validInputs) {
