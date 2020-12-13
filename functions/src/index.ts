@@ -32,9 +32,15 @@ export const sitemap = functions.https.onRequest(async (req, res) => {
 
 function setEditorData(uid: string, data: { admin: boolean, name: string } | undefined) {
     console.log(data);
-    auth.setCustomUserClaims(uid, { isEditor: Boolean(data), isAdmin: Boolean(data?.admin) });
+    auth.setCustomUserClaims(uid, { isEditor: Boolean(data), isAdmin: Boolean(data?.admin) })
+        .catch(err => {
+            console.error(err)
+        });
     if (data?.name) {
-        auth.updateUser(uid, { displayName: data.name });
+        auth.updateUser(uid, { displayName: data.name })
+            .catch(err => {
+                console.error(err)
+            });
     }
 }
 
@@ -58,6 +64,8 @@ export const updateEditors = functions.firestore.document('/main/editors').onUpd
                 setEditorData(userRecord.uid, after[userRecord.email])
             }
         })
+    }).catch(err => {
+        console.error(err)
     });
 });
 
@@ -68,6 +76,8 @@ export const newUser = functions.auth.user().onCreate((user) => {
             if (editor) {
                 setEditorData(user.uid, editor);
             }
+        }).catch(err => {
+            console.error(err)
         });
     }
 });
