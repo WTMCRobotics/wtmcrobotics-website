@@ -62,12 +62,12 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: build
-        run: npm run build
+        run: npm run build:emulator
 
       - name: Upload dist
         uses: actions/upload-artifact@v2
         with:
-          name: vue-dist
+          name: vue-dist-emulator
           path: dist/
 
   build-functions:
@@ -110,7 +110,7 @@ jobs:
       - name: Download vue-dist
         uses: actions/download-artifact@v2
         with:
-          name: vue-dist
+          name: vue-dist-emulator
           path: dist/
 
       - name: Download functions-lib
