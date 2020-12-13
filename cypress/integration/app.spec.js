@@ -47,12 +47,12 @@ describe('Nav', () => {
     }]
 
     platforms.forEach(({ platform, screen }) => {
-        paths.forEach(({ name, path }) => {
-            it(`${name} goes to ${path} (${platform})`, () => {
-                cy.viewport(...screen)
-                if (screen[0] < 960) {
-                    cy.get('.v-app-bar__nav-icon').click()
-                }
+        it(`has correct nav links (${platform})`, () => {
+            cy.viewport(...screen)
+            if (screen[0] < 960) {
+                cy.get('.v-app-bar__nav-icon').click()
+            }
+            paths.forEach(({ name, path }) => {
                 cy.contains('a:visible', name, { matchCase: false })
                     .should('have.attr', 'href', path)
             })
