@@ -68,7 +68,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: vue-dist
-          path: dist
+          path: dist/
 
   build-functions:
     # The type of runner that the job will run on
@@ -92,7 +92,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: functions-lib
-          path: functions/lib
+          path: functions/lib/
 
   cypress-run:
     runs-on: ubuntu-latest
