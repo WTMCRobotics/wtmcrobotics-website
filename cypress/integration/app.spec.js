@@ -69,3 +69,19 @@ describe('Footer', () => {
         cy.get('footer').contains('GitHub').should('have.attr', 'href', 'https://github.com/WTMCRobotics/wtmcrobotics-website')
     })
 })
+
+describe('top button', () => {
+    beforeEach(() => {
+        cy.viewport(200, 200);
+    })
+
+    it('appears and goes to top', () => {
+        cy.get('.v-btn--fab').should('not.be.visible')
+            .get('i.mdi-chevron-up')
+        cy.scrollTo(0, '250px')
+        cy.get('.v-btn--fab').should('be.visible')
+            .click()
+        cy.window().its('scrollY').should('eq', 0)
+    })
+
+})
