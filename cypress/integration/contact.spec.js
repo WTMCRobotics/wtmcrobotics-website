@@ -25,17 +25,11 @@ describe('Contact Page', () => {
 
     for (const field in validInputs) {
 
-        it(`${field} field has no error at first`, () => {
-            cy.contains('label', field).not('.error--text').next('input, textarea')
-        })
-
-        it(`${field} field has error when left empty`, () => {
-            cy.contains('label', field).next('input, textarea').click().blur()
+        it(`${field} is required`, () => {
+            cy.contains('label', field).not('.error--text')
+                .next('input, textarea').click().blur()
             cy.contains('label.error--text', field).next('input, textarea')
             cy.contains(`${field} is required`)
-        })
-
-        it(`${field} field has no error when filled out`, () => {
             typeInField(field, validInputs[field])
             cy.contains('label', field).not('.error--text').next('input, textarea')
         })
