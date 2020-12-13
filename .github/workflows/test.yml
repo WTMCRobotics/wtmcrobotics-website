@@ -117,8 +117,14 @@ jobs:
         with:
           name: functions-lib
 
-      - name: tree
-        run: "tree -a"
+      - name: ls .
+        run: "ls . -la"
+      - name: ls dist
+        run: "ls dist -la"
+      - name: ls functions
+        run: "ls functions -la"
+      - name: ls functions/dist
+        run: "ls functions/dist -la"
 
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
