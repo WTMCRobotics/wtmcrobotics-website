@@ -4,13 +4,17 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "serve:emulator": "vue-cli-service serve --port 5000 --mode emulator",
     "build": "vue-cli-service build",
+    "build:emulator": "vue-cli-service build --mode emulator",
     "lint": "vue-cli-service lint",
-    "deploy": "npm run build && firebase deploy --except functions"
+    "deploy": "npm run build && firebase deploy --except functions",
+    "build:both": "npm run build && npm run build --prefix ./functions",
+    "cypress:open": "cypress open",
+    "emulator:start": "npm run build --prefix ./functions && firebase emulators:start --only \"functions,firestore\""
   },
   "dependencies": {
     "@sophosoft/vue-meta-decorator": "^0.1.1",
-    "concurrently": "^5.3.0",
     "core-js": "^3.8.1",
     "firebase": "^7.24.0",
     "firebaseui": "^4.7.1",
@@ -39,7 +43,9 @@
     "@vue/cli-service": "^4.5.9",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^5.1.0",
+    "cypress": "^6.1.0",
     "eslint": "^6.7.2",
+    "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-prettier": "^3.2.0",
     "eslint-plugin-vue": "^6.2.2",
     "prettier": "^1.19.1",
