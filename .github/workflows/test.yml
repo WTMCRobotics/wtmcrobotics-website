@@ -107,6 +107,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: vue-dist
+          path: .
 
       - name: Download functions-lib
         uses: actions/download-artifact@v2
