@@ -51,12 +51,11 @@ const blogModule = namespace("blog");
 
 @Component({
   components: { PostCard },
-  metaInfo: { title: "Blog" }
+  metaInfo: { title: "Blog" },
 })
 export default class Blog extends Vue {
-  @blogModule.State posts!: firebase.firestore.QueryDocumentSnapshot<
-    BlogPost
-  >[];
+  @blogModule.State
+  posts!: firebase.firestore.QueryDocumentSnapshot<BlogPost>[];
   @blogModule.State loading!: boolean;
   @blogModule.State doneLoading!: boolean;
   @blogModule.Action loadMore!: (payload: {

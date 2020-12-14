@@ -86,7 +86,7 @@ const galleryModule = namespace("gallery");
 
 @Component({
   components: { FullscreenSpinner },
-  metaInfo: { title: "Gallery" }
+  metaInfo: { title: "Gallery" },
 })
 export default class Gallery extends Vue {
   @galleryModule.State loading!: boolean;

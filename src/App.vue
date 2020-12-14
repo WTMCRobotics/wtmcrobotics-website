@@ -37,9 +37,9 @@
           width="48"
           contain
         />
-        <v-toolbar-title class="px-1 unselectable" style="font-size: 2rem;">
+        <v-toolbar-title class="px-1 unselectable" style="font-size: 2rem">
           <b>WTMC</b>
-          <span style="color: var(--v-primary-base);">Robotics</span>
+          <span style="color: var(--v-primary-base)">Robotics</span>
         </v-toolbar-title>
       </router-link>
 
@@ -293,7 +293,7 @@ export default class App extends Vue {
       this.setUser(user);
       console.log("loged in as:", user);
       if (user) {
-        user?.getIdTokenResult().then(idTokenResult => {
+        user?.getIdTokenResult().then((idTokenResult) => {
           // this.handleClaims(idTokenResult.claims);
           this.handleClaims({ isEditor: true }); // TODO remove this
         });
@@ -308,7 +308,7 @@ export default class App extends Vue {
   beforeCreate() {
     const darkMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     this.$vuetify.theme.dark = darkMediaQuery.matches;
-    darkMediaQuery.addEventListener("change", event => {
+    darkMediaQuery.addEventListener("change", (event) => {
       this.$vuetify.theme.dark = event.matches;
     });
     this.$router.afterEach(() => window.scrollTo({ top: 0 }));
@@ -351,7 +351,10 @@ export default class App extends Vue {
   scrollBarTester.style.overflowY = "scroll";
   document.body.appendChild(scrollBarTester);
   setTimeout(() => {
-    document.body.classList.toggle('style-scrollbars', scrollBarTester.offsetWidth > 0);
+    document.body.classList.toggle(
+      "style-scrollbars",
+      scrollBarTester.offsetWidth > 0
+    );
     scrollBarTester.remove();
   });
 }

@@ -1,5 +1,9 @@
 <template>
-  <v-card :tile="!card" :to="card ? `/blog/${id}` : undefined" :class="{card}">
+  <v-card
+    :tile="!card"
+    :to="card ? `/blog/${id}` : undefined"
+    :class="{ card }"
+  >
     <v-img :aspect-ratio="card ? 2 : ''" max-height="70vh" :src="post.image">
       <v-card-actions v-if="isEditor">
         <v-spacer></v-spacer>
@@ -36,7 +40,7 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
-.v-card:not(.card){
+.v-card:not(.card) {
   background: inherit;
   box-shadow: none;
 }

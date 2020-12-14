@@ -1,11 +1,24 @@
 <template>
   <v-container fluid>
     <h1>Get in Touch</h1>
-    <p>If you’re interested in joining, mentoring, sponsoring, or just learning more about us, feel free to contact us using any of the methods below. We’d love to hear from you.</p>
+    <p>
+      If you’re interested in joining, mentoring, sponsoring, or just learning
+      more about us, feel free to contact us using any of the methods below.
+      We’d love to hear from you.
+    </p>
     <div class="contact-links">
-      <v-btn v-for="link in contactLinks" :key="link.href" :color="link.color" dark rounded :href="link.href" target="_blank" rel="noopener noreferrer">
-        <v-icon left>{{link.icon}}</v-icon>
-        {{link.text}}
+      <v-btn
+        v-for="link in contactLinks"
+        :key="link.href"
+        :color="link.color"
+        dark
+        rounded
+        :href="link.href"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <v-icon left>{{ link.icon }}</v-icon>
+        {{ link.text }}
       </v-btn>
     </div>
     <ContactForm></ContactForm>
@@ -30,9 +43,9 @@ import ContactForm from "@/components/ContactForm.vue";
 
 @Component({
   components: {
-    ContactForm
+    ContactForm,
   },
-  metaInfo: { title: "Contact" }
+  metaInfo: { title: "Contact" },
 })
 export default class Contact extends Vue {
   contactLinks = [
@@ -77,7 +90,7 @@ export default class Contact extends Vue {
       text: "WTMC Robotics",
       color: "#FF0000",
       icon: "mdi-youtube"
-    }
+    },
   ];
 }
 </script>
