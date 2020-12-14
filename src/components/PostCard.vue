@@ -23,6 +23,17 @@
     <v-card-text class="text--primary">
       <p :class="card ? 'ellipsis' : ''">{{ post.body }}</p>
     </v-card-text>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "author": "{{ post.author }}",
+        "headline": "{{ post.title }}",
+        "image": "{{ post.image }}",
+        "url": "/blog/{{ id }}"
+      }
+    </script>
   </v-card>
 </template>
 
