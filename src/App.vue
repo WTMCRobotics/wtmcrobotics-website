@@ -92,6 +92,8 @@
             <img
               decoding="async"
               importance="low"
+              width="1"
+              height="1"
               :src="
                 require(this.$vuetify.theme.dark
                   ? './assets/github/GitHub-Mark-Light-32px.webp'
@@ -126,6 +128,7 @@
       a {
         color: inherit;
         &.github > img {
+          width: auto;
           height: 1.1em;
           margin-inline-end: 0.1em;
           vertical-align: text-top;
