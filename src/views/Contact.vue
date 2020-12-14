@@ -40,6 +40,15 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import ContactForm from "@/components/ContactForm.vue";
+import {
+  mdiGoogleMaps,
+  mdiEmailOutline,
+  // mdiPhone,
+  mdiTwitter,
+  mdiInstagram,
+  mdiFacebook,
+  mdiYoutube,
+} from "@mdi/js";
 
 @Component({
   components: {
@@ -53,43 +62,43 @@ export default class Contact extends Vue {
       href: "https://goo.gl/maps/msvuRMgf6iygDQoXA",
       text: "WTMC Office, 4800 E. Huron River Dr.",
       color: "#34a853",
-      icon: "mdi-google-maps"
+      icon: mdiGoogleMaps,
     },
     {
       href: "mailto:wtmcrobotics@wccnet.edu",
       text: "wtmcrobotics@wccnet.edu",
       color: "#d93224",
-      icon: "mdi-email-outline"
+      icon: mdiEmailOutline,
     },
     // {
     //   href: "tel:+17344778513",
     //   text: "(734) 477-8513",
     //   color: "#1a73e8",
-    //   icon: "mdi-phone"
+    //   icon: mdiPhone,
     // },
     {
       href: "https://twitter.com/wtmcrobotics",
       text: "@wtmcrobotics",
       color: "#1ca2f2",
-      icon: "mdi-twitter"
+      icon: mdiTwitter,
     },
     {
       href: "https://www.instagram.com/wtmcrobotics/",
       text: "@wtmcrobotics",
       color: "#f03a74",
-      icon: "mdi-instagram"
+      icon: mdiInstagram,
     },
     {
       href: "https://www.facebook.com/wtmcrobotics",
       text: "@wtmcrobotics",
       color: "#3b5998",
-      icon: "mdi-facebook"
+      icon: mdiFacebook,
     },
     {
       href: "https://www.youtube.com/channel/UCXHNZrx2SV1Fo0_VAF2lRkw",
       text: "WTMC Robotics",
       color: "#FF0000",
-      icon: "mdi-youtube"
+      icon: mdiYoutube,
     },
   ];
 }

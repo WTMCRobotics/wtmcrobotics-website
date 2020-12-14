@@ -7,7 +7,7 @@
           height="100%"
           color="rgba(128, 128, 128, 0.2"
         >
-          <v-icon aria-hidden="true" style="font-size: 64px;">mdi-plus</v-icon>
+          <v-icon aria-hidden="true" size="64px">{{ mdiPlus }}</v-icon>
         </v-sheet>
       </v-responsive>
       <v-card-title>Add a New Blog Post</v-card-title>
@@ -46,6 +46,7 @@ import { Component, Vue } from "vue-property-decorator";
 import PostCard from "../components/PostCard.vue";
 import { BlogPost } from "../firebase";
 import { namespace, State } from "vuex-class";
+import { mdiPlus } from "@mdi/js";
 
 const blogModule = namespace("blog");
 
@@ -54,6 +55,7 @@ const blogModule = namespace("blog");
   metaInfo: { title: "Blog" },
 })
 export default class Blog extends Vue {
+  mdiPlus = mdiPlus;
   @blogModule.State
   posts!: firebase.firestore.QueryDocumentSnapshot<BlogPost>[];
   @blogModule.State loading!: boolean;

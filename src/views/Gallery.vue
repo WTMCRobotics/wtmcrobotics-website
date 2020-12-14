@@ -48,7 +48,7 @@
         </v-carousel-item>
       </v-carousel>
       <v-btn icon class="on-image" @click.stop="closeModal">
-        <v-icon>mdi-close</v-icon>
+        <v-icon>{{ mdiClose }}</v-icon>
       </v-btn>
     </v-dialog>
   </v-container>
@@ -81,6 +81,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import { Photo } from "@/firebase";
 import FullscreenSpinner from "../components/FullscreenSpinner.vue";
+import { mdiClose } from "@mdi/js";
 
 const galleryModule = namespace("gallery");
 
@@ -89,6 +90,7 @@ const galleryModule = namespace("gallery");
   metaInfo: { title: "Gallery" },
 })
 export default class Gallery extends Vue {
+  mdiClose = mdiClose;
   @galleryModule.State loading!: boolean;
   @galleryModule.State photos!: Photo[];
   modalPhoto = 0;

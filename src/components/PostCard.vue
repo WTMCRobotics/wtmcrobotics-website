@@ -8,7 +8,8 @@
       <v-card-actions v-if="isEditor">
         <v-spacer></v-spacer>
         <v-btn text color="primary" :to="`/blog/${id}/edit`">
-          <v-icon left>mdi-pencil</v-icon>Edit
+          <v-icon left>{{ mdiPencil }}</v-icon
+          >Edit
         </v-btn>
       </v-card-actions>
     </v-img>
@@ -50,9 +51,11 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { BlogPost } from "@/firebase";
 import { State } from "vuex-class";
+import { mdiPencil } from "@mdi/js";
 
 @Component
 export default class Post extends Vue {
+  mdiPencil = mdiPencil;
   @Prop() post!: BlogPost;
   @Prop() card!: boolean;
   @Prop() id!: string;

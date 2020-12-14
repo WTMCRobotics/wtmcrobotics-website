@@ -41,7 +41,8 @@
       <v-row>
         <v-col>
           <v-btn @click="submit" :disabled="!valid" color="primary">
-            <v-icon left>mdi-send</v-icon>Send Message
+            <v-icon left>{{ mdiSend }}</v-icon
+            >Send Message
           </v-btn>
         </v-col>
       </v-row>
@@ -51,9 +52,11 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mdiSend } from "@mdi/js";
 
 @Component
 export default class ContactForm extends Vue {
+  mdiSend = mdiSend;
   values = {
     name: "",
     message: "",

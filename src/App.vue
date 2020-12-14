@@ -75,7 +75,7 @@
         color="primary"
         aria-hidden="true"
       >
-        <v-icon>mdi-chevron-up</v-icon>
+        <v-icon>{{ mdiChevronUp }}</v-icon>
       </v-btn>
     </v-slide-y-reverse-transition>
 
@@ -256,6 +256,7 @@ import { auth, Claims } from "@/firebase";
 import { Unsubscribe, User } from "firebase";
 import { Mutation } from "vuex-class";
 import Meta from "vue-meta";
+import { mdiChevronUp } from "@mdi/js";
 
 Vue.use(Meta);
 
@@ -266,6 +267,8 @@ Vue.use(Meta);
   },
 })
 export default class App extends Vue {
+  mdiChevronUp = mdiChevronUp;
+
   showFab = false;
   drawer = null;
   items = [
