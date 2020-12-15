@@ -181,7 +181,7 @@ jobs:
 
   lhci:
     name: Lighthouse
-    needs: [build-vue, build-functions]
+    needs: [build-vue-emulator, build-functions]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -199,10 +199,10 @@ jobs:
       - name: install firebase
         run: sudo npm install -g firebase-tools
 
-      - name: Download vue-dist
+      - name: Download vue-dist-emulator
         uses: actions/download-artifact@v2
         with:
-          name: vue-dist
+          name: vue-dist-emulator
           path: dist/
 
       - name: Download functions-lib
