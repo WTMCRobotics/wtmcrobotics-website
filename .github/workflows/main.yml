@@ -214,6 +214,8 @@ jobs:
         run: |
           npm install -g @lhci/cli@0.6.x
           lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
   deploy:
     runs-on: ubuntu-latest
