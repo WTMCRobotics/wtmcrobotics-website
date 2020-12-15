@@ -7,7 +7,7 @@
           height="100%"
           color="rgba(128, 128, 128, 0.2"
         >
-          <v-icon aria-hidden="true" style="font-size: 64px;">mdi-plus</v-icon>
+          <v-icon aria-hidden="true" size="64px">{{ mdiPlus }}</v-icon>
         </v-sheet>
       </v-responsive>
       <v-card-title>Add a New Blog Post</v-card-title>
@@ -34,6 +34,10 @@
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(auto-fit, minmax(min(300px, 90%), 1fr));
+  .v-card {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 360px;
+  }
 }
 .load-more {
   grid-column: 1 / -1;
@@ -46,17 +50,18 @@ import { Component, Vue } from "vue-property-decorator";
 import PostCard from "../components/PostCard.vue";
 import { BlogPost } from "../firebase";
 import { namespace, State } from "vuex-class";
+import { mdiPlus } from "@mdi/js";
 
 const blogModule = namespace("blog");
 
 @Component({
   components: { PostCard },
-  metaInfo: { title: "Blog" }
+  metaInfo: { title: "Blog" },
 })
 export default class Blog extends Vue {
-  @blogModule.State posts!: firebase.firestore.QueryDocumentSnapshot<
-    BlogPost
-  >[];
+  mdiPlus = mdiPlus;
+  @blogModule.State
+  posts!: firebase.firestore.QueryDocumentSnapshot<BlogPost>[];
   @blogModule.State loading!: boolean;
   @blogModule.State doneLoading!: boolean;
   @blogModule.Action loadMore!: (payload: {
