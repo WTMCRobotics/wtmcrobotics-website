@@ -31,6 +31,7 @@
     "vuex-class": "^0.3.2"
   },
   "devDependencies": {
+    "@mdi/js": "^5.8.55",
     "@types/resize-observer-browser": "^0.1.4",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",

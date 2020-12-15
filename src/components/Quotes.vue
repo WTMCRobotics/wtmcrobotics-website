@@ -8,7 +8,8 @@
   </div>
   <div class="grid-container" v-else>
     <v-btn v-if="isEditor" text color="primary" :to="`/edit-quotes`">
-      <v-icon left>>mdi-pencil</v-icon>Edit
+      <v-icon left>{{ mdiPencil }}</v-icon
+      >Edit
     </v-btn>
     <figure v-for="quote in quotes" :key="quote.quote">
       <blockquote>
@@ -43,11 +44,13 @@ import { Component, Vue } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import { Quote } from "@/firebase";
 import { State } from "vuex-class";
+import { mdiPencil } from "@mdi/js";
 
 const quoteModule = namespace("quotes");
 
 @Component
 export default class Quotes extends Vue {
+  mdiPencil = mdiPencil;
   @quoteModule.State loading!: boolean;
   @quoteModule.State quotes!: Quote[];
   @State isEditor!: boolean;
