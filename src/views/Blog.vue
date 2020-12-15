@@ -34,6 +34,10 @@
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(auto-fit, minmax(min(300px, 90%), 1fr));
+  .v-card {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 360px;
+  }
 }
 .load-more {
   grid-column: 1 / -1;
