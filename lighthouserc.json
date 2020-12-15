@@ -1,0 +1,22 @@
+{
+    "ci": {
+        "collect": {
+            "url": [
+                "http://localhost/",
+                "http://localhost/gallery",
+                "http://localhost/sponsor",
+                "http://localhost/join",
+                "http://localhost/blog",
+                "http://localhost/contact"
+            ],
+            "staticDistDir": "./dist/",
+            "isSinglePageApplication": true
+        },
+        "assert": {
+            "preset": "lighthouse:no-pwa"
+        },
+        "upload": {
+            "target": "temporary-public-storage"
+        }
+    }
+}
