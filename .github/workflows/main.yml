@@ -181,6 +181,7 @@ jobs:
 
   lhci:
     name: Lighthouse
+    needs: [build-vue, build-functions]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -213,7 +214,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [build-vue, build-functions, cypress-run]
+    needs: [build-vue, build-functions, cypress-run, lhci]
     if: github.ref == 'refs/heads/master'
 
     # Steps represent a sequence of tasks that will be executed as part of the job
