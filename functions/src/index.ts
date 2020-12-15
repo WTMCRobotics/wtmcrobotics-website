@@ -33,7 +33,10 @@ export const sitemap = functions.https.onRequest(async (req, res) => {
 function setEditorData(uid: string, data: { admin: boolean, name: string } | undefined) {
     auth.setCustomUserClaims(uid, { isEditor: Boolean(data), isAdmin: Boolean(data?.admin) })
         .then(() => {
-            auth.revokeRefreshTokens(uid);
+            auth.revokeRefreshTokens(uid)
+                .catch(err => {
+                    console.error(err)
+                });
         })
         .catch(err => {
             console.error(err)
