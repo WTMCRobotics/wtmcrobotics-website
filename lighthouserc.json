@@ -12,6 +12,9 @@
             "staticDistDir": "./dist/",
             "isSinglePageApplication": true
         },
+        "assert": {
+            "preset": "lighthouse:recommended"
+        },
         "upload": {
             "target": "temporary-public-storage"
         }
