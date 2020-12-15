@@ -2,14 +2,15 @@
     "ci": {
         "collect": {
             "url": [
-                "http://localhost:5000/",
-                "http://localhost:5000/gallery",
-                "http://localhost:5000/sponsor",
-                "http://localhost:5000/join",
-                "http://localhost:5000/blog",
-                "http://localhost:5000/contact"
+                "http://localhost/",
+                "http://localhost/gallery",
+                "http://localhost/sponsor",
+                "http://localhost/join",
+                "http://localhost/blog",
+                "http://localhost/contact"
             ],
-            "startServerCommand": "firebase emulators:start"
+            "staticDistDir": "./dist/",
+            "isSinglePageApplication": true
         },
         "upload": {
             "target": "temporary-public-storage"
