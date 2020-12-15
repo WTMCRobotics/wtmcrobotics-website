@@ -187,6 +187,6 @@ jobs:
       - name: deploy to firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy -m "${GITHUB_SHA}" --except functions # remove the "--except functions" once a billing account is set up
+          args: deploy -m "${GITHUB_SHA}"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
