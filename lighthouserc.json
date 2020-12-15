@@ -10,15 +10,15 @@
                 "http://localhost/contact"
             ],
             "staticDistDir": "./dist/",
-            "isSinglePageApplication": true
-        },
-        "settings": {
-            "onlyCategories": [
-                "performance",
-                "accessibility",
-                "best-practices",
-                "seo"
-            ]
+            "isSinglePageApplication": true,
+            "settings": {
+                "onlyCategories": [
+                    "performance",
+                    "accessibility",
+                    "best-practices",
+                    "seo"
+                ]
+            }
         },
         "assert": {
             "preset": "lighthouse:no-pwa"
