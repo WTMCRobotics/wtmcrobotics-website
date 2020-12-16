@@ -264,6 +264,13 @@ Vue.use(Meta);
   metaInfo: {
     title: "WTMC Robotics",
     titleTemplate: "%s | WTMC Robotics",
+    meta: [
+      {
+        name: "description",
+        content:
+          "Team 6101, Strange Quarks, is the Official FRC team of Washtenaw Technical Middle Collage.",
+      },
+    ],
   },
 })
 export default class App extends Vue {
