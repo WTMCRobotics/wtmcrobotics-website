@@ -26,6 +26,13 @@ export const firestore = app.firestore();
 
 export const storage = app.storage();
 
+if (process.env.USE_FIREBASE_EMULATORS) {
+    console.log("using Firebase emulators!");
+    firestore.settings({
+        host: "localhost:8080",
+        ssl: false
+    });
+}
 
 export const ui = new firebaseui.auth.AuthUI(auth);
 export const signInOptions = [
@@ -71,9 +78,17 @@ export interface Sponsor {
     website: string;
 }
 
-
 export interface SponsorsDoc {
     sponsors: Sponsor[];
+}
+
+export interface Quote {
+    quote: string;
+    author: string;
+}
+
+export interface QuotesDoc {
+    quotes: Quote[];
 }
 
 export function isTimestamp(t: any): t is firebase.firestore.Timestamp {

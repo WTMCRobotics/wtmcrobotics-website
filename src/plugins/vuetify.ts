@@ -5,6 +5,9 @@ Vue.use(Vuetify);
 
 
 export default new Vuetify({
+  icons: {
+    iconfont: 'mdiSvg',
+  },
   theme: {
     options: {
       customProperties: true,
@@ -17,8 +20,5 @@ export default new Vuetify({
         primary: "#c20312"
       }
     }
-  },
-  icons: {
-    iconfont: 'md',
   }
 });

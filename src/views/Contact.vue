@@ -1,11 +1,25 @@
 <template>
   <v-container fluid>
     <h1>Get in Touch</h1>
-    <p>If you’re interested in joining, mentoring, sponsoring, or just learning more about us, feel free to contact us using any of the methods below. We’d love to hear from you.</p>
+    <p>
+      If you’re interested in joining, mentoring, sponsoring, or just learning
+      more about us, feel free to contact us using any of the methods below.
+      We’d love to hear from you.
+    </p>
     <div class="contact-links">
-      <div v-for="link in contactLinks" :key="link.href">
-        <a :href="link.href" target="_blank" rel="noopener noreferrer">{{link.text}}</a>
-      </div>
+      <v-btn
+        v-for="link in contactLinks"
+        :key="link.href"
+        :color="link.color"
+        dark
+        rounded
+        :href="link.href"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <v-icon left>{{ link.icon }}</v-icon>
+        {{ link.text }}
+      </v-btn>
     </div>
     <ContactForm></ContactForm>
   </v-container>
@@ -13,39 +27,79 @@
 
 <style lang="scss" scoped>
 .contact-links {
-  div {
-    a {
-      white-space: pre;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+.v-btn {
+  text-transform: none;
 }
 </style>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import ContactForm from "@/components/ContactForm.vue";
+import {
+  mdiGoogleMaps,
+  mdiEmailOutline,
+  // mdiPhone,
+  mdiTwitter,
+  mdiInstagram,
+  mdiFacebook,
+  mdiYoutube,
+} from "@mdi/js";
 
 @Component({
   components: {
-    ContactForm
+    ContactForm,
   },
-  metaInfo: { title: "Contact" }
+  metaInfo: { title: "Contact" },
 })
 export default class Contact extends Vue {
   contactLinks = [
     {
       href: "https://goo.gl/maps/msvuRMgf6iygDQoXA",
-      text:
-        "Building TI, Technical and Industrial,\n4800 E Huron River Dr #214,\nAnn Arbor, MI 48105"
-    },
-    {
-      href: "tel:+17344778513",
-      text: "(734) 477-8513"
+      text: "WTMC Office, 4800 E. Huron River Dr.",
+      color: "#34a853",
+      icon: mdiGoogleMaps,
     },
     {
       href: "mailto:wtmcrobotics@wccnet.edu",
-      text: "wtmcrobotics@wccnet.edu"
-    }
+      text: "wtmcrobotics@wccnet.edu",
+      color: "#d93224",
+      icon: mdiEmailOutline,
+    },
+    // {
+    //   href: "tel:+17344778513",
+    //   text: "(734) 477-8513",
+    //   color: "#1a73e8",
+    //   icon: mdiPhone,
+    // },
+    {
+      href: "https://twitter.com/wtmcrobotics",
+      text: "@wtmcrobotics",
+      color: "#1ca2f2",
+      icon: mdiTwitter,
+    },
+    {
+      href: "https://www.instagram.com/wtmcrobotics/",
+      text: "@wtmcrobotics",
+      color: "#f03a74",
+      icon: mdiInstagram,
+    },
+    {
+      href: "https://www.facebook.com/wtmcrobotics",
+      text: "@wtmcrobotics",
+      color: "#3b5998",
+      icon: mdiFacebook,
+    },
+    {
+      href: "https://www.youtube.com/channel/UCXHNZrx2SV1Fo0_VAF2lRkw",
+      text: "WTMC Robotics",
+      color: "#FF0000",
+      icon: mdiYoutube,
+    },
   ];
 }
 </script>

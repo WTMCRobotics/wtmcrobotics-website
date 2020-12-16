@@ -1,10 +1,15 @@
 <template>
-  <v-card :tile="!card" :to="card ? `/blog/${id}` : undefined" :class="{card}">
+  <v-card
+    :tile="!card"
+    :to="card ? `/blog/${id}` : undefined"
+    :class="{ card }"
+  >
     <v-img :aspect-ratio="card ? 2 : ''" max-height="70vh" :src="post.image">
       <v-card-actions v-if="isEditor">
         <v-spacer></v-spacer>
         <v-btn text color="primary" :to="`/blog/${id}/edit`">
-          <v-icon left>edit</v-icon>Edit
+          <v-icon left>{{ mdiPencil }}</v-icon
+          >Edit
         </v-btn>
       </v-card-actions>
     </v-img>
@@ -18,6 +23,17 @@
     <v-card-text class="text--primary">
       <p :class="card ? 'ellipsis' : ''">{{ post.body }}</p>
     </v-card-text>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "author": "{{ post.author }}",
+        "headline": "{{ post.title }}",
+        "image": "{{ post.image }}",
+        "url": "/blog/{{ id }}"
+      }
+    </script>
   </v-card>
 </template>
 
@@ -36,7 +52,7 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
-.v-card:not(.card){
+.v-card:not(.card) {
   background: inherit;
   box-shadow: none;
 }
@@ -46,9 +62,11 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { BlogPost } from "@/firebase";
 import { State } from "vuex-class";
+import { mdiPencil } from "@mdi/js";
 
 @Component
 export default class Post extends Vue {
+  mdiPencil = mdiPencil;
   @Prop() post!: BlogPost;
   @Prop() card!: boolean;
   @Prop() id!: string;

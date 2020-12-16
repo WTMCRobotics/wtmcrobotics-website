@@ -26,8 +26,8 @@ export default class Login extends Vue {
       credentialHelper,
       signInOptions,
       signInFlow: "popup",
-      tosUrl: process.env.VUE_APP_TERMS_OF_SERVICE_URL,
-      privacyPolicyUrl: process.env.VUE_APP_PRIVACY_POLICY_URL
+      tosUrl: "/terms-of-service",
+      privacyPolicyUrl: "/privacy-policy"
     };
     ui.start("#firebaseui-auth-container", uiConfig);
   }

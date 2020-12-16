@@ -11,10 +11,10 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
-    path: "/about",
-    name: "About",
+    path: "/edit-quotes",
+    name: "Edit Quotes",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(/* webpackChunkName: "edit-quotes" */ "../views/EditQuotes.vue")
   },
   {
     path: "/gallery",
@@ -64,10 +64,12 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(/* webpackChunkName: "account" */ "../views/Account.vue")
   },
-  { path: '/index.html', redirect: '/' },
-  { path: '/blogdetail.php', redirect: '/blog' },
-  { path: '/:page.html', redirect: '/:page' },
-  { path: '/:page.php', redirect: '/:page' },
+  {
+    path: "/privacy-policy",
+    alias: "/terms-of-service",
+    name: "Reload",
+    redirect: to => location.href = to.fullPath
+  },
   {
     path: '/*',
     name: "404",

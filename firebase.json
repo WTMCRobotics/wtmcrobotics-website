@@ -3,12 +3,7 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-  "functions": {
-    "predeploy": [
-      "npm --prefix \"$RESOURCE_DIR\" run lint",
-      "npm --prefix \"$RESOURCE_DIR\" run build"
-    ]
-  },
+  "functions": {},
   "hosting": {
     "public": "dist",
     "ignore": [
@@ -17,13 +12,53 @@
       "**/node_modules/**",
       "**.xcf"
     ],
+    "redirects": [
+      {
+        "source": "/privacy-policy",
+        "destination": "https://docs.google.com/document/d/e/2PACX-1vTTkCCPOstTqM7gXdTKKJCBkdQOmUJey7dONGChEHF5lyVXptR2-oNegEYyDWsu0ib6tWuXGo9iyHlQ/pub",
+        "type": 302
+      },
+      {
+        "source": "/terms-of-service",
+        "destination": "https://docs.google.com/document/d/e/2PACX-1vR1JJ1yAuv2HMu-33pJs0rNXzUhsNnBGF1FqZZaWPDneU3gS7bwk-1DAbXkBI9mD_mWYAYhxlEfYkrd/pub",
+        "type": 302
+      },
+      {
+        "source": "/index.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/about.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/blogdetail.php",
+        "destination": "/blog",
+        "type": 301
+      },
+      {
+        "source": "/:page.html",
+        "destination": "/:page",
+        "type": 301
+      },
+      {
+        "source": "/:page.php",
+        "destination": "/:page",
+        "type": 301
+      }
+    ],
     "rewrites": [
+      {
+        "source": "/sitemap.xml",
+        "function": "sitemap"
+      },
       {
         "source": "**",
         "destination": "/index.html"
       }
-    ],
-    "predeploy": "npm run build"
+    ]
   },
   "storage": {
     "rules": "storage.rules"

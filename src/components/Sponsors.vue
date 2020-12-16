@@ -1,43 +1,38 @@
 <template>
-  <v-container fluid>
-    <h2>Our Sponsors</h2>
-    <div v-if="loading" class="spinnerWrapper">
-      <v-progress-circular
-        :size="48"
-        :width="5"
-        indeterminate
-      ></v-progress-circular>
-    </div>
-    <div
-      class="carousel"
-      v-resize="onResize"
-      v-else
-      ref="carousel"
-      @scroll="wasScrolled = Date.now()"
+  <div v-if="loading" class="spinnerWrapper">
+    <v-progress-circular
+      :size="48"
+      :width="5"
+      indeterminate
+    ></v-progress-circular>
+  </div>
+  <div
+    class="carousel"
+    v-resize="onResize"
+    v-else
+    ref="carousel"
+    @scroll="wasScrolled = Date.now()"
+  >
+    <a
+      v-for="sponsor in sponsors"
+      :key="sponsor.name"
+      :href="sponsor.website"
+      target="_blank"
+      rel="noopener"
+      :style="'width: ' + percent + '%;'"
     >
-      <a
-        v-for="sponsor in sponsors"
-        :key="sponsor.name"
-        :href="sponsor.website"
-        target="_blank"
-        :style="'width: ' + percent + '%;'"
-      >
-        <v-img
-          :src="sponsor.logo"
-          contain
-          width="100%"
-          :aspect-ratio="4 / 3"
-          :alt="sponsor.name + ' logo'"
-        ></v-img>
-      </a>
-    </div>
-  </v-container>
+      <v-img
+        :src="sponsor.logo"
+        contain
+        width="100%"
+        :aspect-ratio="4 / 3"
+        :alt="sponsor.name + ' logo'"
+      ></v-img>
+    </a>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-h2 {
-  text-align: center;
-}
 .spinnerWrapper {
   height: 200px;
   display: grid;
@@ -58,7 +53,7 @@ h2 {
         filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='logoFilterWhite'><feColorMatrix type=\"matrix\" values=\"0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0\"/></filter></svg>#logoFilterWhite");
       }
       &.theme--light {
-         filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='logoFilterBlack'><feColorMatrix type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0\"/></filter></svg>#logoFilterBlack");
+        filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='logoFilterBlack'><feColorMatrix type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0\"/></filter></svg>#logoFilterBlack");
       }
     }
   }
@@ -109,12 +104,12 @@ export default class Sponsors extends Vue {
         ) {
           carousel.scrollTo({
             left: 0,
-            behavior: "smooth"
+            behavior: "smooth",
           });
         } else {
           carousel.scrollBy({
             left: carousel.querySelector("a")?.clientWidth || 200,
-            behavior: "smooth"
+            behavior: "smooth",
           });
         }
       }
