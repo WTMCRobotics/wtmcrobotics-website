@@ -80,7 +80,7 @@ import Quotes from "@/components/Quotes.vue";
     Sponsors,
     Quotes,
   },
-  metaInfo: { titleTemplate: "" },
+  metaInfo: { titleTemplate: null },
 })
 export default class Home extends Vue {}
 </script>
