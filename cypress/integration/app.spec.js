@@ -76,9 +76,9 @@ describe('top button', () => {
     })
 
     it('appears and goes to top', () => {
-        cy.get('.v-btn--fab').should('not.be.visible')
+        cy.get('[aria-label="Scroll to top"]').should('not.be.visible')
         cy.scrollTo(0, '250px')
-        cy.get('.v-btn--fab').should('be.visible')
+        cy.get('[aria-label="Scroll to top"]').should('be.visible')
             .click()
         cy.window().its('scrollY').should('eq', 0)
     })

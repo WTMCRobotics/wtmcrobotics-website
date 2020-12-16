@@ -73,7 +73,7 @@
         v-scroll="onScroll"
         @click="scrollToTop"
         color="primary"
-        aria-hidden="true"
+        aria-label="Scroll to top"
       >
         <v-icon>{{ mdiChevronUp }}</v-icon>
       </v-btn>
