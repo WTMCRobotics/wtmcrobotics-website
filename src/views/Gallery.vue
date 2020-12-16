@@ -47,7 +47,7 @@
           ></v-img>
         </v-carousel-item>
       </v-carousel>
-      <v-btn icon class="on-image" @click.stop="closeModal">
+      <v-btn icon class="on-image" @click.stop="closeModal" aria-label="Close">
         <v-icon>{{ mdiClose }}</v-icon>
       </v-btn>
     </v-dialog>
