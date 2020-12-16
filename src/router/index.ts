@@ -11,10 +11,10 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
-    path: "/about",
-    name: "About",
+    path: "/edit-quotes",
+    name: "Edit Quotes",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(/* webpackChunkName: "edit-quotes" */ "../views/EditQuotes.vue")
   },
   {
     path: "/gallery",

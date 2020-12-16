@@ -3,12 +3,7 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-  "functions": {
-    "predeploy": [
-      "npm --prefix \"$RESOURCE_DIR\" run lint",
-      "npm --prefix \"$RESOURCE_DIR\" run build"
-    ]
-  },
+  "functions": {},
   "hosting": {
     "public": "dist",
     "ignore": [
@@ -34,6 +29,11 @@
         "type": 301
       },
       {
+        "source": "/about.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
         "source": "/blogdetail.php",
         "destination": "/blog",
         "type": 301
@@ -51,11 +51,14 @@
     ],
     "rewrites": [
       {
+        "source": "/sitemap.xml",
+        "function": "sitemap"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
-    ],
-    "predeploy": "npm run build"
+    ]
   },
   "storage": {
     "rules": "storage.rules"

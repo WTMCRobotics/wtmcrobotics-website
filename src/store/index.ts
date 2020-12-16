@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex, { Module } from "vuex";
-import { firestore, BlogPost, Gallery, Photo, auth, Claims, Sponsor, SponsorsDoc } from "@/firebase";
+import { firestore, BlogPost, Gallery, Photo, auth, Claims, Sponsor, SponsorsDoc, Quote, QuotesDoc } from "@/firebase";
 import { User } from 'firebase';
 
 Vue.use(Vuex);
@@ -145,6 +145,43 @@ const sponsors: Module<SponsorsState, {}> = {
   },
 };
 
+interface QuoteState {
+  quotes: Quote[];
+  loading: boolean;
+}
+
+const quotes: Module<QuoteState, {}> = {
+  namespaced: true,
+  state: {
+    quotes: [],
+    loading: false,
+  },
+  mutations: {
+    setQuotes: (state, quotes: Quote[]) => {
+      state.quotes = quotes;
+    },
+    setLoading: (state, loading: boolean) => {
+      state.loading = loading;
+    },
+    resetQuotes: (state) => {
+      state.quotes = [];
+    }
+  },
+  actions: {
+    load: ({ commit, state }) => {
+      if (state.quotes.length > 0 || state.loading) {
+        return;
+      }
+      commit('setLoading', true);
+      firestore.doc('main/quotes').get().then(snapshot => {
+        commit('setQuotes', (snapshot.data() as QuotesDoc).quotes);
+      }).finally(() => {
+        commit('setLoading', false);
+      });
+    }
+  },
+};
+
 export default new Vuex.Store({
   state: {
     isAdmin: false,
@@ -153,13 +190,13 @@ export default new Vuex.Store({
   },
   mutations: {
     handleClaims(state, claims: Claims) {
-      state.isEditor = !!claims.isEditor;
-      state.isAdmin = !!claims.isAdmin;
+      state.isEditor = Boolean(claims.isEditor);
+      state.isAdmin = Boolean(claims.isAdmin);
     },
     setUser(state, user: User | null) {
       state.user = user;
     }
   },
   actions: {},
-  modules: { blog, gallery, sponsors }
+  modules: { blog, gallery, sponsors, quotes }
 });
