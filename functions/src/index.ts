@@ -125,7 +125,7 @@ function isContactFormData(data: any): data is contactFormData {
     if (typeof data?.name !== 'string') {
         return false
     }
-    if (typeof data?.email !== 'string' || !/\S +@\S +\.\S +/.test(data.email)) {
+    if (typeof data?.email !== 'string' || !/\S+@\S+\.\S+/.test(data.email)) {
         return false
     }
     if (typeof data?.message !== 'string') {
