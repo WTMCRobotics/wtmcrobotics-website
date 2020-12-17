@@ -3,11 +3,13 @@ import * as admin from 'firebase-admin';
 import * as builder from 'xmlbuilder';
 import * as nodemailer from 'nodemailer';
 
+const config = functions.config();
+
 admin.initializeApp();
 const db = admin.firestore();
 const auth = admin.auth();
 
-const nodemailerTransport = nodemailer.createTransport(functions.config().email?.smtpurl);
+const nodemailerTransport = nodemailer.createTransport(config.email?.smtpurl);
 
 const topLevel = ['gallery', 'sponsor', 'join', 'blog', 'contact']
 
@@ -106,7 +108,7 @@ export const sendEmail = functions.https.onCall(async data => {
             });
         }
     } else {
-        console.log('cannot find email.smtpurl')
+        console.log('cannot find config.email.smtpurl')
     }
     return 'unknown error'
 })
