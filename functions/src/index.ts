@@ -91,3 +91,43 @@ export const newUser = functions.auth.user().onCreate((user) => {
         });
     }
 });
+
+export const sendEmail = functions.https.onCall(async data => {
+    if (nodemailerTransport) {
+        if (isContactFormData(data)) {
+            return await nodemailerTransport.sendMail({
+                from: 'wccnet.edu@wccnet.edu',
+                to: 'wccnet.edu@wccnet.edu',
+                replyTo: data.email,
+                subject: `Message from ${data.name}`,
+                text: `Message sent by: ${data.name} (${data.email})\n\n${data.message}`,
+            }).then((result) => {
+                console.log(result)
+            }).catch(err => {
+                console.log(err)
+            });
+        }
+    } else {
+        console.log('cannot find config.email.smtpurl')
+    }
+    return 'unknown error'
+})
+
+interface contactFormData {
+    name: string,
+    email: string,
+    message: string
+}
+
+function isContactFormData(data: any): data is contactFormData {
+    if (typeof data?.name !== 'string') {
+        return false
+    }
+    if (typeof data?.email !== 'string' || !/\S +@\S +\.\S +/.test(data.email)) {
+        return false
+    }
+    if (typeof data?.message !== 'string') {
+        return false
+    }
+    return true;
+}

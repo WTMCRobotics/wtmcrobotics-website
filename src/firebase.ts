@@ -2,6 +2,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
+import 'firebase/functions';
 
 import * as firebaseui from 'firebaseui'
 
@@ -26,12 +27,16 @@ export const firestore = app.firestore();
 
 export const storage = app.storage();
 
+export const functions = app.functions();
+
+
 if (process.env.USE_FIREBASE_EMULATORS) {
     console.log("using Firebase emulators!");
     firestore.settings({
         host: "localhost:8080",
         ssl: false
     });
+    functions.useFunctionsEmulator("http://localhost:5001") // TODO make sure this is the correct port
 }
 
 export const ui = new firebaseui.auth.AuthUI(auth);
