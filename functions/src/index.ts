@@ -106,6 +106,8 @@ export const sendEmail = functions.https.onCall(async data => {
             }).catch(err => {
                 console.log(err)
             });
+        } else {
+            return 'invalid data';
         }
     } else {
         console.log('cannot find config.email.smtpurl')
