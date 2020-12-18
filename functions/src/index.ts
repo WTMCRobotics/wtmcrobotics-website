@@ -96,8 +96,8 @@ export const sendEmail = functions.https.onCall(async data => {
     if (nodemailerTransport) {
         if (isContactFormData(data)) {
             return await nodemailerTransport.sendMail({
-                from: 'wccnet.edu@wccnet.edu',
-                to: 'wccnet.edu@wccnet.edu',
+                from: 'wtmcrobotics.edu@wccnet.edu',
+                to: 'wtmcrobotics.edu@wccnet.edu',
                 replyTo: data.email,
                 subject: `Message from ${data.name}`,
                 text: `Message sent by: ${data.name} (${data.email})\n\n${data.message}`,
