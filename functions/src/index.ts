@@ -95,7 +95,7 @@ export const newUser = functions.auth.user().onCreate((user) => {
 export const sendEmail = functions.https.onCall(async data => {
     if (nodemailerTransport) {
         if (isContactFormData(data)) {
-            return await nodemailerTransport.sendMail({
+            return nodemailerTransport.sendMail({
                 from: 'wtmcrobotics@wccnet.edu',
                 to: 'wtmcrobotics@wccnet.edu',
                 replyTo: data.email,
