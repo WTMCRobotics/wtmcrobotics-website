@@ -21,6 +21,6 @@ div {
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-@Component({ metaInfo: { titleTemplate: "" } })
+@Component({ metaInfo: { titleTemplate: "", meta: [{name:'robots', content: "noindex" }]} })
 export default class PageNotFound extends Vue {}
 </script>

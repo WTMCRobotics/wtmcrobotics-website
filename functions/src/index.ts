@@ -1,10 +1,15 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as builder from 'xmlbuilder';
+import * as nodemailer from 'nodemailer';
+
+const config = functions.config();
 
 admin.initializeApp();
 const db = admin.firestore();
 const auth = admin.auth();
+
+const nodemailerTransport = nodemailer.createTransport(config.email?.smtpurl);
 
 const topLevel = ['gallery', 'sponsor', 'join', 'blog', 'contact']
 
@@ -86,3 +91,45 @@ export const newUser = functions.auth.user().onCreate((user) => {
         });
     }
 });
+
+export const sendEmail = functions.https.onCall(async data => {
+    if (nodemailerTransport) {
+        if (isContactFormData(data)) {
+            return nodemailerTransport.sendMail({
+                from: 'wtmcrobotics@wccnet.edu',
+                to: 'wtmcrobotics@wccnet.edu',
+                replyTo: data.email,
+                subject: `Message from ${data.name}`,
+                text: `Message sent by: ${data.name} (${data.email})\n\n${data.message}`,
+            }).then((result) => {
+                console.log(result);
+            }).catch(err => {
+                console.log(err);
+            });
+        } else {
+            return 'invalid data';
+        }
+    } else {
+        console.log('cannot find config.email.smtpurl');
+    }
+    return 'unknown error';
+})
+
+interface contactFormData {
+    name: string,
+    email: string,
+    message: string
+}
+
+function isContactFormData(data: any): data is contactFormData {
+    if (typeof data?.name !== 'string') {
+        return false;
+    }
+    if (typeof data?.email !== 'string' || !/\S+@\S+\.\S+/.test(data.email)) {
+        return false;
+    }
+    if (typeof data?.message !== 'string') {
+        return false;
+    }
+    return true;
+}
