@@ -28,3 +28,6 @@ debug.log
 
 #Wierd firebase thing
 .firebase/hosting.*.cache
+
+# Firebase functions secrets
+functions/.runtimeconfig.json
