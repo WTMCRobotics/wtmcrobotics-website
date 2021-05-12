@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "lib": [
+      "dom"
+    ],
     "module": "commonjs",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
