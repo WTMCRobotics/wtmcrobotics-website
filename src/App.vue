@@ -2,12 +2,7 @@
   <v-app>
     <v-navigation-drawer app v-model="drawer" fixed temporary right>
       <v-list>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          link
-          :to="item.path"
-        >
+        <v-list-item v-for="item in items" :key="item.title" link :to="item.path">
           <v-list-item-content>
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
@@ -28,11 +23,7 @@
     >
       <router-link to="/" class="home" tabindex="-1">
         <v-img
-          :src="
-            require(this.$vuetify.theme.dark
-              ? './assets/logo-dark.webp'
-              : './assets/logo-light.webp')
-          "
+          :src="require(this.$vuetify.theme.dark ? './assets/logo-dark.webp' : './assets/logo-light.webp')"
           height="48"
           width="48"
           contain
@@ -46,21 +37,11 @@
       <v-spacer></v-spacer>
 
       <v-tabs v-if="this.$vuetify.breakpoint.mdAndUp" right ref="vTabs">
-        <v-tab v-for="item in items" :key="item.title" :to="item.path">{{
-          item.title
-        }}</v-tab>
+        <v-tab v-for="item in items" :key="item.title" :to="item.path">{{ item.title }}</v-tab>
       </v-tabs>
-      <v-app-bar-nav-icon
-        v-else
-        @click.stop="drawer = !drawer"
-        aria-label="Navigation"
-      ></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon v-else @click.stop="drawer = !drawer" aria-label="Navigation"></v-app-bar-nav-icon>
     </v-app-bar>
-    <v-main
-      :style="{ minHeight: `calc(100vh - ${footerHeight}px)` }"
-      class="safe-pad-left safe-pad-right"
-      ref="main"
-    >
+    <v-main :style="{ minHeight: `calc(100vh - ${footerHeight}px)` }" class="safe-pad-left safe-pad-right" ref="main">
       <router-view></router-view>
     </v-main>
 
@@ -85,10 +66,7 @@
         &nbsp;
         <span>
           Source code available on
-          <a
-            href="https://github.com/WTMCRobotics/wtmcrobotics-website"
-            class="github"
-          >
+          <a href="https://github.com/WTMCRobotics/wtmcrobotics-website" class="github">
             <img
               decoding="async"
               importance="low"
@@ -207,10 +185,7 @@ body {
 }
 .safe-pad-top {
   padding-top: var(--padding-top-min) !important;
-  padding-top: max(
-    var(--padding-top-min),
-    calc(var(--padding-top-add) + env(safe-area-inset-top))
-  ) !important;
+  padding-top: max(var(--padding-top-min), calc(var(--padding-top-add) + env(safe-area-inset-top))) !important;
 }
 .safe-pad-bottom {
   padding-bottom: var(--padding-bottom-min) !important;
@@ -221,17 +196,11 @@ body {
 }
 .safe-pad-left {
   padding-left: var(--padding-left-min) !important;
-  padding-left: max(
-    var(--padding-left-min),
-    calc(var(--padding-left-add) + env(safe-area-inset-left))
-  ) !important;
+  padding-left: max(var(--padding-left-min), calc(var(--padding-left-add) + env(safe-area-inset-left))) !important;
 }
 .safe-pad-right {
   padding-right: var(--padding-right-min) !important;
-  padding-right: max(
-    var(--padding-right-min),
-    calc(var(--padding-right-add) + env(safe-area-inset-right))
-  ) !important;
+  padding-right: max(var(--padding-right-min), calc(var(--padding-right-add) + env(safe-area-inset-right))) !important;
 }
 *:focus:not(:focus-visible) {
   outline: none;
@@ -267,8 +236,7 @@ Vue.use(Meta);
     meta: [
       {
         name: "description",
-        content:
-          "Team 6101, Strange Quarks, is the Official FRC team of Washtenaw Technical Middle Collage.",
+        content: "Team 6101, Strange Quarks, is the Official FRC team of Washtenaw Technical Middle Collage.",
       },
     ],
   },
@@ -346,7 +314,7 @@ export default class App extends Vue {
   checkScroll() {
     const root = document.querySelector("html") as HTMLHtmlElement;
     this.scrollable = root.clientHeight !== root.scrollHeight;
-    (this.$refs.vTabs as Vue & {callSlider: () => void})?.callSlider();
+    (this.$refs.vTabs as Vue & { callSlider: () => void })?.callSlider();
   }
 
   updateFooterHeight() {
@@ -360,10 +328,7 @@ export default class App extends Vue {
   scrollBarTester.style.overflowY = "scroll";
   document.body.appendChild(scrollBarTester);
   setTimeout(() => {
-    document.body.classList.toggle(
-      "style-scrollbars",
-      scrollBarTester.offsetWidth > 0
-    );
+    document.body.classList.toggle("style-scrollbars", scrollBarTester.offsetWidth > 0);
     scrollBarTester.remove();
   });
 }

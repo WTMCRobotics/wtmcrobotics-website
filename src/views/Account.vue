@@ -16,7 +16,7 @@ import { User } from "firebase";
 import { Meta } from "@sophosoft/vue-meta-decorator";
 
 @Component({
-  components: { Login }
+  components: { Login },
 })
 export default class Account extends Vue {
   @State isEditor!: boolean;
@@ -25,7 +25,7 @@ export default class Account extends Vue {
   @Meta
   getMetaInfo() {
     return {
-      title: this.user ? "Account" : "Login"
+      title: this.user ? "Account" : "Login",
     };
   }
 

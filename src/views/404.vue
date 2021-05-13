@@ -3,11 +3,9 @@
     <div>
       <h1>Page not found!</h1>
       <p>
-        The page "{{$route.path}}" doesn't exist.
-        <br />If you think this is a mistake you can
-        <router-link to="/contact">Contact Us</router-link>.
-        <br />You can go to the
-        <router-link to="/">WTMC Robotics Home Page</router-link>.
+        The page "{{ $route.path }}" doesn't exist. <br />
+        If you think this is a mistake you can <router-link to="/contact">Contact Us</router-link>. <br />
+        You can go to the <router-link to="/">WTMC Robotics Home Page</router-link>.
       </p>
     </div>
   </v-container>
@@ -21,6 +19,6 @@ div {
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-@Component({ metaInfo: { titleTemplate: "", meta: [{name:'robots', content: "noindex" }]} })
+@Component({ metaInfo: { titleTemplate: "", meta: [{ name: "robots", content: "noindex" }] } })
 export default class PageNotFound extends Vue {}
 </script>

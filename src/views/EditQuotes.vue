@@ -3,7 +3,13 @@
     <v-form ref="form" v-model="valid">
       <v-row>
         <v-col cols="12" md="12">
-          <draggable class="grid-container" v-model="data.quotes" group="quotes" @start="drag=true" @end="drag=false">
+          <draggable
+            class="grid-container"
+            v-model="data.quotes"
+            group="quotes"
+            @start="drag = true"
+            @end="drag = false"
+          >
             <div class="quote" v-for="(quote, i) in data.quotes" :key="i">
               <v-textarea
                 outlined
@@ -49,12 +55,12 @@
 }
 .quote {
   display: grid;
-  grid-template: 
+  grid-template:
     "quote quote" 1fr
     "author remove" auto
     / 1fr auto;
-    gap: 16px;
-  .v-textarea{
+  gap: 16px;
+  .v-textarea {
     grid-area: quote;
   }
   button {
@@ -65,19 +71,15 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import {
-  firestore,
-  QuotesDoc,
-  authorLength,
-} from "@/firebase";
+import { firestore, QuotesDoc, authorLength } from "@/firebase";
 import { namespace } from "vuex-class";
-import draggable from 'vuedraggable'
+import draggable from "vuedraggable";
 
 const quotesModule = namespace("quotes");
 
 @Component({
   metaInfo: { title: "Quotes Editor" },
-  components: { draggable }
+  components: { draggable },
 })
 export default class EditQuotes extends Vue {
   doc: firebase.firestore.DocumentReference<QuotesDoc>;
@@ -90,11 +92,9 @@ export default class EditQuotes extends Vue {
   validators = {
     author: [
       (v: string) => !!v || "Quotee Name is required",
-      (v: string) =>
-        v?.length <= authorLength ||
-        `Quotee Name must be less than ${authorLength} characters`
+      (v: string) => v?.length <= authorLength || `Quotee Name must be less than ${authorLength} characters`,
     ],
-    quote: [(v: string) => !!v || "Quote is required"]
+    quote: [(v: string) => !!v || "Quote is required"],
   };
 
   @quotesModule.Mutation resetQuotes!: () => void;
@@ -105,7 +105,7 @@ export default class EditQuotes extends Vue {
   }
 
   newQuote() {
-    this.data.quotes.push({quote: '', author: ''});
+    this.data.quotes.push({ quote: "", author: "" });
   }
 
   removeQuote(index: number) {
@@ -125,7 +125,7 @@ export default class EditQuotes extends Vue {
   }
 
   reset() {
-    this.doc.get().then(snapshot => {
+    this.doc.get().then((snapshot) => {
       this.data = snapshot.data() as QuotesDoc;
     });
   }

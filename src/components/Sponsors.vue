@@ -1,18 +1,8 @@
 <template>
   <div v-if="loading" class="spinnerWrapper">
-    <v-progress-circular
-      :size="48"
-      :width="5"
-      indeterminate
-    ></v-progress-circular>
+    <v-progress-circular :size="48" :width="5" indeterminate></v-progress-circular>
   </div>
-  <div
-    class="carousel"
-    v-resize="onResize"
-    v-else
-    ref="carousel"
-    @scroll="wasScrolled = Date.now()"
-  >
+  <div class="carousel" v-resize="onResize" v-else ref="carousel" @scroll="wasScrolled = Date.now()">
     <a
       v-for="sponsor in sponsors"
       :key="sponsor.name"
@@ -21,13 +11,7 @@
       rel="noopener"
       :style="'width: ' + percent + '%;'"
     >
-      <v-img
-        :src="sponsor.logo"
-        contain
-        width="100%"
-        :aspect-ratio="4 / 3"
-        :alt="sponsor.name + ' logo'"
-      ></v-img>
+      <v-img :src="sponsor.logo" contain width="100%" :aspect-ratio="4 / 3" :alt="sponsor.name + ' logo'"></v-img>
     </a>
   </div>
 </template>
@@ -97,11 +81,7 @@ export default class Sponsors extends Vue {
       }
       const carousel = this.$refs.carousel as Element;
       if (carousel) {
-        if (
-          Math.abs(
-            carousel.scrollLeft + carousel.clientWidth - carousel.scrollWidth
-          ) < 1
-        ) {
+        if (Math.abs(carousel.scrollLeft + carousel.clientWidth - carousel.scrollWidth) < 1) {
           carousel.scrollTo({
             left: 0,
             behavior: "smooth",

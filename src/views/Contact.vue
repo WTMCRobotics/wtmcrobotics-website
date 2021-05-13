@@ -2,9 +2,8 @@
   <v-container fluid>
     <h1>Get in Touch</h1>
     <p>
-      If you’re interested in joining, mentoring, sponsoring, or just learning
-      more about us, feel free to contact us using any of the methods below.
-      We’d love to hear from you.
+      If you’re interested in joining, mentoring, sponsoring, or just learning more about us, feel free to contact us
+      using any of the methods below. We’d love to hear from you.
     </p>
     <div class="contact-links">
       <v-btn

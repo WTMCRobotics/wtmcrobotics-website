@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex, { Module } from "vuex";
 import { firestore, BlogPost, Gallery, Photo, Claims, Sponsor, SponsorsDoc, Quote, QuotesDoc } from "@/firebase";
-import { User } from 'firebase';
+import { User } from "firebase";
 
 Vue.use(Vuex);
 
@@ -29,22 +29,20 @@ const blog: Module<BlogState, {}> = {
       state.doneLoading = true;
     },
     removePost: (state, id: string) => {
-      state.posts = state.posts.filter(post => post.id !== id)
+      state.posts = state.posts.filter((post) => post.id !== id);
     },
     removeAll: (state) => {
       state.posts = [];
       state.doneLoading = false;
-    }
+    },
   },
   actions: {
     loadMore: ({ commit, state }, { limit, publicOnly }: { limit: number; publicOnly: boolean }) => {
       if (state.doneLoading || state.loading) {
         return;
       }
-      commit('setLoading', true);
-      let collection = (firestore.collection(
-        "blogs"
-      ) as firebase.firestore.CollectionReference<BlogPost>).orderBy(
+      commit("setLoading", true);
+      let collection = (firestore.collection("blogs") as firebase.firestore.CollectionReference<BlogPost>).orderBy(
         "date",
         "desc"
       );
@@ -60,20 +58,21 @@ const blog: Module<BlogState, {}> = {
       collection
         .limit(limit)
         .get()
-        .then(snapshot => {
+        .then((snapshot) => {
           if (limit !== snapshot.docs.length) {
-            commit('doneLoading');
+            commit("doneLoading");
           }
-          commit('addPosts', snapshot.docs);
-        }).finally(() => {
-          commit('setLoading', false);
+          commit("addPosts", snapshot.docs);
+        })
+        .finally(() => {
+          commit("setLoading", false);
         });
-    }
+    },
   },
   getters: {
     getPostById: (state) => (id: string) => {
-      return state.posts.find(post => post.id === id);
-    }
+      return state.posts.find((post) => post.id === id);
+    },
   },
 };
 
@@ -94,20 +93,24 @@ const gallery: Module<GalleryState, {}> = {
     },
     setLoading: (state, loading: boolean) => {
       state.loading = loading;
-    }
+    },
   },
   actions: {
     load: ({ commit, state }) => {
       if (state.photos.length > 0 || state.loading) {
         return;
       }
-      commit('setLoading', true);
-      firestore.doc('main/gallery').get().then(snapshot => {
-        commit('setPhotos', (snapshot.data() as Gallery).photos.sort());
-      }).finally(() => {
-        commit('setLoading', false);
-      });
-    }
+      commit("setLoading", true);
+      firestore
+        .doc("main/gallery")
+        .get()
+        .then((snapshot) => {
+          commit("setPhotos", (snapshot.data() as Gallery).photos.sort());
+        })
+        .finally(() => {
+          commit("setLoading", false);
+        });
+    },
   },
 };
 
@@ -128,20 +131,24 @@ const sponsors: Module<SponsorsState, {}> = {
     },
     setLoading: (state, loading: boolean) => {
       state.loading = loading;
-    }
+    },
   },
   actions: {
     load: ({ commit, state }) => {
       if (state.sponsors.length > 0 || state.loading) {
         return;
       }
-      commit('setLoading', true);
-      firestore.doc('main/sponsors').get().then(snapshot => {
-        commit('setSponsors', (snapshot.data() as SponsorsDoc).sponsors);
-      }).finally(() => {
-        commit('setLoading', false);
-      });
-    }
+      commit("setLoading", true);
+      firestore
+        .doc("main/sponsors")
+        .get()
+        .then((snapshot) => {
+          commit("setSponsors", (snapshot.data() as SponsorsDoc).sponsors);
+        })
+        .finally(() => {
+          commit("setLoading", false);
+        });
+    },
   },
 };
 
@@ -165,20 +172,24 @@ const quotes: Module<QuoteState, {}> = {
     },
     resetQuotes: (state) => {
       state.quotes = [];
-    }
+    },
   },
   actions: {
     load: ({ commit, state }) => {
       if (state.quotes.length > 0 || state.loading) {
         return;
       }
-      commit('setLoading', true);
-      firestore.doc('main/quotes').get().then(snapshot => {
-        commit('setQuotes', (snapshot.data() as QuotesDoc).quotes);
-      }).finally(() => {
-        commit('setLoading', false);
-      });
-    }
+      commit("setLoading", true);
+      firestore
+        .doc("main/quotes")
+        .get()
+        .then((snapshot) => {
+          commit("setQuotes", (snapshot.data() as QuotesDoc).quotes);
+        })
+        .finally(() => {
+          commit("setLoading", false);
+        });
+    },
   },
 };
 
@@ -195,8 +206,8 @@ export default new Vuex.Store({
     },
     setUser(state, user: User | null) {
       state.user = user;
-    }
+    },
   },
   actions: {},
-  modules: { blog, gallery, sponsors, quotes }
+  modules: { blog, gallery, sponsors, quotes },
 });

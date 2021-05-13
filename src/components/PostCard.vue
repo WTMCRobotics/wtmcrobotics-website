@@ -1,9 +1,5 @@
 <template>
-  <v-card
-    :tile="!card"
-    :to="card ? `/blog/${id}` : undefined"
-    :class="{ card }"
-  >
+  <v-card :tile="!card" :to="card ? `/blog/${id}` : undefined" :class="{ card }">
     <v-img :aspect-ratio="card ? 2 : ''" max-height="70vh" :src="post.image">
       <v-card-actions v-if="isEditor">
         <v-spacer></v-spacer>
@@ -16,9 +12,7 @@
 
     <v-card-title>{{ post.title }}</v-card-title>
 
-    <v-card-subtitle v-if="post.author" class="pb-0"
-      >By: {{ post.author }}</v-card-subtitle
-    >
+    <v-card-subtitle v-if="post.author" class="pb-0">By: {{ post.author }}</v-card-subtitle>
 
     <v-card-text class="text--primary">
       <p :class="card ? 'ellipsis' : ''">{{ post.body }}</p>

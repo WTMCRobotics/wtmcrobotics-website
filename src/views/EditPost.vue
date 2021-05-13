@@ -3,12 +3,7 @@
     <v-form ref="form" v-model="valid">
       <v-row>
         <v-col cols="12" md="12">
-          <v-text-field
-            outlined
-            v-model="data.image"
-            label="Image"
-            required
-          ></v-text-field>
+          <v-text-field outlined v-model="data.image" label="Image" required></v-text-field>
         </v-col>
       </v-row>
       <v-row>
@@ -61,21 +56,9 @@
       </v-row>
       <v-row>
         <v-col cols="12" md="12" class="right">
-          <v-btn
-            color="primary"
-            class="mr-4"
-            :disabled="!valid"
-            @click="save"
-            :loading="saving"
-            >Save</v-btn
-          >
+          <v-btn color="primary" class="mr-4" :disabled="!valid" @click="save" :loading="saving">Save</v-btn>
           <v-btn color="primary" class="mr-4" @click="reset">Reset</v-btn>
-          <v-btn
-            color="primary"
-            :disabled="!doc"
-            @click="deleteDoc"
-            >Delete</v-btn
-          >
+          <v-btn color="primary" :disabled="!doc" @click="deleteDoc">Delete</v-btn>
         </v-col>
       </v-row>
     </v-form>
@@ -99,13 +82,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import {
-  firestore,
-  BlogPost,
-  authorLength,
-  titleLength,
-  isTimestamp,
-} from "@/firebase";
+import { firestore, BlogPost, authorLength, titleLength, isTimestamp } from "@/firebase";
 import { namespace } from "vuex-class";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
@@ -165,20 +142,13 @@ export default class EditPost extends Vue {
     image: [(v: string) => !!v || "Image is required"],
     author: [
       (v: string) => !!v || "Author is required",
-      (v: string) =>
-        v?.length <= authorLength ||
-        `Author must be less than ${authorLength} characters`,
+      (v: string) => v?.length <= authorLength || `Author must be less than ${authorLength} characters`,
     ],
     title: [
       (v: string) => !!v || "Title is required",
-      (v: string) =>
-        v?.length <= titleLength ||
-        `Title must be less than ${titleLength} characters`,
+      (v: string) => v?.length <= titleLength || `Title must be less than ${titleLength} characters`,
     ],
-    date: [
-      (v: string) => !!v || "Date is required",
-      (v: string) => !!Date.parse(v) || "Date must be a valid date",
-    ],
+    date: [(v: string) => !!v || "Date is required", (v: string) => !!Date.parse(v) || "Date must be a valid date"],
     body: [(v: string) => !!v || "Content is required"],
   };
 
@@ -215,9 +185,7 @@ export default class EditPost extends Vue {
 
   reset() {
     if (this.$route.params.blogId) {
-      this.doc = firestore.doc(
-        `blogs/${this.$route.params.blogId}`
-      ) as firebase.firestore.DocumentReference<BlogPost>;
+      this.doc = firestore.doc(`blogs/${this.$route.params.blogId}`) as firebase.firestore.DocumentReference<BlogPost>;
       this.doc
         .get()
         .then((snapshot) => {

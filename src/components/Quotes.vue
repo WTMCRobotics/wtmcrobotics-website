@@ -1,10 +1,6 @@
 <template>
   <div v-if="loading" class="spinnerWrapper">
-    <v-progress-circular
-      :size="48"
-      :width="5"
-      indeterminate
-    ></v-progress-circular>
+    <v-progress-circular :size="48" :width="5" indeterminate></v-progress-circular>
   </div>
   <div class="grid-container" v-else>
     <v-btn v-if="isEditor" text color="primary" :to="`/edit-quotes`">

@@ -2,11 +2,7 @@
   <v-container fluid class="grid" ref="container">
     <v-card to="/blog/new" v-if="isEditor">
       <v-responsive :aspect-ratio="2" max-height="70vh">
-        <v-sheet
-          class="d-flex align-center justify-center"
-          height="100%"
-          color="rgba(128, 128, 128, 0.2"
-        >
+        <v-sheet class="d-flex align-center justify-center" height="100%" color="rgba(128, 128, 128, 0.2">
           <v-icon aria-hidden="true" size="64px">{{ mdiPlus }}</v-icon>
         </v-sheet>
       </v-responsive>
@@ -16,13 +12,7 @@
         <p>Click here to start writing a new blog post.</p>
       </v-card-text>
     </v-card>
-    <PostCard
-      v-for="post in posts"
-      :key="post.id"
-      :id="post.id"
-      :post="post.data()"
-      :card="true"
-    ></PostCard>
+    <PostCard v-for="post in posts" :key="post.id" :id="post.id" :post="post.data()" :card="true"></PostCard>
     <div v-if="!doneLoading" class="load-more">
       <v-btn text :loading="loading" @click="loadMorePosts">Load more</v-btn>
     </div>
@@ -64,17 +54,11 @@ export default class Blog extends Vue {
   posts!: firebase.firestore.QueryDocumentSnapshot<BlogPost>[];
   @blogModule.State loading!: boolean;
   @blogModule.State doneLoading!: boolean;
-  @blogModule.Action loadMore!: (payload: {
-    limit: number;
-    publicOnly: boolean;
-  }) => Promise<void>;
+  @blogModule.Action loadMore!: (payload: { limit: number; publicOnly: boolean }) => Promise<void>;
   @State isEditor!: boolean;
 
   get width() {
-    return Math.max(
-      1,
-      Math.floor(((this.$refs["container"] as Element).clientWidth - 8) / 316)
-    );
+    return Math.max(1, Math.floor(((this.$refs["container"] as Element).clientWidth - 8) / 316));
   }
 
   mounted() {
@@ -84,9 +68,7 @@ export default class Blog extends Vue {
   }
 
   loadMorePosts() {
-    let limit =
-      Math.max(20, (window.innerHeight * window.innerWidth) / 45000) +
-      this.posts.length;
+    let limit = Math.max(20, (window.innerHeight * window.innerWidth) / 45000) + this.posts.length;
     limit = Math.ceil(limit / this.width) * this.width - this.posts.length;
     if (this.isEditor) {
       limit--;

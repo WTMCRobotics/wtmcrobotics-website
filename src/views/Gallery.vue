@@ -2,12 +2,7 @@
   <FullscreenSpinner v-if="loading"></FullscreenSpinner>
   <v-container v-else fluid>
     <div class="grid">
-      <v-hover
-        v-slot:default="{ hover }"
-        open-delay="200"
-        v-for="(photo, i) in photos"
-        :key="photo.url.name"
-      >
+      <v-hover v-slot:default="{ hover }" open-delay="200" v-for="(photo, i) in photos" :key="photo.url.name">
         <v-img
           :src="getPhotoUrl(photo.url.name, photo.url.token, true)"
           :alt="photo.alt"
@@ -99,9 +94,7 @@ export default class Gallery extends Vue {
   transition = true;
   reverseTransition = true;
 
-  touchOnly =
-    "ontouchstart" in window &&
-    !window.matchMedia("(any-pointer: fine)").matches;
+  touchOnly = "ontouchstart" in window && !window.matchMedia("(any-pointer: fine)").matches;
 
   @galleryModule.Action load!: () => void;
 

@@ -14,12 +14,10 @@ import { Meta } from "@sophosoft/vue-meta-decorator";
 const blogModule = namespace("blog");
 
 @Component({
-  components: { PostCard, FullscreenSpinner }
+  components: { PostCard, FullscreenSpinner },
 })
 export default class Post extends Vue {
-  @blogModule.Getter getPostById!: (
-    id: string
-  ) => firebase.firestore.QueryDocumentSnapshot<BlogPost> | undefined;
+  @blogModule.Getter getPostById!: (id: string) => firebase.firestore.QueryDocumentSnapshot<BlogPost> | undefined;
 
   @Meta
   getMetaInfo() {
@@ -32,12 +30,12 @@ export default class Post extends Vue {
             { property: "og:type", content: "website" },
             {
               property: "og:url",
-              content: `https://wtmcrobotics.com/blog/${this.id}`
+              content: `https://wtmcrobotics.com/blog/${this.id}`,
             },
             { property: "og:image", content: this.post.image },
-            { property: "og:site_name", content: "WTMC Robotics" }
+            { property: "og:site_name", content: "WTMC Robotics" },
           ]
-        : []
+        : [],
     };
   }
 
@@ -57,7 +55,7 @@ export default class Post extends Vue {
       firestore
         .doc(`blogs/${this.id}`)
         .get()
-        .then(snapshot => {
+        .then((snapshot) => {
           this.post = snapshot.data() as BlogPost;
         })
         .finally(() => {
