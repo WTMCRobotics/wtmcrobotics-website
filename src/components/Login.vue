@@ -12,7 +12,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { auth, ui, signInOptions, credentialHelper } from "@/firebase";
-import router from "@/router";
+
 @Component
 export default class Login extends Vue {
   mounted() {

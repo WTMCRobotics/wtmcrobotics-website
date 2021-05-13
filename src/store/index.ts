@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex, { Module } from "vuex";
-import { firestore, BlogPost, Gallery, Photo, auth, Claims, Sponsor, SponsorsDoc, Quote, QuotesDoc } from "@/firebase";
+import { firestore, BlogPost, Gallery, Photo, Claims, Sponsor, SponsorsDoc, Quote, QuotesDoc } from "@/firebase";
 import { User } from 'firebase';
 
 Vue.use(Vuex);

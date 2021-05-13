@@ -346,7 +346,7 @@ export default class App extends Vue {
   checkScroll() {
     const root = document.querySelector("html") as HTMLHtmlElement;
     this.scrollable = root.clientHeight !== root.scrollHeight;
-    (this.$refs.vTabs as any)?.callSlider();
+    (this.$refs.vTabs as Vue & {callSlider: () => void})?.callSlider();
   }
 
   updateFooterHeight() {

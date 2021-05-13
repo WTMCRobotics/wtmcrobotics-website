@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { auth, firestore } from "@/firebase";
+import { auth } from "@/firebase";
 import Login from "@/components/Login.vue";
 import { State } from "vuex-class";
 import { User } from "firebase";
