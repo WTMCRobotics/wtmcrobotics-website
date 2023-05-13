@@ -1,8 +1,5 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom"
-    ],
     "module": "commonjs",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
@@ -12,7 +9,5 @@
     "target": "es2019"
   },
   "compileOnSave": true,
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

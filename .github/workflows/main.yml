@@ -1,186 +1,123 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI/CD
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
     branches: ["**"]
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "lint"
-  lint-vue:
-    # The type of runner that the job will run on
+  lint:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci
+          npm ci --prefix functions
 
-      # Runs a single command using the runners shell
       - name: lint
         run: npm run lint
 
-  # This workflow contains a single job called "lint"
-  lint-functions:
-    # The type of runner that the job will run on
+  build:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install dependencies
-        run: npm ci
-        working-directory: ./functions
+        run: |
+          npm ci
+          npm ci --prefix functions
 
-      # Runs a single command using the runners shell
-      - name: lint
-        run: npm run lint
-        working-directory: ./functions
-
-  build-vue:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: npm ci
-
-      # Runs a set of commands using the runners shell
       - name: build
         run: npm run build
 
-      - name: Upload dist
-        uses: actions/upload-artifact@v2
+      - name: Upload hosting
+        uses: actions/upload-artifact@v3
         with:
-          name: vue-dist
-          path: dist/
+          name: sveltekit-build
+          path: build/
 
-  build-vue-emulator:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: npm ci
-
-      # Runs a set of commands using the runners shell
-      - name: build
-        run: npm run build:emulator
-
-      - name: Upload dist
-        uses: actions/upload-artifact@v2
-        with:
-          name: vue-dist-emulator
-          path: dist/
-
-  build-functions:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: npm ci
-        working-directory: ./functions
-
-      # Runs a set of commands using the runners shell
-      - name: build
-        run: npm run build
-        working-directory: ./functions
-
-      - name: Upload lib
-        uses: actions/upload-artifact@v2
+      - name: Upload functions
+        uses: actions/upload-artifact@v3
         with:
           name: functions-lib
           path: functions/lib/
 
-  cypress-run:
+  svelte-check:
     runs-on: ubuntu-latest
-    needs: [build-vue-emulator, build-functions]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Install Dependencies in ./functions
-        run: "cd ./functions && npm ci"
+      - name: Install dependencies
+        run: npm ci
 
-      - name: install firebase
-        run: sudo npm install -g firebase-tools
+      - name: Playwright
+        run: npm run check
 
-      - name: Download vue-dist-emulator
-        uses: actions/download-artifact@v2
+  vitest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Playwright
+        run: npm run test:unit
+
+  playwright:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm ci --prefix functions
+
+      - name: Download hosting
+        uses: actions/download-artifact@v3
         with:
-          name: vue-dist-emulator
-          path: dist/
+          name: sveltekit-build
+          path: build/
 
-      - name: Download functions-lib
-        uses: actions/download-artifact@v2
+      - name: Download functions
+        uses: actions/download-artifact@v3
         with:
           name: functions-lib
           path: functions/lib/
 
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          start: "firebase emulators:start"
-          wait-on: "http://localhost:5000"
-          record: true
-        env:
-          # pass the Dashboard record key as an environment variable
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # pass GitHub token to allow accurately detecting a build vs a re-run build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Playwright
+        run: npm run test
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [build-vue, build-functions, cypress-run]
+    needs: [build, vitest, svelte-check, playwright]
     if: github.ref == 'refs/heads/master'
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci
+          npm ci --prefix functions
 
-      - name: Install dependencies in functions
-        run: npm ci
-        working-directory: ./functions
-
-      - name: Download vue-dist
-        uses: actions/download-artifact@v2
+      - name: Download hosting
+        uses: actions/download-artifact@v3
         with:
-          name: vue-dist
-          path: dist/
+          name: sveltekit-build
+          path: build/
 
-      - name: Download functions-lib
-        uses: actions/download-artifact@v2
+      - name: Download functions
+        uses: actions/download-artifact@v3
         with:
           name: functions-lib
           path: functions/lib/
@@ -188,6 +125,6 @@ jobs:
       - name: deploy to firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy -m "${GITHUB_SHA}"
+          args: deploy --message \"${{ github.event.head_commit.message }}\"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
