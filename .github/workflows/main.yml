@@ -55,7 +55,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Playwright
+      - name: Svelte Check
         run: npm run check
 
   vitest:
@@ -67,7 +67,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Playwright
+      - name: Vitest
         run: npm run test:unit
 
   playwright:
