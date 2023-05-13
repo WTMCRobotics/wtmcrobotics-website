@@ -82,6 +82,9 @@ jobs:
           npm ci
           npm ci --prefix functions
 
+      - name: Install Playwright
+        run: npx playwright install
+
       - name: Download hosting
         uses: actions/download-artifact@v3
         with:
