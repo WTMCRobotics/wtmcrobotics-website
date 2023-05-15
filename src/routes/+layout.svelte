@@ -5,6 +5,8 @@
 
   $: route = $page.route.id;
 
+  $: title = navLinks.find(({ url }) => url == route)?.label;
+
   const navLinks = [
     { url: "/", label: "Home" },
     { url: "/gallery", label: "Gallery" },
@@ -14,6 +16,12 @@
     { url: "/contact", label: "Contact" },
   ];
 </script>
+
+<svelte:head>
+  <title>
+    {route != "/" && title != undefined ? title + " - " : ""} WTMC Robotics
+  </title>
+</svelte:head>
 
 <Navbar let:hidden let:toggle class="sticky w-full z-20 top-0 left-0 border-b dark:bg-gray-950 dark:border-gray-800">
   <NavBrand href="/">
