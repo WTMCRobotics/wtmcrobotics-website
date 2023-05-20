@@ -2,6 +2,7 @@
   import "../app.postcss";
   import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from "flowbite-svelte";
   import { page } from "$app/stores";
+  import faviconUrl from "../favicon.webp";
 
   $: route = $page.route.id;
 
@@ -18,6 +19,7 @@
 </script>
 
 <svelte:head>
+  <link rel="icon" href={faviconUrl} />
   <title>
     {route != "/" && title != undefined ? title + " - " : ""} WTMC Robotics
   </title>
@@ -25,7 +27,7 @@
 
 <Navbar let:hidden let:toggle class="sticky w-full z-20 top-0 left-0 border-b dark:bg-gray-950 dark:border-gray-800">
   <NavBrand href="/">
-    <img src="http://wtmcrobotics.com/style/images/black_logo_500x500.png" class="mr-3 h-12" alt="WTMC Robotics Logo" />
+    <img src={faviconUrl} class="mr-3 h-12" alt="WTMC Robotics Logo" />
     <span class="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">WTMC Robotics</span>
   </NavBrand>
   <NavHamburger on:click={toggle} />
