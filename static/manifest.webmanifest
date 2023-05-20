@@ -1,0 +1,17 @@
+{
+  "name": "WTMC Robotics",
+  "icons": [
+    {
+      "src": "/icons/any-512.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable-512.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "maskable"
+    }
+  ]
+}
