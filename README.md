@@ -1,27 +1,33 @@
 # WTMCRobotics.com
 
-## Project setup
-```
-npm install
+## Developing
+
+Install dependancies with `npm ci`
+
+Start a development server:
+
+```bash
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Building
 
-### Compiles and minifies for production
-```
+To create a production version of your app:
+
+```bash
 npm run build
 ```
 
+You can preview the production build with `npm run preview`.
+
 ### Lints and fixes files
+
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## License
 

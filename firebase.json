@@ -3,64 +3,48 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-  "functions": {},
+  "functions": {
+    "source": "functions",
+    "codebase": "default",
+    "ignore": ["node_modules", ".git", "firebase-debug.log", "firebase-debug.*.log"]
+  },
   "hosting": {
-    "public": "dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**",
-      "**.xcf"
-    ],
-    "redirects": [
+    "public": "build",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "cleanUrls": true,
+    "headers": [
       {
-        "source": "/privacy-policy",
-        "destination": "https://docs.google.com/document/d/e/2PACX-1vTTkCCPOstTqM7gXdTKKJCBkdQOmUJey7dONGChEHF5lyVXptR2-oNegEYyDWsu0ib6tWuXGo9iyHlQ/pub",
-        "type": 302
+        "source": "/**",
+        "headers": [{ "key": "Cache-Control", "value": "public, no-cache" }]
       },
       {
-        "source": "/terms-of-service",
-        "destination": "https://docs.google.com/document/d/e/2PACX-1vR1JJ1yAuv2HMu-33pJs0rNXzUhsNnBGF1FqZZaWPDneU3gS7bwk-1DAbXkBI9mD_mWYAYhxlEfYkrd/pub",
-        "type": 302
-      },
-      {
-        "source": "/index.html",
-        "destination": "/",
-        "type": 301
-      },
-      {
-        "source": "/about.html",
-        "destination": "/",
-        "type": 301
-      },
-      {
-        "source": "/blogdetail.php",
-        "destination": "/blog",
-        "type": 301
-      },
-      {
-        "source": "/:page.html",
-        "destination": "/:page",
-        "type": 301
-      },
-      {
-        "source": "/:page.php",
-        "destination": "/:page",
-        "type": 301
+        "source": "/_app/immutable/**",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
       }
     ],
     "rewrites": [
       {
-        "source": "/sitemap.xml",
-        "function": "sitemap"
-      },
-      {
         "source": "**",
-        "destination": "/index.html"
+        "function": "sveltekit"
       }
     ]
   },
-  "storage": {
-    "rules": "storage.rules"
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
   }
 }
