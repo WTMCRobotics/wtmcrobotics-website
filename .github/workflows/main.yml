@@ -146,7 +146,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [build, vitest, svelte-check, playwright]
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v3
