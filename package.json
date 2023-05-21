@@ -12,7 +12,7 @@
     "test:unit": "vitest",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write .",
-    "emulator:start": "npm run build && firebase emulators:start"
+    "emulators": "npm run build && firebase emulators:start"
   },
   "devDependencies": {
     "@playwright/test": "^1.34.0",
